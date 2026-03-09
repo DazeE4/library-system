@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bagmati School Library - Digital Hub</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Corporate Color Palette */
+    --primary: #1E40AF;
+    --primary-dark: #1e3a8a;
+    --primary-light: #3b82f6;
+    --secondary: #0F766E;
+    --accent: #0369A1;
+    --success: #059669;
+    --warning: #D97706;
+    --danger: #DC2626;
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F3F4F6;
+    --text-primary: #111827;
+    --text-secondary: #4B5563;
+    --text-light: #9CA3AF;
+    --border: #D1D5DB;
+    --border-light: #E5E7EB;
+    --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* ═══════════════════════ HEADER ═══════════════════════ */
+header {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    font-weight: 700;
+    box-shadow: var(--shadow-md);
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.head_name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -0.3px;
+}
+
+.head_subtitle {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    display: block;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 0.25rem;
+    font-weight: 600;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding: 0.75rem 1.25rem;
+    border-radius: 6px;
+    transition: var(--transition);
+    font-size: 0.9rem;
+    position: relative;
+}
+
+nav a:hover {
+    color: var(--primary);
+    background: var(--bg-secondary);
+}
+
+.user-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    color: white;
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+}
+
+.user-avatar:hover {
+    box-shadow: var(--shadow-md);
+}
+
+/* ═══════════════════════ MAIN CONTAINER ═══════════════════════ */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ═══════════════════════ HERO SECTION ═══════════════════════ */
+.hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    color: white;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.hero::before {
+    display: none;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(20px); }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    margin-bottom: 1.5rem;
+}
+
+.hero-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-top: 0.25rem;
+}
+
+/* ═══════════════════════ SEARCH SECTION ═══════════════════════ */
+.search-section {
+    margin-bottom: 3rem;
+}
+
+.search-box {
+    background: var(--bg-primary);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
+    max-width: 100%;
+    border: 1px solid var(--border-light);
+}
+
+.search-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.search-header h2 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.search-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+input, select {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(92, 107, 192, 0.1);
+}
+
+input::placeholder {
+    color: var(--text-secondary);
+}
+
+.btn-group {
+    display: flex;
+    gap: 1rem;
+}
+
+button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    flex: 1;
+    min-height: 40px;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 2px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: white;
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    min-height: 32px;
+}
+
+/* ═══════════════════════ GRID LAYOUT ═══════════════════════ */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.grid-large {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+/* ═══════════════════════ BOOK CARD ═══════════════════════ */
+.card {
+    background: var(--bg-primary);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid var(--border-light);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+}
+
+.card-image {
+    width: 100%;
+    height: 220px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.1);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.card:hover .card-image::before {
+    opacity: 1;
+}
+
+/* ═══════════════════════ INSTAGRAM/TIKTOK SAVE BUTTON ═══════════════════════ */
+.save-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 20;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.save-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 1);
+}
+
+.save-btn:active {
+    transform: scale(0.95);
+}
+
+/* Save icon styling */
+.save-icon {
+    width: 24px;
+    height: 24px;
+    stroke: var(--primary);
+    color: var(--primary);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+/* When book is saved - filled state */
+.save-btn.saved .save-icon {
+    fill: var(--primary);
+    stroke: var(--primary);
+    animation: savePopup 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Instagram style popup animation */
+@keyframes savePopup {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.card-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--success);
+    color: white;
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.card-badge.unavailable {
+    background: var(--danger);
+}
+
+.card-content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.card-author {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.card-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.card-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.card-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    color: var(--warning);
+    font-size: 0.9rem;
+}
+
+.card-footer {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.card-footer button {
+    flex: 1;
+    padding: 0.65rem;
+    font-size: 0.85rem;
+}
+
+/* ═══════════════════════ STATISTICS CARD ═══════════════════════ */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 14px;
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    border-top: 4px solid var(--primary);
+}
+
+.stat-card.success {
+    border-top-color: var(--success);
+}
+
+.stat-card.warning {
+    border-top-color: var(--warning);
+}
+
+.stat-card.danger {
+    border-top-color: var(--danger);
+}
+
+.stat-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* ═══════════════════════ TAB NAVIGATION ═══════════════════════ */
+.tabs {
+    display: flex;
+    gap: 1rem;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 2rem;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: var(--transition);
+    position: relative;
+}
+
+.tab-btn:hover {
+    color: var(--primary);
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+/* ═══════════════════════ SECTIONS ═══════════════════════ */
+section {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+/* ═══════════════════════ ADMIN DASHBOARD ═══════════════════════ */
+.admin-header {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-light);
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-sm);
+}
+
+.admin-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.admin-title i {
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+.admin-title h1 {
+    font-size: 1.75rem;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.admin-title p {
+    color: var(--text-secondary);
+    margin: 0.5rem 0 0 0;
+    font-size: 0.9rem;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.admin-tabs {
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 2px solid var(--border-light);
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    background: var(--bg-secondary);
+    padding: 0 1rem;
+    border-radius: 8px;
+}
+
+.admin-tab-btn {
+    background: none;
+    border: none;
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: var(--transition);
+    position: relative;
+}
+
+.admin-tab-btn:hover {
+    color: var(--primary);
+}
+
+.admin-tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.admin-tab-content {
+    animation: fadeIn 0.3s ease-in;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-primary);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.admin-table thead {
+    background: var(--primary);
+    color: white;
+}
+
+.admin-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid var(--border-light);
+}
+
+.admin-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-primary);
+}
+
+.admin-table tbody tr {
+    transition: var(--transition);
+}
+
+.admin-table tbody tr:hover {
+    background: var(--bg-secondary);
+}
+
+.admin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.status-badge.borrowed {
+    background: rgba(30, 64, 175, 0.1);
+    color: #1E40AF;
+}
+
+.status-badge.returned {
+    background: rgba(15, 118, 110, 0.1);
+    color: #0F766E;
+}
+
+.status-badge.overdue {
+    background: rgba(220, 38, 38, 0.1);
+    color: #DC2626;
+}
+
+.status-badge.pending {
+    background: rgba(3, 105, 161, 0.1);
+    color: #0369A1;
+}
+
+.status-badge.paid {
+    background: #E8F5E9;
+    color: #388E3C;
+}
+
+.status-badge.waived {
+    background: #E0E0E0;
+    color: #424242;
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.activity-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary);
+}
+
+.activity-icon {
+    font-size: 1.5rem;
+    min-width: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-content h4 {
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+}
+
+.activity-content p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.activity-time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* ═══════════════════════ FOOTER ═══════════════════════ */
+footer {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    text-align: center;
+    padding: 2rem;
+    margin-top: 4rem;
+    border-top: 1px solid var(--border-light);
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* ═══════════════════════ RESPONSIVE ═══════════════════════ */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .head_name {
+        font-size: 1.2rem;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+    }
+    
+    nav a {
+        padding: 0.75rem 1rem;
+    }
+    
+    .hero {
+        padding: 2rem 1rem;
+    }
+    
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .search-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .save-btn {
+        width: 44px;
+        height: 44px;
+        top: 10px;
+        right: 10px;
+    }
+    
+    .save-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .save-btn {
+        width: 40px;
+        height: 40px;
+        top: 8px;
+        right: 8px;
+    }
+    
+    .save-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+}
+
+/* ═══════════════════════ MODAL ═══════════════════════ */
+.modal {
+    display: flex;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: var(--bg-primary);
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease-out;
+    border: 1px solid var(--border-light);
+}
+
+.modal-close {
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    float: right;
+    margin-top: -0.5rem;
+    margin-right: -0.5rem;
+}
+
+.modal-close:hover {
+    color: var(--primary);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.08);
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ HEADER ═══════════════════════ -->
+<header>
+    <div class="header-left">
+        <div class="logo"><i class="fas fa-book"></i></div>
+        <div>
+            <div class="head_name">Bagmati School Library</div>
+            <span class="head_subtitle">Digital Hub</span>
+        </div>
+    </div>
+    
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showPage('home')"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#" onclick="showPage('search')"><i class="fas fa-search"></i> Search</a></li>
+            <li><a href="#" onclick="showPage('mybooks')"><i class="fas fa-bookmark"></i> My Books</a></li>
+            <li><a href="#" onclick="showPage('saved')"><i class="fas fa-heart"></i> Wishlist</a></li>
+            <li><a href="#" onclick="showAdminLogin()" id="adminLink" style="display: none;"><i class="fas fa-shield-alt"></i> Admin</a></li>
+            <li><a href="#" onclick="showPage('login')"><i class="fas fa-user"></i> Login</a></li>
+        </ul>
+    </nav>
+    
+    <div class="user-section">
+        <div class="user-avatar">
+            <i class="fas fa-bell"></i>
+        </div>
+        <div class="user-avatar">
+            <i class="fas fa-user-circle"></i>
+        </div>
+    </div>
+</header>
+
+<!-- ═══════════════════════ MAIN CONTAINER ═══════════════════════ -->
+<div class="container">
+
+    <!-- ═══════════════════════ HOME PAGE ═══════════════════════ -->
+    <section id="home">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="hero-content">
+                <h1>📚 Welcome to Digital Library</h1>
+                <p>Discover thousands of books, explore your favorites, and manage your library effortlessly</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">5000+</div>
+                        <div class="stat-label">Books Available</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">2500+</div>
+                        <div class="stat-label">Active Members</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Categories</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📖</div>
+                <div class="stat-value">5000</div>
+                <div class="stat-label">Total Books</div>
+            </div>
+            <div class="stat-card success">
+                <div class="stat-icon">✓</div>
+                <div class="stat-value">3200</div>
+                <div class="stat-label">Available Now</div>
+            </div>
+            <div class="stat-card warning">
+                <div class="stat-icon">⏱</div>
+                <div class="stat-value">1500</div>
+                <div class="stat-label">Borrowed</div>
+            </div>
+            <div class="stat-card danger">
+                <div class="stat-icon">🔴</div>
+                <div class="stat-value">300</div>
+                <div class="stat-label">Overdue</div>
+            </div>
+        </div>
+        
+        <!-- Genre Filter Section -->
+        <div style="margin: 2rem 0;">
+            <div class="search-box">
+                <div class="search-header">
+                    <i class="fas fa-filter"></i>
+                    <h3 style="margin: 0; font-size: 1.2rem;">Browse by Genre</h3>
+                </div>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <select id="genreFilter" style="padding: 0.75rem 1rem; border: 2px solid var(--border); border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 0.95rem; cursor: pointer; min-width: 200px;">
+                        <option value="">✨ All Genres</option>
+                        <option value="fiction">📖 Fiction</option>
+                        <option value="science">🔬 Science</option>
+                        <option value="history">🏛️ History</option>
+                        <option value="biography">👤 Biography</option>
+                        <option value="mystery">🔍 Mystery</option>
+                        <option value="fantasy">🐉 Fantasy</option>
+                        <option value="romance">💕 Romance</option>
+                        <option value="adventure">🗺️ Adventure</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Featured Books -->
+        <h2>🌟 Featured Books</h2>
+        <div class="grid" id="bookGrid"></div>
+    </section>
+
+    <!-- ═══════════════════════ SEARCH PAGE ═══════════════════════ -->
+    <section id="search" class="hidden">
+        <div class="search-section">
+            <div class="search-box">
+                <div class="search-header">
+                    <i class="fas fa-search"></i>
+                    <h2>Find Your Next Book</h2>
+                </div>
+                
+                <div class="search-controls">
+                    <div class="form-group">
+                        <label><i class="fas fa-filter"></i> Search Type</label>
+                        <select id="searchType">
+                            <option value="title">📖 Book Title</option>
+                            <option value="author">✍️ Author Name</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-keyboard"></i> Enter Text</label>
+                        <input id="searchInput" placeholder="Type here...">
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn-primary" onclick="searchBooks()">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                    <button class="btn-secondary" onclick="resetSearch()">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="searchResults"></div>
+    </section>
+
+    <!-- ═══════════════════════ MY BOOKS PAGE ═══════════════════════ -->
+    <section id="mybooks" class="hidden">
+        <h2><i class="fas fa-book-reader"></i> My Borrowed Books</h2>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="filterBooks('all')">All Books</button>
+            <button class="tab-btn" onclick="filterBooks('active')">Currently Borrowed</button>
+            <button class="tab-btn" onclick="filterBooks('returning-soon')">Returning Soon</button>
+            <button class="tab-btn" onclick="filterBooks('overdue')">Overdue</button>
+        </div>
+        
+        <div class="grid" id="myBooks"></div>
+    </section>
+
+    <!-- ═══════════════════════ WISHLIST PAGE ═══════════════════════ -->
+    <section id="saved" class="hidden">
+        <h2><i class="fas fa-heart"></i> My Wishlist</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+            <i class="fas fa-lightbulb"></i> Save books you want to read later
+        </p>
+        <div class="grid" id="savedBooks"></div>
+    </section>
+
+    <!-- ═══════════════════════ LOGIN PAGE ═══════════════════════ -->
+    <section id="login" class="hidden">
+        <div style="max-width: 450px; margin: 2rem auto;">
+            <div class="search-box">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔐</div>
+                    <h2>Sign In</h2>
+                    <p style="color: var(--text-secondary);">Access your library account</p>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Username</label>
+                    <input id="loginUsername" placeholder="Enter your username">
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Password</label>
+                    <input id="loginPassword" type="password" placeholder="Enter your password">
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin: 1.5rem 0;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; margin: 0; cursor: pointer;">
+                        <input type="checkbox"> Remember me
+                    </label>
+                </div>
+                
+                <button class="btn-primary" onclick="handleLogin()" style="width: 100%;">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+                
+                <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem;">
+                    <p style="color: var(--text-secondary);">Don't have an account?
+                        <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;">Sign up here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════ ADMIN DASHBOARD PAGE ═══════════════════════ -->
+    <section id="admin" class="hidden">
+        <div class="admin-header">
+            <div class="admin-title">
+                <i class="fas fa-chart-line"></i>
+                <div>
+                    <h1>Administration Dashboard</h1>
+                    <p>Manage library operations and member accounts</p>
+                </div>
+            </div>
+            <div class="admin-actions">
+                <button class="btn-secondary btn-sm" onclick="exportAdminData()">
+                    <i class="fas fa-download"></i> Export Data
+                </button>
+                <button class="btn-secondary btn-sm" onclick="printAdminReport()">
+                    <i class="fas fa-print"></i> Print Report
+                </button>
+            </div>
+        </div>
+        
+        <div class="admin-tabs">
+            <button class="admin-tab-btn active" onclick="showAdminTab('overview')">
+                <i class="fas fa-chart-line"></i> Overview
+            </button>
+            <button class="admin-tab-btn" onclick="showAdminTab('users')">
+                <i class="fas fa-users"></i> Members
+            </button>
+            <button class="admin-tab-btn" onclick="showAdminTab('borrowing')">
+                <i class="fas fa-copy"></i> Circulation
+            </button>
+            <button class="admin-tab-btn" onclick="showAdminTab('overdue')">
+                <i class="fas fa-clock"></i> Overdue
+            </button>
+            <button class="admin-tab-btn" onclick="showAdminTab('fines')">
+                <i class="fas fa-credit-card"></i> Fines
+            </button>
+            <button class="admin-tab-btn" onclick="showAdminTab('reports')">
+                <i class="fas fa-file-csv"></i> Reports
+            </button>
+        </div>
+
+        <!-- OVERVIEW TAB -->
+        <div id="overview-tab" class="admin-tab-content">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-value" id="totalBooks">0</div>
+                    <div class="stat-label">Total Books</div>
+                </div>
+                <div class="stat-card success">
+                    <div class="stat-icon">✓</div>
+                    <div class="stat-value" id="availableBooks">0</div>
+                    <div class="stat-label">Available Now</div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-value" id="activeUsers">0</div>
+                    <div class="stat-label">Active Members</div>
+                </div>
+                <div class="stat-card danger">
+                    <div class="stat-icon">⏰</div>
+                    <div class="stat-value" id="overdueCount">0</div>
+                    <div class="stat-label">Overdue Books</div>
+                </div>
+                <div class="stat-card" style="border-top-color: #FF6B9D;">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-value" id="pendingFines">0</div>
+                    <div class="stat-label">Pending Fines</div>
+                </div>
+                <div class="stat-card" style="border-top-color: #9C27B0;">
+                    <div class="stat-icon">📋</div>
+                    <div class="stat-value" id="activeBorrows">0</div>
+                    <div class="stat-label">Currently Borrowed</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                <div id="recentActivity" class="activity-list"></div>
+            </div>
+        </div>
+
+        <!-- USERS TAB -->
+        <div id="users-tab" class="admin-tab-content hidden">
+            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                <input type="text" id="userSearchInput" placeholder="Search users by name, email, or ID..." style="flex: 1;">
+                <select id="userRoleFilter" style="padding: 0.75rem 1rem;">
+                    <option value="">All Roles</option>
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                    <option value="librarian">Librarian</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <button class="btn-primary" onclick="searchUsers()">Search</button>
+            </div>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Books Borrowed</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <tr><td colspan="7" style="text-align: center;">Loading users...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- BORROWING RECORDS TAB -->
+        <div id="borrowing-tab" class="admin-tab-content hidden">
+            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                <input type="text" id="borrowingSearchInput" placeholder="Search by user name or book title...">
+                <select id="borrowingStatusFilter" style="padding: 0.75rem 1rem;">
+                    <option value="">All Status</option>
+                    <option value="borrowed">Borrowed</option>
+                    <option value="returned">Returned</option>
+                    <option value="overdue">Overdue</option>
+                    <option value="renewed">Renewed</option>
+                </select>
+                <button class="btn-primary" onclick="loadBorrowingRecords()">Search</button>
+            </div>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Member</th>
+                        <th>Book Title</th>
+                        <th>Issue Date</th>
+                        <th>Due Date</th>
+                        <th>Return Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="borrowingTableBody">
+                    <tr><td colspan="8" style="text-align: center;">Loading records...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- OVERDUE BOOKS TAB -->
+        <div id="overdue-tab" class="admin-tab-content hidden">
+            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                <input type="text" id="overdueSearchInput" placeholder="Search by member name or book title...">
+                <button class="btn-primary" onclick="loadOverdueBooks()">Refresh</button>
+                <button class="btn-secondary" onclick="exportOverdue()">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Member ID</th>
+                        <th>Member Name</th>
+                        <th>Book Title</th>
+                        <th>Due Date</th>
+                        <th>Days Overdue</th>
+                        <th>Fine Amount (₹)</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="overdueTableBody">
+                    <tr><td colspan="8" style="text-align: center;">Loading overdue records...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- FINES & PENALTIES TAB -->
+        <div id="fines-tab" class="admin-tab-content hidden">
+            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                <select id="finesStatusFilter" style="padding: 0.75rem 1rem;">
+                    <option value="">All Fines</option>
+                    <option value="pending">Pending</option>
+                    <option value="paid">Paid</option>
+                    <option value="waived">Waived</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+                <select id="finesReasonFilter" style="padding: 0.75rem 1rem;">
+                    <option value="">All Reasons</option>
+                    <option value="overdue">Overdue</option>
+                    <option value="damage">Damage</option>
+                    <option value="lost">Lost</option>
+                    <option value="other">Other</option>
+                </select>
+                <button class="btn-primary" onclick="loadFinesRecords()">Refresh</button>
+                <button class="btn-secondary" onclick="exportFines()">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+            
+            <div class="stats-grid" style="margin-bottom: 1.5rem;">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalFinesPending">₹0</div>
+                    <div class="stat-label">Pending Fines</div>
+                </div>
+                <div class="stat-card success">
+                    <div class="stat-value" id="totalFinesPaid">₹0</div>
+                    <div class="stat-label">Paid Fines</div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-value" id="totalFinesWaived">₹0</div>
+                    <div class="stat-label">Waived Fines</div>
+                </div>
+            </div>
+
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Fine ID</th>
+                        <th>Member</th>
+                        <th>Book Title</th>
+                        <th>Amount (₹)</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th>Created Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="finesTableBody">
+                    <tr><td colspan="8" style="text-align: center;">Loading fines records...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- REPORTS TAB -->
+        <div id="reports-tab" class="admin-tab-content hidden">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                <div class="search-box">
+                    <h4><i class="fas fa-file-csv"></i> Monthly Report</h4>
+                    <select id="reportMonth" style="width: 100%; padding: 0.75rem; margin: 0.5rem 0;">
+                        <option value="">Select Month</option>
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <button class="btn-primary" style="width: 100%; margin-top: 0.5rem;" onclick="generateMonthlyReport()">
+                        Generate Report
+                    </button>
+                </div>
+
+                <div class="search-box">
+                    <h4><i class="fas fa-chart-line"></i> Statistics Report</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">View detailed statistics and metrics</p>
+                    <button class="btn-primary" style="width: 100%; margin-top: 1rem;" onclick="generateStatisticsReport()">
+                        View Statistics
+                    </button>
+                </div>
+
+                <div class="search-box">
+                    <h4><i class="fas fa-user-check"></i> Member Report</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Borrowing activity by member</p>
+                    <button class="btn-primary" style="width: 100%; margin-top: 1rem;" onclick="generateMemberReport()">
+                        Member Report
+                    </button>
+                </div>
+            </div>
+
+            <div id="reportOutput" class="search-box hidden"></div>
+        </div>
+    </section>
+
+</div>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer>
+    <p>© 2026 Bagmati School Library Management System | All rights reserved</p>
+</footer>
+
+<script>
+const books=[
+{title:"Clean Code",author:"Robert Martin"},
+{title:"Atomic Habits",author:"James Clear"},
+{title:"The Pragmatic Programmer",author:"Andrew Hunt"},
+{title:"Deep Learning",author:"Ian Goodfellow"},
+{title:"Python Crash Course",author:"Eric Matthes"}
+]
+
+const saved=[]
+
+function showPage(page){
+document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"))
+document.getElementById(page).classList.remove("hidden")
+}
+
+function renderBooks(list,container){
+container.innerHTML=""
+list.forEach(book=>{
+const card=document.createElement("div")
+card.className="card"
+card.innerHTML=`<h4>${book.title}</h4>
+<p>${book.author}</p>
+<button onclick="saveBook('${book.title}')">Save</button>`
+container.appendChild(card)
+})
+}
+
+function saveBook(title){
+const book=books.find(b=>b.title===title)
+saved.push(book)
+renderBooks(saved,document.getElementById("savedBooks"))
+}
+
+function searchBooks(){
+const type=document.getElementById("searchType").value
+const text=document.getElementById("searchInput").value.toLowerCase()
+
+const results=books.filter(b=>b[type].toLowerCase().includes(text))
+renderBooks(results,document.getElementById("searchResults"))
+}
+
+renderBooks(books,document.getElementById("bookGrid"))
+</script>
+
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="modal hidden">
+        <div class="modal-content" style="width: 90%; max-width: 400px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3><i class="fas fa-shield-alt"></i> Admin Login</h3>
+                <button onclick="closeAdminLogin()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-light);">&times;</button>
+            </div>
+            <form onsubmit="authenticateAdmin(event)">
+                <div class="form-group">
+                    <label for="adminEmail">Email</label>
+                    <input type="email" id="adminEmail" placeholder="admin@bagmati.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" style="width: 100%; padding: 0.75rem; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: var(--transition);">
+                    <i class="fas fa-sign-in-alt"></i> Login to Admin Panel
+                </button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: var(--text-light);">
+                Only administrators can access this panel
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // ═══════════════════════ ADMIN FUNCTIONS ═══════════════════════
+        let adminLoggedIn = false;
+        let currentAdminUser = null;
+
+        function showAdminLogin() {
+            document.getElementById("adminLoginModal").classList.remove("hidden");
+        }
+
+        function closeAdminLogin() {
+            document.getElementById("adminLoginModal").classList.add("hidden");
+        }
+
+        function authenticateAdmin(event) {
+            event.preventDefault();
+            const email = document.getElementById("adminEmail").value;
+            const password = document.getElementById("adminPassword").value;
+
+            // Simulate admin authentication (replace with actual backend API call)
+            fetch('index.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'adminLogin',
+                    email: email,
+                    password: password
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success && data.user.role === 'admin') {
+                    adminLoggedIn = true;
+                    currentAdminUser = data.user;
+                    closeAdminLogin();
+                    showPage('admin');
+                    loadAdminOverview();
+                    showToast('✓ Admin login successful', 'success');
+                    // Show logout link
+                    document.querySelector('.user-section').innerHTML = 
+                        `<span>${data.user.name} (Admin)</span> | <a href="#" onclick="logoutAdmin()">Logout</a>`;
+                } else {
+                    showToast('✗ Invalid admin credentials', 'error');
+                }
+            })
+            .catch(err => {
+                console.error('Admin login error:', err);
+                showToast('✗ Login failed: ' + err.message, 'error');
+            });
+        }
+
+        function logoutAdmin() {
+            adminLoggedIn = false;
+            currentAdminUser = null;
+            showPage('home');
+            document.querySelector('.user-section').innerHTML = '';
+            showToast('Admin logged out', 'success');
+        }
+
+        function showAdminTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.admin-tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Remove active class from buttons
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            const tabElement = document.getElementById(tabName + '-tab');
+            if (tabElement) {
+                tabElement.classList.remove('hidden');
+            }
+            
+            // Mark button as active
+            event.target.classList.add('active');
+            
+            // Load data for the tab
+            if (tabName === 'overview') loadAdminOverview();
+            else if (tabName === 'users') loadAdminUsers();
+            else if (tabName === 'borrowing') loadBorrowingRecords();
+            else if (tabName === 'overdue') loadOverdueBooks();
+            else if (tabName === 'fines') loadFinesRecords();
+        }
+
+        function loadAdminOverview() {
+            fetch('index.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'getAdminStats' })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('totalBooks').textContent = data.stats.totalBooks || 0;
+                    document.getElementById('availableBooks').textContent = data.stats.availableBooks || 0;
+                    document.getElementById('activeUsers').textContent = data.stats.activeUsers || 0;
+                    document.getElementById('overdueCount').textContent = data.stats.overdueCount || 0;
+                    document.getElementById('pendingFines').textContent = data.stats.pendingFines || 0;
+                    document.getElementById('currentlyBorrowed').textContent = data.stats.currentlyBorrowed || 0;
+                }
+            })
+            .catch(err => console.error('Error loading admin overview:', err));
+        }
+
+        function loadAdminUsers() {
+            const search = document.getElementById('userSearch')?.value || '';
+            const role = document.getElementById('roleFilter')?.value || '';
+            
+            fetch('index.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'getAdminUsers',
+                    search: search,
+                    role: role
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const tbody = document.getElementById('usersTableBody');
+                    tbody.innerHTML = data.users.map(user => `
+                        <tr>
+                            <td>${user.id}</td>
+                            <td>${user.name}</td>
+                            <td>${user.email}</td>
+                            <td><span class="status-badge">${user.role}</span></td>
+                            <td>${user.booksBorrowed}</td>
+                            <td><span class="status-badge ${user.isActive ? '' : 'inactive'}">${user.isActive ? 'Active' : 'Inactive'}</span></td>
+                        </tr>
+                    `).join('');
+                }
+            })
+            .catch(err => console.error('Error loading users:', err));
+        }
+
+        function loadBorrowingRecords() {
+            const statusFilter = document.getElementById('borrowingStatusFilter')?.value || '';
+            
+            fetch('index.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'getBorrowingRecords',
+                    status: statusFilter
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const tbody = document.getElementById('borrowingTableBody');
+                    tbody.innerHTML = data.records.map(record => `
+                        <tr>
+                            <td>${record.transactionId}</td>
+                            <td>${record.memberName}</td>
+                            <td>${record.bookTitle}</td>
+                            <td>${record.issueDate}</td>
+                            <td>${record.dueDate}</td>
+                            <td>${record.returnDate || '-'}</td>
+                            <td><span class="status-badge ${record.status}">${record.status}</span></td>
+                        </tr>
+                    `).join('');
+                }
+            })
+            .catch(err => console.error('Error loading borrowing records:', err));
+        }
+
+        function loadOverdueBooks() {
+            fetch('index.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'getOverdueBooks' })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const tbody = document.getElementById('overdueTableBody');
+                    tbody.innerHTML = data.overdueBooks.map(book => {
+                        const daysOverdue = Math.floor((new Date() - new Date(book.dueDate)) / (1000 * 60 * 60 * 24));
+                        const fineAmount = daysOverdue * 5; // ₹5 per day (adjust as needed)
+                        return `
+                            <tr>
+                                <td>${book.memberId}</td>
+                                <td>${book.memberName}</td>
+                                <td>${book.bookTitle}</td>
+                                <td>${book.dueDate}</td>
+                                <td><span style="color: #D32F2F; font-weight: 600;">${Math.max(daysOverdue, 0)} days</span></td>
+                                <td style="color: #D32F2F; font-weight: 600;">₹${fineAmount}</td>
+                                <td><span class="status-badge overdue">Overdue</span></td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+            })
+            .catch(err => console.error('Error loading overdue books:', err));
+        }
+
+        function loadFinesRecords() {
+            const statusFilter = document.getElementById('fineStatusFilter')?.value || '';
+            
+            fetch('index.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'getFinesRecords',
+                    status: statusFilter
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const tbody = document.getElementById('finesTableBody');
+                    tbody.innerHTML = data.fines.map(fine => `
+                        <tr>
+                            <td>${fine.fineId}</td>
+                            <td>${fine.memberName}</td>
+                            <td>${fine.bookTitle}</td>
+                            <td>₹${fine.amount}</td>
+                            <td>${fine.reason}</td>
+                            <td><span class="status-badge ${fine.status}">${fine.status}</span></td>
+                        </tr>
+                    `).join('');
+                }
+            })
+            .catch(err => console.error('Error loading fines:', err));
+        }
+
+        function generateReport(reportType) {
+            fetch('index.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'generateReport',
+                    reportType: reportType
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    // Open report in new window or download
+                    window.open(data.reportUrl, '_blank');
+                    showToast('✓ Report generated successfully', 'success');
+                } else {
+                    showToast('✗ Error generating report', 'error');
+                }
+            })
+            .catch(err => {
+                console.error('Error generating report:', err);
+                showToast('✗ Report generation failed', 'error');
+            });
+        }
+
+        // Check if user is admin on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check session/localStorage for admin user
+            const adminUser = localStorage.getItem('adminUser');
+            if (adminUser) {
+                adminLoggedIn = true;
+                currentAdminUser = JSON.parse(adminUser);
+                document.getElementById('adminLink').style.display = 'block';
+            }
+        });
+
+        // ═══════════════════════ TOAST NOTIFICATIONS ═══════════════════════
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                color: white;
+                font-weight: 600;
+                z-index: 3000;
+                animation: slideInRight 0.3s ease-out;
+                box-shadow: var(--shadow-lg);
+                max-width: 300px;
+                word-wrap: break-word;
+            `;
+
+            if (type === 'success') {
+                toast.style.background = '#0F766E';
+                toast.style.color = 'white';
+            } else if (type === 'error') {
+                toast.style.background = '#DC2626';
+                toast.style.color = 'white';
+            } else if (type === 'warning') {
+                toast.style.background = '#F97316';
+                toast.style.color = 'white';
+            } else {
+                toast.style.background = '#1E40AF';
+                toast.style.color = 'white';
+            }
+
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.3s ease-in forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Add animations for toast
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(400px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(400px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+</body>
+</html>
