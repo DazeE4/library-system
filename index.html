@@ -991,9 +991,7 @@ footer span { color: var(--gold); }
       <button class="btn-primary btn-full" onclick="doLogin()" id="login-btn">
         <i class="fas fa-sign-in-alt"></i> Sign In
       </button>
-      <div class="auth-link">
-        <a href="#" onclick="showPage('forgot')" style="color:var(--muted);font-size:0.82rem">Forgot password?</a>
-      </div>
+      <div class="auth-link"><a href="#" onclick="showPage('forgot')" style="color:var(--muted);font-size:0.82rem"><i class="fas fa-key"></i> Forgot password?</a></div>
       <div class="auth-link">Don't have an account? <a href="#" onclick="showPage('signup')">Sign up</a></div>
     </div>
   </section>
@@ -1015,7 +1013,7 @@ footer span { color: var(--gold); }
     </div>
   </section>
 
-  <!-- ══════════ RESET PASSWORD (after clicking email link) ══════════ -->
+  <!-- ══════════ RESET PASSWORD ══════════ -->
   <section id="page-reset" class="hidden">
     <div class="auth-wrap">
       <div class="auth-icon">🔒</div>
@@ -1195,7 +1193,7 @@ async function doSignup() {
 
 async function doForgot() {
   const emailEl = document.getElementById('forgot-email');
-  const email = emailEl?.value.trim();
+  const email = emailEl ? emailEl.value.trim() : '';
   if (!email) { toast('Please enter your email', 'warning'); return; }
 
   const btn = document.getElementById('forgot-btn');
@@ -1245,7 +1243,7 @@ async function doReset() {
   btn.disabled = false;
 }
 
-
+async function doLogout() {
   await sb.auth.signOut();
   currentUser = null; currentRole = null;
   borrowedIds = new Set();
@@ -1663,7 +1661,6 @@ async function updateStats() {
 // ═══════════ AUTH STATE ═══════════
 sb.auth.onAuthStateChange(async (event, session) => {
   if (event === 'PASSWORD_RECOVERY') {
-    // User clicked the reset link in their email
     showPage('reset');
     toast('Enter your new password below', 'info', '🔒');
     return;
@@ -1678,7 +1675,7 @@ sb.auth.onAuthStateChange(async (event, session) => {
 });
 
 // ═══════════ INIT ═══════════
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
   renderHeader();
   showPage('home');
 });
