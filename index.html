@@ -3,1894 +3,1579 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bagmati School Library - Digital Hub</title>
+<title>Bagmati School Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* ═══════════════════ RESET & VARIABLES ═══════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 :root {
-    /* Corporate Color Palette */
-    --primary: #1E40AF;
-    --primary-dark: #1e3a8a;
-    --primary-light: #3b82f6;
-    --secondary: #0F766E;
-    --accent: #0369A1;
-    --success: #059669;
-    --warning: #D97706;
-    --danger: #DC2626;
-    --bg-primary: #FFFFFF;
-    --bg-secondary: #F3F4F6;
-    --text-primary: #111827;
-    --text-secondary: #4B5563;
-    --text-light: #9CA3AF;
-    --border: #D1D5DB;
-    --border-light: #E5E7EB;
-    --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
-    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --ink:      #1a1a2e;
+  --ink-soft: #2d2d4a;
+  --gold:     #c9a84c;
+  --gold-lt:  #e8c87a;
+  --cream:    #faf8f3;
+  --cream2:   #f0ece0;
+  --sage:     #4a7c59;
+  --sage-lt:  #6aaa7a;
+  --rose:     #c0392b;
+  --sky:      #2980b9;
+  --muted:    #7a7a9a;
+  --border:   #e0dbd0;
+  --white:    #ffffff;
+
+  --shadow-sm: 0 2px 8px rgba(26,26,46,0.08);
+  --shadow-md: 0 6px 24px rgba(26,26,46,0.12);
+  --shadow-lg: 0 16px 48px rgba(26,26,46,0.18);
+  --radius:    14px;
+  --ease:      all 0.25s cubic-bezier(0.4,0,0.2,1);
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    line-height: 1.6;
-    overflow-x: hidden;
-    min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
 }
 
-/* ═══════════════════════ HEADER ═══════════════════════ */
+/* ═══════════════════ ANIMATIONS ═══════════════════ */
+@keyframes fadeUp   { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+@keyframes slideDown{ from{opacity:0;transform:translateY(-12px)} to{opacity:1;transform:translateY(0)} }
+@keyframes shimmer  { 0%{background-position:-400px 0} 100%{background-position:400px 0} }
+@keyframes spin     { to{transform:rotate(360deg)} }
+@keyframes toastIn  { from{transform:translateX(120%);opacity:0} to{transform:translateX(0);opacity:1} }
+@keyframes toastOut { from{transform:translateX(0);opacity:1} to{transform:translateX(120%);opacity:0} }
+@keyframes pulse    { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+.hidden { display: none !important; }
+section { animation: fadeUp 0.4s ease both; }
+
+/* ═══════════════════ HEADER ═══════════════════ */
 header {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    padding: 1rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: var(--shadow-md);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 1px solid var(--border-light);
+  background: var(--ink);
+  color: var(--cream);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  box-shadow: var(--shadow-md);
+  gap: 1rem;
 }
 
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
-.logo {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    color: white;
-    font-weight: 700;
-    box-shadow: var(--shadow-md);
+.header-logo {
+  width: 38px; height: 38px;
+  background: var(--gold);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  color: var(--ink);
+  flex-shrink: 0;
 }
 
-.logo img {
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
-    object-fit: cover;
+.brand-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.2;
 }
+.brand-sub { font-size: 0.65rem; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; }
 
-.head_name {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--primary);
-    letter-spacing: -0.3px;
-}
-
-.head_subtitle {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    display: block;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    margin-top: 0.25rem;
-    font-weight: 600;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 0.5rem;
-    margin: 0;
-    padding: 0;
-}
-
+nav { display: flex; gap: 0.25rem; flex: 1; justify-content: center; }
 nav a {
-    text-decoration: none;
-    color: var(--text-secondary);
-    font-weight: 500;
-    padding: 0.75rem 1.25rem;
-    border-radius: 6px;
-    transition: var(--transition);
-    font-size: 0.9rem;
-    position: relative;
+  color: rgba(250,248,243,0.75);
+  text-decoration: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex; align-items: center; gap: 0.4rem;
+  transition: var(--ease);
+  white-space: nowrap;
+}
+nav a:hover, nav a.active { color: var(--cream); background: rgba(255,255,255,0.1); }
+nav a i { font-size: 0.8rem; }
+
+.header-right { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+
+.header-user-info {
+  text-align: right;
+  line-height: 1.2;
+}
+.header-user-name { font-size: 0.85rem; font-weight: 600; color: var(--cream); }
+.header-user-role {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
 }
 
-nav a:hover {
-    color: var(--primary);
-    background: var(--bg-secondary);
+.avatar-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: none;
+  cursor: pointer;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ink);
+  transition: var(--ease);
+  display: flex; align-items: center; justify-content: center;
 }
+.avatar-btn:hover { transform: scale(1.08); }
 
-.user-section {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.btn-ghost {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--cream);
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--ease);
+  display: flex; align-items: center; gap: 0.4rem;
+  font-family: 'DM Sans', sans-serif;
 }
+.btn-ghost:hover { background: rgba(255,255,255,0.18); }
 
-.user-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: var(--transition);
-    color: white;
-    font-weight: 600;
-    box-shadow: var(--shadow-sm);
-}
+/* ═══════════════════ CONTAINER ═══════════════════ */
+.container { max-width: 1320px; margin: 0 auto; padding: 2rem 2rem 3rem; flex: 1; width: 100%; }
 
-.user-avatar:hover {
-    box-shadow: var(--shadow-md);
-}
-
-/* ═══════════════════════ MAIN CONTAINER ═══════════════════════ */
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-/* ═══════════════════════ HERO SECTION ═══════════════════════ */
+/* ═══════════════════ HERO ═══════════════════ */
 .hero {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    border-radius: 12px;
-    padding: 3rem 2rem;
-    color: white;
-    margin-bottom: 2rem;
-    position: relative;
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
+  background: var(--ink);
+  border-radius: var(--radius);
+  padding: 3.5rem 3rem;
+  color: var(--cream);
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
 }
-
 .hero::before {
-    display: none;
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.2) 0%, transparent 70%);
+  pointer-events: none;
 }
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(20px); }
+.hero::after {
+  content: '"';
+  position: absolute;
+  bottom: -40px; left: 2rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 20rem;
+  color: rgba(255,255,255,0.03);
+  line-height: 1;
+  pointer-events: none;
 }
-
-.hero-content {
-    position: relative;
-    z-index: 2;
+.hero-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.5rem;
 }
-
+.hero-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
 .hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 1rem;
 }
-
-.hero p {
-    font-size: 1.1rem;
-    opacity: 0.95;
-    margin-bottom: 1.5rem;
-}
+.hero h1 span { color: var(--gold); }
+.hero p { font-size: 1rem; color: rgba(250,248,243,0.75); max-width: 480px; line-height: 1.7; margin-bottom: 2rem; }
 
 .hero-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
-
-.stat {
-    text-align: center;
+.hero-stat { }
+.hero-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
 }
+.hero-stat-lbl { font-size: 0.75rem; color: rgba(250,248,243,0.6); margin-top: 0.2rem; text-transform: uppercase; letter-spacing: 0.08em; }
 
-.stat-number {
-    font-size: 2rem;
-    font-weight: 700;
+/* ═══════════════════ SECTION HEADING ═══════════════════ */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
-
-.stat-label {
-    font-size: 0.9rem;
-    opacity: 0.9;
-    margin-top: 0.25rem;
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex; align-items: center; gap: 0.5rem;
 }
+.section-subtitle { font-size: 0.85rem; color: var(--muted); }
 
-/* ═══════════════════════ SEARCH SECTION ═══════════════════════ */
-.search-section {
-    margin-bottom: 3rem;
-}
-
-.search-box {
-    background: var(--bg-primary);
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: var(--shadow-md);
-    max-width: 100%;
-    border: 1px solid var(--border-light);
-}
-
-.search-header {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-}
-
-.search-header h2 {
-    font-size: 1.5rem;
-    margin: 0;
-}
-
-.search-controls {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group label {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
-    font-size: 0.9rem;
-}
-
-input, select {
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-family: inherit;
-    font-size: 0.95rem;
-    transition: var(--transition);
-    background: var(--bg-primary);
-    color: var(--text-primary);
-}
-
-input:focus, select:focus {
-    outline: none;
-    border-color: var(--primary);
-    background: white;
-    box-shadow: 0 0 0 3px rgba(92, 107, 192, 0.1);
-}
-
-input::placeholder {
-    color: var(--text-secondary);
-}
-
-.btn-group {
-    display: flex;
-    gap: 1rem;
-}
-
-button {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 0.95rem;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    justify-content: center;
-}
-
-.btn-primary {
-    background: var(--primary);
-    color: white;
-    flex: 1;
-    min-height: 40px;
-}
-
-.btn-primary:hover {
-    background: var(--primary-dark);
-    box-shadow: var(--shadow-md);
-}
-
-.btn-secondary {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border: 2px solid var(--border);
-}
-
-.btn-secondary:hover {
-    background: white;
-    border-color: var(--primary);
-    color: var(--primary);
-}
-
-.btn-sm {
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
-    min-height: 32px;
-}
-
-/* ═══════════════════════ GRID LAYOUT ═══════════════════════ */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.grid-large {
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-}
-
-/* ═══════════════════════ BOOK CARD ═══════════════════════ */
-.card {
-    background: var(--bg-primary);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition);
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    border: 1px solid var(--border-light);
-}
-
-.card:hover {
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary);
-}
-
-.card-image {
-    width: 100%;
-    height: 220px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    color: white;
-    position: relative;
-    overflow: hidden;
-}
-
-.card-image::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.1);
-    opacity: 0;
-    transition: var(--transition);
-}
-
-.card:hover .card-image::before {
-    opacity: 1;
-}
-
-/* ═══════════════════════ INSTAGRAM/TIKTOK SAVE BUTTON ═══════════════════════ */
-.save-btn {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 48px;
-    height: 48px;
-    border: none;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    z-index: 20;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-}
-
-.save-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-    background: rgba(255, 255, 255, 1);
-}
-
-.save-btn:active {
-    transform: scale(0.95);
-}
-
-/* Save icon styling */
-.save-icon {
-    width: 24px;
-    height: 24px;
-    stroke: var(--primary);
-    color: var(--primary);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    fill: none;
-}
-
-/* When book is saved - filled state */
-.save-btn.saved .save-icon {
-    fill: var(--primary);
-    stroke: var(--primary);
-    animation: savePopup 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* Instagram style popup animation */
-@keyframes savePopup {
-    0% {
-        transform: scale(0.8);
-        opacity: 0;
-    }
-    50% {
-        transform: scale(1.2);
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-.card-badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: var(--success);
-    color: white;
-    padding: 0.35rem 0.85rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    z-index: 10;
-}
-
-.card-badge.unavailable {
-    background: var(--danger);
-}
-
-.card-content {
-    padding: 1.5rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.card h4 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.1rem;
-    color: var(--text-primary);
-    font-weight: 600;
-    line-height: 1.4;
-}
-
-.card-author {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-}
-
-.card-meta {
-    display: flex;
-    gap: 1rem;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
-}
-
-.card-meta span {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-}
-
-.card-rating {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    color: var(--warning);
-    font-size: 0.9rem;
-}
-
-.card-footer {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: auto;
-}
-
-.card-footer button {
-    flex: 1;
-    padding: 0.65rem;
-    font-size: 0.85rem;
-}
-
-/* ═══════════════════════ STATISTICS CARD ═══════════════════════ */
+/* ═══════════════════ STATS GRID ═══════════════════ */
 .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
 }
-
 .stat-card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 14px;
-    box-shadow: var(--shadow-md);
-    text-align: center;
-    border-top: 4px solid var(--primary);
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 0.4rem;
+  transition: var(--ease);
+  border-left: 4px solid var(--ink);
+}
+.stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.stat-card.green  { border-left-color: var(--sage); }
+.stat-card.amber  { border-left-color: var(--gold); }
+.stat-card.red    { border-left-color: var(--rose); }
+.stat-card-icon { font-size: 1.4rem; margin-bottom: 0.2rem; }
+.stat-card-val { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; line-height: 1; }
+.stat-card-lbl { font-size: 0.8rem; color: var(--muted); font-weight: 500; }
+
+/* ═══════════════════ GENRE FILTER BAR ═══════════════════ */
+.filter-bar {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.filter-chip {
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--ease);
+  color: var(--ink-soft);
+  font-family: 'DM Sans', sans-serif;
+}
+.filter-chip:hover { border-color: var(--ink); color: var(--ink); }
+.filter-chip.active { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+/* ═══════════════════ BOOK GRID ═══════════════════ */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
 }
 
-.stat-card.success {
-    border-top-color: var(--success);
+/* ═══════════════════ BOOK CARD ═══════════════════ */
+.book-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  transition: var(--ease);
+  cursor: pointer;
+  position: relative;
+}
+.book-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--gold); }
+
+.book-cover {
+  height: 200px;
+  background: linear-gradient(145deg, var(--ink) 0%, var(--ink-soft) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.book-cover img { width: 100%; height: 100%; object-fit: cover; }
+.book-cover-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(250,248,243,0.3);
+}
+.book-cover-placeholder span {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.7rem;
+  text-align: center;
+  padding: 0 1rem;
+  color: rgba(250,248,243,0.5);
+  line-height: 1.3;
+  max-height: 2.6em;
+  overflow: hidden;
 }
 
-.stat-card.warning {
-    border-top-color: var(--warning);
+.avail-badge {
+  position: absolute;
+  top: 0.6rem; left: 0.6rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.avail-badge.yes { background: var(--sage); color: var(--white); }
+.avail-badge.no  { background: var(--rose); color: var(--white); }
+
+.save-btn {
+  position: absolute;
+  top: 0.6rem; right: 0.6rem;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+  transition: var(--ease);
+  box-shadow: var(--shadow-sm);
+}
+.save-btn:hover { transform: scale(1.12); }
+.save-btn.saved { color: var(--rose); background: white; }
+
+.book-body { padding: 1rem 1rem 0.75rem; flex: 1; display: flex; flex-direction: column; }
+.book-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 0.3rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.book-author { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.75rem; }
+.book-description {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+  flex: 1;
+}
+.book-genre {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--cream2);
+  color: var(--ink-soft);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
 }
 
-.stat-card.danger {
-    border-top-color: var(--danger);
+.book-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--border);
 }
-
-.stat-icon {
-    font-size: 2rem;
-    margin-bottom: 0.75rem;
+.btn-borrow {
+  flex: 1;
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--ease);
+  display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+  font-family: 'DM Sans', sans-serif;
 }
+.btn-borrow:hover:not(:disabled) { background: var(--gold); color: var(--ink); }
+.btn-borrow:disabled { background: var(--cream2); color: var(--muted); cursor: not-allowed; }
 
-.stat-value {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 0.35rem;
+.btn-return {
+  flex: 1;
+  background: var(--sage);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--ease);
+  display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+  font-family: 'DM Sans', sans-serif;
 }
+.btn-return:hover { background: #3d6648; }
 
-.stat-label {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
+/* Librarian delete btn on card */
+.btn-del-book {
+  width: 32px; height: 32px;
+  border: 1px solid #f5c6c6;
+  background: #fff5f5;
+  color: var(--rose);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem;
+  transition: var(--ease);
+  flex-shrink: 0;
 }
+.btn-del-book:hover { background: var(--rose); color: white; }
 
-/* ═══════════════════════ TAB NAVIGATION ═══════════════════════ */
-.tabs {
-    display: flex;
-    gap: 1rem;
-    border-bottom: 2px solid var(--border);
-    margin-bottom: 2rem;
+/* ═══════════════════ SKELETON LOADER ═══════════════════ */
+.skeleton-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
 }
+.skeleton-cover {
+  height: 200px;
+  background: linear-gradient(90deg, var(--cream2) 25%, #e8e3d5 50%, var(--cream2) 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite;
+}
+.skeleton-body { padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.skel { border-radius: 4px; background: linear-gradient(90deg, var(--cream2) 25%, #e8e3d5 50%, var(--cream2) 75%); background-size: 400px 100%; animation: shimmer 1.4s infinite; }
 
+/* ═══════════════════ SEARCH ═══════════════════ */
+.search-bar-wrap {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+.search-bar-wrap h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.search-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.inp, .sel {
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--cream);
+  transition: var(--ease);
+  width: 100%;
+}
+.inp:focus, .sel:focus { outline: none; border-color: var(--ink); background: var(--white); }
+.btn-row { display: flex; gap: 0.75rem; }
+.btn-primary {
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  border-radius: 10px;
+  padding: 0.7rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--ease);
+  display: flex; align-items: center; gap: 0.4rem;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-primary:hover { background: var(--gold); color: var(--ink); }
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 0.7rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--ease);
+  display: flex; align-items: center; gap: 0.4rem;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-outline:hover { border-color: var(--ink); }
+
+/* ═══════════════════ MY BOOKS TABS ═══════════════════ */
+.tab-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+}
 .tab-btn {
-    background: none;
-    border: none;
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: var(--transition);
-    position: relative;
+  background: none;
+  border: none;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: var(--ease);
+  font-family: 'DM Sans', sans-serif;
 }
+.tab-btn.active { color: var(--ink); border-bottom-color: var(--gold); }
+.tab-btn:hover { color: var(--ink); }
 
-.tab-btn:hover {
-    color: var(--primary);
+/* ═══════════════════ LOGIN / SIGNUP CARDS ═══════════════════ */
+.auth-wrap {
+  max-width: 420px;
+  margin: 2rem auto;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
 }
-
-.tab-btn.active {
-    color: var(--primary);
-    border-bottom-color: var(--primary);
+.auth-icon { font-size: 2.5rem; text-align: center; margin-bottom: 0.75rem; }
+.auth-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  text-align: center;
+  margin-bottom: 0.3rem;
 }
+.auth-sub { text-align: center; color: var(--muted); font-size: 0.88rem; margin-bottom: 2rem; }
+.field { margin-bottom: 1.1rem; }
+.field label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--ink-soft); }
+.auth-link { text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: var(--muted); }
+.auth-link a { color: var(--ink); font-weight: 600; text-decoration: none; }
+.auth-link a:hover { color: var(--gold); }
+.btn-full { width: 100%; justify-content: center; padding: 0.85rem; font-size: 0.95rem; margin-top: 0.5rem; }
 
-/* ═══════════════════════ SECTIONS ═══════════════════════ */
-section {
-    animation: fadeIn 0.4s ease-in-out;
+/* ═══════════════════ ADD BOOK PANEL (LIBRARIAN) ═══════════════════ */
+.add-book-panel {
+  background: var(--ink);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
 }
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.add-book-panel::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+  pointer-events: none;
 }
-
-.hidden {
-    display: none;
+.panel-head {
+  display: flex; align-items: center; gap: 0.75rem;
+  margin-bottom: 1.5rem;
 }
-
-/* ═══════════════════════ ADMIN DASHBOARD ═══════════════════════ */
-.admin-header {
-    background: var(--bg-primary);
-    border-bottom: 1px solid var(--border-light);
-    padding: 2rem;
-    border-radius: 8px;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: var(--shadow-sm);
+.panel-head-icon {
+  width: 40px; height: 40px;
+  background: var(--gold);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink);
+  font-size: 1rem;
 }
+.panel-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
+.panel-sub { font-size: 0.78rem; color: rgba(250,248,243,0.6); }
 
-.admin-title {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.add-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
-
-.admin-title i {
-    font-size: 2rem;
-    color: var(--primary);
+.add-form .span2 { grid-column: 1 / -1; }
+.add-field label { display: block; font-size: 0.78rem; font-weight: 600; color: rgba(250,248,243,0.7); margin-bottom: 0.4rem; letter-spacing: 0.05em; text-transform: uppercase; }
+.add-inp {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  transition: var(--ease);
 }
+.add-inp:focus { outline: none; border-color: var(--gold); background: rgba(255,255,255,0.12); }
+.add-inp::placeholder { color: rgba(250,248,243,0.35); }
+.add-inp option { background: var(--ink); }
 
-.admin-title h1 {
-    font-size: 1.75rem;
-    margin: 0;
-    color: var(--text-primary);
+.btn-add {
+  background: var(--gold);
+  color: var(--ink);
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--ease);
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: 'DM Sans', sans-serif;
 }
+.btn-add:hover { background: var(--gold-lt); transform: translateY(-1px); }
+.btn-add:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-.admin-title p {
-    color: var(--text-secondary);
-    margin: 0.5rem 0 0 0;
-    font-size: 0.9rem;
+/* ═══════════════════ EMPTY STATE ═══════════════════ */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--muted);
+  grid-column: 1 / -1;
 }
+.empty-state-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
+.empty-state h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--ink-soft); margin-bottom: 0.5rem; }
+.empty-state p { font-size: 0.88rem; }
 
-.admin-actions {
-    display: flex;
-    gap: 0.75rem;
+/* ═══════════════════ TOAST ═══════════════════ */
+#toast-container {
+  position: fixed;
+  bottom: 1.5rem; right: 1.5rem;
+  z-index: 9999;
+  display: flex; flex-direction: column; gap: 0.5rem;
 }
-
-.admin-tabs {
-    display: flex;
-    gap: 0.5rem;
-    border-bottom: 2px solid var(--border-light);
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-    background: var(--bg-secondary);
-    padding: 0 1rem;
-    border-radius: 8px;
+.toast {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  min-width: 220px;
+  max-width: 340px;
+  box-shadow: var(--shadow-md);
+  animation: toastIn 0.3s ease both;
+  cursor: pointer;
 }
+.toast.out { animation: toastOut 0.3s ease forwards; }
+.toast.success { background: var(--sage); color: white; }
+.toast.error   { background: var(--rose); color: white; }
+.toast.info    { background: var(--ink); color: var(--cream); }
+.toast.warning { background: var(--gold); color: var(--ink); }
+.toast-icon    { font-size: 1rem; flex-shrink: 0; }
 
-.admin-tab-btn {
-    background: none;
-    border: none;
-    padding: 1rem 1.5rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: var(--transition);
-    position: relative;
+/* ═══════════════════ MODAL ═══════════════════ */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(26,26,46,0.55);
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.2s ease;
 }
-
-.admin-tab-btn:hover {
-    color: var(--primary);
+.modal-box {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 2rem;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  animation: fadeUp 0.3s ease;
+  max-height: 90vh;
+  overflow-y: auto;
 }
-
-.admin-tab-btn.active {
-    color: var(--primary);
-    border-bottom-color: var(--primary);
+.modal-head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 1.5rem;
 }
-
-.admin-tab-content {
-    animation: fadeIn 0.3s ease-in;
-}
-
-.admin-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--bg-primary);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-}
-
-.admin-table thead {
-    background: var(--primary);
-    color: white;
-}
-
-.admin-table th {
-    padding: 1rem;
-    text-align: left;
-    font-weight: 600;
-    border-bottom: 2px solid var(--border-light);
-}
-
-.admin-table td {
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid var(--border-light);
-    color: var(--text-primary);
-}
-
-.admin-table tbody tr {
-    transition: var(--transition);
-}
-
-.admin-table tbody tr:hover {
-    background: var(--bg-secondary);
-}
-
-.admin-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.status-badge {
-    display: inline-block;
-    padding: 0.35rem 0.85rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-align: center;
-}
-
-.status-badge.borrowed {
-    background: rgba(30, 64, 175, 0.1);
-    color: #1E40AF;
-}
-
-.status-badge.returned {
-    background: rgba(15, 118, 110, 0.1);
-    color: #0F766E;
-}
-
-.status-badge.overdue {
-    background: rgba(220, 38, 38, 0.1);
-    color: #DC2626;
-}
-
-.status-badge.pending {
-    background: rgba(3, 105, 161, 0.1);
-    color: #0369A1;
-}
-
-.status-badge.paid {
-    background: #E8F5E9;
-    color: #388E3C;
-}
-
-.status-badge.waived {
-    background: #E0E0E0;
-    color: #424242;
-}
-
-.activity-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.activity-item {
-    display: flex;
-    gap: 1rem;
-    padding: 1rem;
-    background: var(--bg-secondary);
-    border-radius: 8px;
-    border-left: 4px solid var(--primary);
-}
-
-.activity-icon {
-    font-size: 1.5rem;
-    min-width: 2rem;
-    display: flex;
-    align-items: center;
-}
-
-.activity-content {
-    flex: 1;
-}
-
-.activity-content h4 {
-    margin: 0 0 0.5rem;
-    font-size: 0.95rem;
-}
-
-.activity-content p {
-    margin: 0;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-}
-
-.activity-time {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-}
-
-/* ═══════════════════════ FOOTER ═══════════════════════ */
-footer {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    text-align: center;
-    padding: 2rem;
-    margin-top: 4rem;
-    border-top: 1px solid var(--border-light);
-}
-
-footer p {
-    margin: 0;
-    font-size: 0.9rem;
-}
-
-/* ═══════════════════════ RESPONSIVE ═══════════════════════ */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .head_name {
-        font-size: 1.2rem;
-    }
-    
-    nav ul {
-        flex-direction: column;
-        width: 100%;
-        gap: 0.5rem;
-    }
-    
-    nav a {
-        padding: 0.75rem 1rem;
-    }
-    
-    .hero {
-        padding: 2rem 1rem;
-    }
-    
-    .hero h1 {
-        font-size: 1.8rem;
-    }
-    
-    .hero-stats {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
-    
-    .grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 1.5rem;
-    }
-    
-    .search-controls {
-        grid-template-columns: 1fr;
-    }
-    
-    .save-btn {
-        width: 44px;
-        height: 44px;
-        top: 10px;
-        right: 10px;
-    }
-    
-    .save-icon {
-        width: 20px;
-        height: 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .save-btn {
-        width: 40px;
-        height: 40px;
-        top: 8px;
-        right: 8px;
-    }
-    
-    .save-icon {
-        width: 18px;
-        height: 18px;
-    }
-    
-    .grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 1rem;
-    }
-}
-
-/* ═══════════════════════ MODAL ═══════════════════════ */
-.modal {
-    display: flex;
-    position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    align-items: center;
-    justify-content: center;
-    animation: fadeIn 0.3s ease-in;
-}
-
-.modal.hidden {
-    display: none;
-}
-
-.modal-content {
-    background: var(--bg-primary);
-    border-radius: 8px;
-    padding: 2rem;
-    box-shadow: var(--shadow-lg);
-    max-width: 500px;
-    width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
-    animation: slideUp 0.3s ease-out;
-    border: 1px solid var(--border-light);
-}
-
+.modal-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; }
 .modal-close {
-    cursor: pointer;
-    font-size: 1.8rem;
-    color: var(--text-secondary);
-    transition: var(--transition);
-    float: right;
-    margin-top: -0.5rem;
-    margin-right: -0.5rem;
+  background: none; border: none; font-size: 1.3rem;
+  color: var(--muted); cursor: pointer; line-height: 1;
+  padding: 0.2rem; transition: var(--ease);
 }
+.modal-close:hover { color: var(--ink); }
 
-.modal-close:hover {
-    color: var(--primary);
+/* ═══════════════════ WISHLIST PAGE ═══════════════════ */
+#page-wishlist .page-header, #page-mybooks .page-header, #page-search .page-header {
+  margin-bottom: 2rem;
 }
-
-@keyframes slideUp {
-    from {
-        transform: translateY(50px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+.page-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex; align-items: center; gap: 0.6rem;
 }
+.page-desc { font-size: 0.9rem; color: var(--muted); margin-top: 0.3rem; }
 
-.form-group {
-    margin-bottom: 1.5rem;
+/* ═══════════════════ ROLE BADGE ═══════════════════ */
+.role-chip {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
+.role-chip.librarian { background: rgba(201,168,76,0.15); color: #8a6a1a; border: 1px solid rgba(201,168,76,0.3); }
+.role-chip.student   { background: rgba(74,124,89,0.1);  color: var(--sage);  border: 1px solid rgba(74,124,89,0.2); }
+.role-chip.teacher   { background: rgba(41,128,185,0.1); color: var(--sky);   border: 1px solid rgba(41,128,185,0.2); }
+.role-chip.admin     { background: rgba(192,57,43,0.1);  color: var(--rose);  border: 1px solid rgba(192,57,43,0.2); }
 
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    font-size: 0.95rem;
+/* ═══════════════════ FOOTER ═══════════════════ */
+footer {
+  background: var(--ink);
+  color: rgba(250,248,243,0.5);
+  text-align: center;
+  padding: 1.5rem 2rem;
+  font-size: 0.8rem;
 }
+footer span { color: var(--gold); }
 
-.form-group input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    font-size: 0.95rem;
-    transition: var(--transition);
-    background: var(--bg-primary);
-    color: var(--text-primary);
+/* ═══════════════════ SPINNER ═══════════════════ */
+.spinner {
+  width: 22px; height: 22px;
+  border: 2.5px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
 }
+.spinner.dark { border-color: rgba(26,26,46,0.2); border-top-color: var(--ink); }
 
-.form-group input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.08);
+/* ═══════════════════ RESPONSIVE ═══════════════════ */
+@media (max-width: 768px) {
+  header { padding: 0 1rem; }
+  nav { display: none; }
+  .container { padding: 1rem 1rem 2rem; }
+  .hero { padding: 2rem 1.5rem; }
+  .hero h1 { font-size: 1.6rem; }
+  .hero-stats { gap: 1.2rem; }
+  .book-grid { grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 1rem; }
+  .book-cover { height: 160px; }
+  .add-form { grid-template-columns: 1fr; }
+  .search-row { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2,1fr); }
+  .auth-wrap { padding: 1.75rem 1.25rem; }
 }
-
+@media (max-width: 480px) {
+  .book-grid { grid-template-columns: 1fr 1fr; }
+  .hero-stats { flex-direction: column; gap: 0.75rem; }
+  .filter-bar { gap: 0.35rem; }
+  .filter-chip { padding: 0.35rem 0.75rem; font-size: 0.75rem; }
+}
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════ HEADER ═══════════════════════ -->
+<!-- ═══════════════════ TOAST CONTAINER ═══════════════════ -->
+<div id="toast-container"></div>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
 <header>
-    <div class="header-left">
-        <div class="logo"><i class="fas fa-book"></i></div>
-        <div>
-            <div class="head_name">Bagmati School Library</div>
-            <span class="head_subtitle">Digital Hub</span>
-        </div>
+  <div class="header-brand" onclick="showPage('home')">
+    <div class="header-logo"><i class="fas fa-book-open"></i></div>
+    <div>
+      <div class="brand-name">Bagmati Library</div>
+      <div class="brand-sub">Digital Hub</div>
     </div>
-    
-    <nav>
-        <ul>
-            <li><a href="#" onclick="showPage('home')"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="#" onclick="showPage('search')"><i class="fas fa-search"></i> Search</a></li>
-            <li><a href="#" onclick="showPage('mybooks')"><i class="fas fa-bookmark"></i> My Books</a></li>
-            <li><a href="#" onclick="showPage('saved')"><i class="fas fa-heart"></i> Wishlist</a></li>
-            <li><a href="#" onclick="showAdminLogin()" id="adminLink" style="display: none;"><i class="fas fa-shield-alt"></i> Admin</a></li>
-            <li><a href="#" onclick="showPage('login')"><i class="fas fa-user"></i> Login</a></li>
-        </ul>
-    </nav>
-    
-    <div class="user-section">
-        <div class="user-avatar">
-            <i class="fas fa-bell"></i>
-        </div>
-        <div class="user-avatar">
-            <i class="fas fa-user-circle"></i>
-        </div>
-    </div>
+  </div>
+
+  <nav id="main-nav">
+    <a href="#" onclick="showPage('home')"     id="nav-home">    <i class="fas fa-home"></i> Home</a>
+    <a href="#" onclick="showPage('search')"   id="nav-search">  <i class="fas fa-search"></i> Search</a>
+    <a href="#" onclick="showPage('mybooks')"  id="nav-mybooks"> <i class="fas fa-book"></i> My Books</a>
+    <a href="#" onclick="showPage('wishlist')" id="nav-wishlist"><i class="fas fa-heart"></i> Wishlist</a>
+  </nav>
+
+  <div class="header-right" id="header-right">
+    <!-- filled by JS -->
+  </div>
 </header>
 
-<!-- ═══════════════════════ MAIN CONTAINER ═══════════════════════ -->
-<div class="container">
+<!-- ═══════════════════ MAIN ═══════════════════ -->
+<main class="container">
 
-    <!-- ═══════════════════════ HOME PAGE ═══════════════════════ -->
-    <section id="home">
-        <!-- Hero Section -->
-        <div class="hero">
-            <div class="hero-content">
-                <h1>📚 Welcome to Digital Library</h1>
-                <p>Discover thousands of books, explore your favorites, and manage your library effortlessly</p>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <div class="stat-number">5000+</div>
-                        <div class="stat-label">Books Available</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">2500+</div>
-                        <div class="stat-label">Active Members</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">50+</div>
-                        <div class="stat-label">Categories</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Statistics -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon">📖</div>
-                <div class="stat-value">5000</div>
-                <div class="stat-label">Total Books</div>
-            </div>
-            <div class="stat-card success">
-                <div class="stat-icon">✓</div>
-                <div class="stat-value">3200</div>
-                <div class="stat-label">Available Now</div>
-            </div>
-            <div class="stat-card warning">
-                <div class="stat-icon">⏱</div>
-                <div class="stat-value">1500</div>
-                <div class="stat-label">Borrowed</div>
-            </div>
-            <div class="stat-card danger">
-                <div class="stat-icon">🔴</div>
-                <div class="stat-value">300</div>
-                <div class="stat-label">Overdue</div>
-            </div>
-        </div>
-        
-        <!-- Genre Filter Section -->
-        <div style="margin: 2rem 0;">
-            <div class="search-box">
-                <div class="search-header">
-                    <i class="fas fa-filter"></i>
-                    <h3 style="margin: 0; font-size: 1.2rem;">Browse by Genre</h3>
-                </div>
-                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                    <select id="genreFilter" style="padding: 0.75rem 1rem; border: 2px solid var(--border); border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 0.95rem; cursor: pointer; min-width: 200px;">
-                        <option value="">✨ All Genres</option>
-                        <option value="fiction">📖 Fiction</option>
-                        <option value="science">🔬 Science</option>
-                        <option value="history">🏛️ History</option>
-                        <option value="biography">👤 Biography</option>
-                        <option value="mystery">🔍 Mystery</option>
-                        <option value="fantasy">🐉 Fantasy</option>
-                        <option value="romance">💕 Romance</option>
-                        <option value="adventure">🗺️ Adventure</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Featured Books -->
-        <h2>🌟 Featured Books</h2>
-        <div class="grid" id="bookGrid"></div>
-    </section>
+  <!-- ══════════ HOME ══════════ -->
+  <section id="page-home">
 
-    <!-- ═══════════════════════ SEARCH PAGE ═══════════════════════ -->
-    <section id="search" class="hidden">
-        <div class="search-section">
-            <div class="search-box">
-                <div class="search-header">
-                    <i class="fas fa-search"></i>
-                    <h2>Find Your Next Book</h2>
-                </div>
-                
-                <div class="search-controls">
-                    <div class="form-group">
-                        <label><i class="fas fa-filter"></i> Search Type</label>
-                        <select id="searchType">
-                            <option value="title">📖 Book Title</option>
-                            <option value="author">✍️ Author Name</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-keyboard"></i> Enter Text</label>
-                        <input id="searchInput" placeholder="Type here...">
-                    </div>
-                </div>
-                
-                <div class="btn-group">
-                    <button class="btn-primary" onclick="searchBooks()">
-                        <i class="fas fa-search"></i> Search
-                    </button>
-                    <button class="btn-secondary" onclick="resetSearch()">
-                        <i class="fas fa-redo"></i> Reset
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <div id="searchResults"></div>
-    </section>
-
-    <!-- ═══════════════════════ MY BOOKS PAGE ═══════════════════════ -->
-    <section id="mybooks" class="hidden">
-        <h2><i class="fas fa-book-reader"></i> My Borrowed Books</h2>
-        
-        <div class="tabs">
-            <button class="tab-btn active" onclick="filterBooks('all')">All Books</button>
-            <button class="tab-btn" onclick="filterBooks('active')">Currently Borrowed</button>
-            <button class="tab-btn" onclick="filterBooks('returning-soon')">Returning Soon</button>
-            <button class="tab-btn" onclick="filterBooks('overdue')">Overdue</button>
-        </div>
-        
-        <div class="grid" id="myBooks"></div>
-    </section>
-
-    <!-- ═══════════════════════ WISHLIST PAGE ═══════════════════════ -->
-    <section id="saved" class="hidden">
-        <h2><i class="fas fa-heart"></i> My Wishlist</h2>
-        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-            <i class="fas fa-lightbulb"></i> Save books you want to read later
-        </p>
-        <div class="grid" id="savedBooks"></div>
-    </section>
-
-    <!-- ═══════════════════════ LOGIN PAGE ═══════════════════════ -->
-    <section id="login" class="hidden">
-        <div style="max-width: 450px; margin: 2rem auto;">
-            <div class="search-box">
-                <div style="text-align: center; margin-bottom: 2rem;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔐</div>
-                    <h2>Sign In</h2>
-                    <p style="color: var(--text-secondary);">Access your library account</p>
-                </div>
-                
-                <div class="form-group">
-                    <label><i class="fas fa-user"></i> Username</label>
-                    <input id="loginUsername" placeholder="Enter your username">
-                </div>
-                
-                <div class="form-group">
-                    <label><i class="fas fa-lock"></i> Password</label>
-                    <input id="loginPassword" type="password" placeholder="Enter your password">
-                </div>
-                
-                <div style="display: flex; gap: 1rem; margin: 1.5rem 0;">
-                    <label style="display: flex; align-items: center; gap: 0.5rem; margin: 0; cursor: pointer;">
-                        <input type="checkbox"> Remember me
-                    </label>
-                </div>
-                
-                <button class="btn-primary" onclick="handleLogin()" style="width: 100%;">
-                    <i class="fas fa-sign-in-alt"></i> Sign In
-                </button>
-                
-                <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem;">
-                    <p style="color: var(--text-secondary);">Don't have an account?
-                        <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;">Sign up here</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══════════════════════ ADMIN DASHBOARD PAGE ═══════════════════════ -->
-    <section id="admin" class="hidden">
-        <div class="admin-header">
-            <div class="admin-title">
-                <i class="fas fa-chart-line"></i>
-                <div>
-                    <h1>Administration Dashboard</h1>
-                    <p>Manage library operations and member accounts</p>
-                </div>
-            </div>
-            <div class="admin-actions">
-                <button class="btn-secondary btn-sm" onclick="exportAdminData()">
-                    <i class="fas fa-download"></i> Export Data
-                </button>
-                <button class="btn-secondary btn-sm" onclick="printAdminReport()">
-                    <i class="fas fa-print"></i> Print Report
-                </button>
-            </div>
-        </div>
-        
-        <div class="admin-tabs">
-            <button class="admin-tab-btn active" onclick="showAdminTab('overview')">
-                <i class="fas fa-chart-line"></i> Overview
-            </button>
-            <button class="admin-tab-btn" onclick="showAdminTab('users')">
-                <i class="fas fa-users"></i> Members
-            </button>
-            <button class="admin-tab-btn" onclick="showAdminTab('borrowing')">
-                <i class="fas fa-copy"></i> Circulation
-            </button>
-            <button class="admin-tab-btn" onclick="showAdminTab('overdue')">
-                <i class="fas fa-clock"></i> Overdue
-            </button>
-            <button class="admin-tab-btn" onclick="showAdminTab('fines')">
-                <i class="fas fa-credit-card"></i> Fines
-            </button>
-            <button class="admin-tab-btn" onclick="showAdminTab('reports')">
-                <i class="fas fa-file-csv"></i> Reports
-            </button>
-        </div>
-
-        <!-- OVERVIEW TAB -->
-        <div id="overview-tab" class="admin-tab-content">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">📚</div>
-                    <div class="stat-value" id="totalBooks">0</div>
-                    <div class="stat-label">Total Books</div>
-                </div>
-                <div class="stat-card success">
-                    <div class="stat-icon">✓</div>
-                    <div class="stat-value" id="availableBooks">0</div>
-                    <div class="stat-label">Available Now</div>
-                </div>
-                <div class="stat-card warning">
-                    <div class="stat-icon">👥</div>
-                    <div class="stat-value" id="activeUsers">0</div>
-                    <div class="stat-label">Active Members</div>
-                </div>
-                <div class="stat-card danger">
-                    <div class="stat-icon">⏰</div>
-                    <div class="stat-value" id="overdueCount">0</div>
-                    <div class="stat-label">Overdue Books</div>
-                </div>
-                <div class="stat-card" style="border-top-color: #FF6B9D;">
-                    <div class="stat-icon">💰</div>
-                    <div class="stat-value" id="pendingFines">0</div>
-                    <div class="stat-label">Pending Fines</div>
-                </div>
-                <div class="stat-card" style="border-top-color: #9C27B0;">
-                    <div class="stat-icon">📋</div>
-                    <div class="stat-value" id="activeBorrows">0</div>
-                    <div class="stat-label">Currently Borrowed</div>
-                </div>
-            </div>
-
-            <div style="margin-top: 2rem;">
-                <h3><i class="fas fa-history"></i> Recent Activity</h3>
-                <div id="recentActivity" class="activity-list"></div>
-            </div>
-        </div>
-
-        <!-- USERS TAB -->
-        <div id="users-tab" class="admin-tab-content hidden">
-            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
-                <input type="text" id="userSearchInput" placeholder="Search users by name, email, or ID..." style="flex: 1;">
-                <select id="userRoleFilter" style="padding: 0.75rem 1rem;">
-                    <option value="">All Roles</option>
-                    <option value="student">Student</option>
-                    <option value="teacher">Teacher</option>
-                    <option value="librarian">Librarian</option>
-                    <option value="admin">Admin</option>
-                </select>
-                <button class="btn-primary" onclick="searchUsers()">Search</button>
-            </div>
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>User ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Books Borrowed</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="usersTableBody">
-                    <tr><td colspan="7" style="text-align: center;">Loading users...</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- BORROWING RECORDS TAB -->
-        <div id="borrowing-tab" class="admin-tab-content hidden">
-            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
-                <input type="text" id="borrowingSearchInput" placeholder="Search by user name or book title...">
-                <select id="borrowingStatusFilter" style="padding: 0.75rem 1rem;">
-                    <option value="">All Status</option>
-                    <option value="borrowed">Borrowed</option>
-                    <option value="returned">Returned</option>
-                    <option value="overdue">Overdue</option>
-                    <option value="renewed">Renewed</option>
-                </select>
-                <button class="btn-primary" onclick="loadBorrowingRecords()">Search</button>
-            </div>
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>Transaction ID</th>
-                        <th>Member</th>
-                        <th>Book Title</th>
-                        <th>Issue Date</th>
-                        <th>Due Date</th>
-                        <th>Return Date</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="borrowingTableBody">
-                    <tr><td colspan="8" style="text-align: center;">Loading records...</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- OVERDUE BOOKS TAB -->
-        <div id="overdue-tab" class="admin-tab-content hidden">
-            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
-                <input type="text" id="overdueSearchInput" placeholder="Search by member name or book title...">
-                <button class="btn-primary" onclick="loadOverdueBooks()">Refresh</button>
-                <button class="btn-secondary" onclick="exportOverdue()">
-                    <i class="fas fa-download"></i> Export
-                </button>
-            </div>
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>Member ID</th>
-                        <th>Member Name</th>
-                        <th>Book Title</th>
-                        <th>Due Date</th>
-                        <th>Days Overdue</th>
-                        <th>Fine Amount (₹)</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="overdueTableBody">
-                    <tr><td colspan="8" style="text-align: center;">Loading overdue records...</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- FINES & PENALTIES TAB -->
-        <div id="fines-tab" class="admin-tab-content hidden">
-            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
-                <select id="finesStatusFilter" style="padding: 0.75rem 1rem;">
-                    <option value="">All Fines</option>
-                    <option value="pending">Pending</option>
-                    <option value="paid">Paid</option>
-                    <option value="waived">Waived</option>
-                    <option value="cancelled">Cancelled</option>
-                </select>
-                <select id="finesReasonFilter" style="padding: 0.75rem 1rem;">
-                    <option value="">All Reasons</option>
-                    <option value="overdue">Overdue</option>
-                    <option value="damage">Damage</option>
-                    <option value="lost">Lost</option>
-                    <option value="other">Other</option>
-                </select>
-                <button class="btn-primary" onclick="loadFinesRecords()">Refresh</button>
-                <button class="btn-secondary" onclick="exportFines()">
-                    <i class="fas fa-download"></i> Export
-                </button>
-            </div>
-            
-            <div class="stats-grid" style="margin-bottom: 1.5rem;">
-                <div class="stat-card">
-                    <div class="stat-value" id="totalFinesPending">₹0</div>
-                    <div class="stat-label">Pending Fines</div>
-                </div>
-                <div class="stat-card success">
-                    <div class="stat-value" id="totalFinesPaid">₹0</div>
-                    <div class="stat-label">Paid Fines</div>
-                </div>
-                <div class="stat-card warning">
-                    <div class="stat-value" id="totalFinesWaived">₹0</div>
-                    <div class="stat-label">Waived Fines</div>
-                </div>
-            </div>
-
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>Fine ID</th>
-                        <th>Member</th>
-                        <th>Book Title</th>
-                        <th>Amount (₹)</th>
-                        <th>Reason</th>
-                        <th>Status</th>
-                        <th>Created Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="finesTableBody">
-                    <tr><td colspan="8" style="text-align: center;">Loading fines records...</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- REPORTS TAB -->
-        <div id="reports-tab" class="admin-tab-content hidden">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-                <div class="search-box">
-                    <h4><i class="fas fa-file-csv"></i> Monthly Report</h4>
-                    <select id="reportMonth" style="width: 100%; padding: 0.75rem; margin: 0.5rem 0;">
-                        <option value="">Select Month</option>
-                        <option value="01">January</option>
-                        <option value="02">February</option>
-                        <option value="03">March</option>
-                        <option value="04">April</option>
-                        <option value="05">May</option>
-                        <option value="06">June</option>
-                        <option value="07">July</option>
-                        <option value="08">August</option>
-                        <option value="09">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                    </select>
-                    <button class="btn-primary" style="width: 100%; margin-top: 0.5rem;" onclick="generateMonthlyReport()">
-                        Generate Report
-                    </button>
-                </div>
-
-                <div class="search-box">
-                    <h4><i class="fas fa-chart-line"></i> Statistics Report</h4>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">View detailed statistics and metrics</p>
-                    <button class="btn-primary" style="width: 100%; margin-top: 1rem;" onclick="generateStatisticsReport()">
-                        View Statistics
-                    </button>
-                </div>
-
-                <div class="search-box">
-                    <h4><i class="fas fa-user-check"></i> Member Report</h4>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Borrowing activity by member</p>
-                    <button class="btn-primary" style="width: 100%; margin-top: 1rem;" onclick="generateMemberReport()">
-                        Member Report
-                    </button>
-                </div>
-            </div>
-
-            <div id="reportOutput" class="search-box hidden"></div>
-        </div>
-    </section>
-
-</div>
-
-<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
-<footer>
-    <p>© 2026 Bagmati School Library Management System | All rights reserved</p>
-</footer>
-
-<script>
-const books=[
-{title:"Clean Code",author:"Robert Martin"},
-{title:"Atomic Habits",author:"James Clear"},
-{title:"The Pragmatic Programmer",author:"Andrew Hunt"},
-{title:"Deep Learning",author:"Ian Goodfellow"},
-{title:"Python Crash Course",author:"Eric Matthes"}
-]
-
-const saved=[]
-
-function showPage(page){
-document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"))
-document.getElementById(page).classList.remove("hidden")
-}
-
-function renderBooks(list,container){
-container.innerHTML=""
-list.forEach(book=>{
-const card=document.createElement("div")
-card.className="card"
-card.innerHTML=`<h4>${book.title}</h4>
-<p>${book.author}</p>
-<button onclick="saveBook('${book.title}')">Save</button>`
-container.appendChild(card)
-})
-}
-
-function saveBook(title){
-const book=books.find(b=>b.title===title)
-saved.push(book)
-renderBooks(saved,document.getElementById("savedBooks"))
-}
-
-function searchBooks(){
-const type=document.getElementById("searchType").value
-const text=document.getElementById("searchInput").value.toLowerCase()
-
-const results=books.filter(b=>b[type].toLowerCase().includes(text))
-renderBooks(results,document.getElementById("searchResults"))
-}
-
-renderBooks(books,document.getElementById("bookGrid"))
-</script>
-
-    <!-- Admin Login Modal -->
-    <div id="adminLoginModal" class="modal hidden">
-        <div class="modal-content" style="width: 90%; max-width: 400px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                <h3><i class="fas fa-shield-alt"></i> Admin Login</h3>
-                <button onclick="closeAdminLogin()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-light);">&times;</button>
-            </div>
-            <form onsubmit="authenticateAdmin(event)">
-                <div class="form-group">
-                    <label for="adminEmail">Email</label>
-                    <input type="email" id="adminEmail" placeholder="admin@bagmati.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="adminPassword">Password</label>
-                    <input type="password" id="adminPassword" placeholder="••••••••" required>
-                </div>
-                <button type="submit" style="width: 100%; padding: 0.75rem; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: var(--transition);">
-                    <i class="fas fa-sign-in-alt"></i> Login to Admin Panel
-                </button>
-            </form>
-            <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: var(--text-light);">
-                Only administrators can access this panel
-            </p>
-        </div>
+    <div class="hero">
+      <div class="hero-label">Bagmati School, Nepal</div>
+      <h1>Discover <span>Knowledge</span><br>Without Limits</h1>
+      <p>Explore thousands of books, borrow with one click, and track your reading journey — all in one place.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-num" id="stat-total">—</div><div class="hero-stat-lbl">Books</div></div>
+        <div class="hero-stat"><div class="hero-stat-num" id="stat-avail">—</div><div class="hero-stat-lbl">Available</div></div>
+        <div class="hero-stat"><div class="hero-stat-num" id="stat-members">—</div><div class="hero-stat-lbl">Members</div></div>
+      </div>
     </div>
 
-    <script>
-        // ═══════════════════════ ADMIN FUNCTIONS ═══════════════════════
-        let adminLoggedIn = false;
-        let currentAdminUser = null;
+    <!-- Librarian: Add Book Panel -->
+    <div id="add-book-panel" class="add-book-panel hidden">
+      <div class="panel-head">
+        <div class="panel-head-icon"><i class="fas fa-plus"></i></div>
+        <div>
+          <div class="panel-title">Add Featured Book</div>
+          <div class="panel-sub">Only you (librarian) can add books. Everyone can see them.</div>
+        </div>
+      </div>
+      <div class="add-form" id="add-book-form">
+        <div class="add-field">
+          <label>Book Title *</label>
+          <input class="add-inp" id="add-title" placeholder="e.g. Atomic Habits" />
+        </div>
+        <div class="add-field">
+          <label>Author *</label>
+          <input class="add-inp" id="add-author" placeholder="e.g. James Clear" />
+        </div>
+        <div class="add-field span2">
+          <label>Description *</label>
+          <textarea class="add-inp" id="add-desc" rows="2" placeholder="Brief summary of the book..."></textarea>
+        </div>
+        <div class="add-field">
+          <label>Genre</label>
+          <select class="add-inp" id="add-genre">
+            <option value="">Select genre</option>
+            <option>Fiction</option><option>Non-Fiction</option>
+            <option>Science</option><option>History</option>
+            <option>Technology</option><option>Self-Help</option>
+            <option>Biography</option><option>Children</option>
+            <option>Mystery</option><option>Fantasy</option>
+          </select>
+        </div>
+        <div class="add-field">
+          <label>Cover Image URL</label>
+          <input class="add-inp" id="add-cover" placeholder="https://..." />
+        </div>
+        <div class="add-field span2" style="display:flex;justify-content:flex-end;">
+          <button class="btn-add" id="add-book-btn" onclick="addBook()">
+            <i class="fas fa-plus"></i> Add Book
+          </button>
+        </div>
+      </div>
+    </div>
 
-        function showAdminLogin() {
-            document.getElementById("adminLoginModal").classList.remove("hidden");
-        }
+    <!-- Filter bar -->
+    <div class="section-head">
+      <div class="section-title">🌟 Featured Books</div>
+      <div class="section-subtitle" id="book-count-label"></div>
+    </div>
 
-        function closeAdminLogin() {
-            document.getElementById("adminLoginModal").classList.add("hidden");
-        }
+    <div class="filter-bar" id="genre-filters">
+      <button class="filter-chip active" onclick="filterGenre('', this)">All</button>
+      <button class="filter-chip" onclick="filterGenre('Fiction', this)">📖 Fiction</button>
+      <button class="filter-chip" onclick="filterGenre('Non-Fiction', this)">📚 Non-Fiction</button>
+      <button class="filter-chip" onclick="filterGenre('Science', this)">🔬 Science</button>
+      <button class="filter-chip" onclick="filterGenre('Technology', this)">💻 Technology</button>
+      <button class="filter-chip" onclick="filterGenre('History', this)">🏛️ History</button>
+      <button class="filter-chip" onclick="filterGenre('Self-Help', this)">💡 Self-Help</button>
+      <button class="filter-chip" onclick="filterGenre('Biography', this)">👤 Biography</button>
+      <button class="filter-chip" onclick="filterGenre('Children', this)">🧒 Children</button>
+      <button class="filter-chip" onclick="filterGenre('Mystery', this)">🔍 Mystery</button>
+      <button class="filter-chip" onclick="filterGenre('Fantasy', this)">🐉 Fantasy</button>
+    </div>
 
-        function authenticateAdmin(event) {
-            event.preventDefault();
-            const email = document.getElementById("adminEmail").value;
-            const password = document.getElementById("adminPassword").value;
+    <div class="book-grid" id="book-grid">
+      <!-- skeleton -->
+      <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skel" style="height:14px;width:80%"></div><div class="skel" style="height:10px;width:55%"></div><div class="skel" style="height:10px;width:70%"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skel" style="height:14px;width:70%"></div><div class="skel" style="height:10px;width:45%"></div><div class="skel" style="height:10px;width:60%"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skel" style="height:14px;width:85%"></div><div class="skel" style="height:10px;width:50%"></div><div class="skel" style="height:10px;width:65%"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skel" style="height:14px;width:60%"></div><div class="skel" style="height:10px;width:40%"></div><div class="skel" style="height:10px;width:55%"></div></div></div>
+    </div>
+  </section>
 
-            // Simulate admin authentication (replace with actual backend API call)
-            fetch('index.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'adminLogin',
-                    email: email,
-                    password: password
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success && data.user.role === 'admin') {
-                    adminLoggedIn = true;
-                    currentAdminUser = data.user;
-                    closeAdminLogin();
-                    showPage('admin');
-                    loadAdminOverview();
-                    showToast('✓ Admin login successful', 'success');
-                    // Show logout link
-                    document.querySelector('.user-section').innerHTML = 
-                        `<span>${data.user.name} (Admin)</span> | <a href="#" onclick="logoutAdmin()">Logout</a>`;
-                } else {
-                    showToast('✗ Invalid admin credentials', 'error');
-                }
-            })
-            .catch(err => {
-                console.error('Admin login error:', err);
-                showToast('✗ Login failed: ' + err.message, 'error');
-            });
-        }
+  <!-- ══════════ SEARCH ══════════ -->
+  <section id="page-search" class="hidden">
+    <div class="page-header">
+      <div class="page-title"><i class="fas fa-search"></i> Search Books</div>
+      <div class="page-desc">Find books by title or author</div>
+    </div>
+    <div class="search-bar-wrap">
+      <div class="search-row">
+        <select class="sel" id="search-type">
+          <option value="title">By Title</option>
+          <option value="author">By Author</option>
+          <option value="genre">By Genre</option>
+        </select>
+        <input class="inp" id="search-input" placeholder="Type to search..." onkeydown="if(event.key==='Enter')doSearch()" />
+      </div>
+      <div class="btn-row">
+        <button class="btn-primary" onclick="doSearch()"><i class="fas fa-search"></i> Search</button>
+        <button class="btn-outline" onclick="resetSearch()"><i class="fas fa-redo"></i> Reset</button>
+      </div>
+    </div>
+    <div id="search-results" class="book-grid"></div>
+  </section>
 
-        function logoutAdmin() {
-            adminLoggedIn = false;
-            currentAdminUser = null;
-            showPage('home');
-            document.querySelector('.user-section').innerHTML = '';
-            showToast('Admin logged out', 'success');
-        }
+  <!-- ══════════ MY BOOKS ══════════ -->
+  <section id="page-mybooks" class="hidden">
+    <div class="page-header">
+      <div class="page-title"><i class="fas fa-book-reader"></i> My Books</div>
+      <div class="page-desc">Track your borrowed books</div>
+    </div>
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="myBooksTab('all',this)">All</button>
+      <button class="tab-btn" onclick="myBooksTab('borrowed',this)">Currently Borrowed</button>
+      <button class="tab-btn" onclick="myBooksTab('overdue',this)">Overdue</button>
+    </div>
+    <div class="book-grid" id="mybooks-grid">
+      <div class="empty-state">
+        <div class="empty-state-icon">📚</div>
+        <h3>No borrowed books</h3>
+        <p>When you borrow books they'll appear here.</p>
+      </div>
+    </div>
+  </section>
 
-        function showAdminTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.admin-tab-content').forEach(tab => {
-                tab.classList.add('hidden');
-            });
-            
-            // Remove active class from buttons
-            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Show selected tab
-            const tabElement = document.getElementById(tabName + '-tab');
-            if (tabElement) {
-                tabElement.classList.remove('hidden');
-            }
-            
-            // Mark button as active
-            event.target.classList.add('active');
-            
-            // Load data for the tab
-            if (tabName === 'overview') loadAdminOverview();
-            else if (tabName === 'users') loadAdminUsers();
-            else if (tabName === 'borrowing') loadBorrowingRecords();
-            else if (tabName === 'overdue') loadOverdueBooks();
-            else if (tabName === 'fines') loadFinesRecords();
-        }
+  <!-- ══════════ WISHLIST ══════════ -->
+  <section id="page-wishlist" class="hidden">
+    <div class="page-header">
+      <div class="page-title"><i class="fas fa-heart"></i> My Wishlist</div>
+      <div class="page-desc">Books you've saved to read later</div>
+    </div>
+    <div class="book-grid" id="wishlist-grid">
+      <div class="empty-state">
+        <div class="empty-state-icon">🔖</div>
+        <h3>Wishlist is empty</h3>
+        <p>Tap the bookmark icon on any book to save it here.</p>
+      </div>
+    </div>
+  </section>
 
-        function loadAdminOverview() {
-            fetch('index.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'getAdminStats' })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('totalBooks').textContent = data.stats.totalBooks || 0;
-                    document.getElementById('availableBooks').textContent = data.stats.availableBooks || 0;
-                    document.getElementById('activeUsers').textContent = data.stats.activeUsers || 0;
-                    document.getElementById('overdueCount').textContent = data.stats.overdueCount || 0;
-                    document.getElementById('pendingFines').textContent = data.stats.pendingFines || 0;
-                    document.getElementById('currentlyBorrowed').textContent = data.stats.currentlyBorrowed || 0;
-                }
-            })
-            .catch(err => console.error('Error loading admin overview:', err));
-        }
+  <!-- ══════════ LOGIN ══════════ -->
+  <section id="page-login" class="hidden">
+    <div class="auth-wrap">
+      <div class="auth-icon">📖</div>
+      <div class="auth-title">Welcome Back</div>
+      <div class="auth-sub">Sign in to your library account</div>
+      <div class="field">
+        <label>Email</label>
+        <input class="inp" type="email" id="login-email" placeholder="example@gmail.com" />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input class="inp" type="password" id="login-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" />
+      </div>
+      <button class="btn-primary btn-full" onclick="doLogin()" id="login-btn">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+      <div class="auth-link">Don't have an account? <a href="#" onclick="showPage('signup')">Sign up</a></div>
+    </div>
+  </section>
 
-        function loadAdminUsers() {
-            const search = document.getElementById('userSearch')?.value || '';
-            const role = document.getElementById('roleFilter')?.value || '';
-            
-            fetch('index.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'getAdminUsers',
-                    search: search,
-                    role: role
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    const tbody = document.getElementById('usersTableBody');
-                    tbody.innerHTML = data.users.map(user => `
-                        <tr>
-                            <td>${user.id}</td>
-                            <td>${user.name}</td>
-                            <td>${user.email}</td>
-                            <td><span class="status-badge">${user.role}</span></td>
-                            <td>${user.booksBorrowed}</td>
-                            <td><span class="status-badge ${user.isActive ? '' : 'inactive'}">${user.isActive ? 'Active' : 'Inactive'}</span></td>
-                        </tr>
-                    `).join('');
-                }
-            })
-            .catch(err => console.error('Error loading users:', err));
-        }
+  <!-- ══════════ SIGNUP ══════════ -->
+  <section id="page-signup" class="hidden">
+    <div class="auth-wrap" style="max-width:480px">
+      <div class="auth-icon">✨</div>
+      <div class="auth-title">Create Account</div>
+      <div class="auth-sub">Join the Bagmati Library community</div>
+      <div class="field">
+        <label>Full Name</label>
+        <input class="inp" id="signup-name" placeholder="Your full name" />
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input class="inp" type="email" id="signup-email" placeholder="example@gmail.com" />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input class="inp" type="password" id="signup-password" placeholder="Min 6 characters" />
+      </div>
+      <button class="btn-primary btn-full" onclick="doSignup()" id="signup-btn">
+        <i class="fas fa-user-plus"></i> Create Account
+      </button>
+      <div class="auth-link">Already have an account? <a href="#" onclick="showPage('login')">Sign in</a></div>
+    </div>
+  </section>
 
-        function loadBorrowingRecords() {
-            const statusFilter = document.getElementById('borrowingStatusFilter')?.value || '';
-            
-            fetch('index.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'getBorrowingRecords',
-                    status: statusFilter
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    const tbody = document.getElementById('borrowingTableBody');
-                    tbody.innerHTML = data.records.map(record => `
-                        <tr>
-                            <td>${record.transactionId}</td>
-                            <td>${record.memberName}</td>
-                            <td>${record.bookTitle}</td>
-                            <td>${record.issueDate}</td>
-                            <td>${record.dueDate}</td>
-                            <td>${record.returnDate || '-'}</td>
-                            <td><span class="status-badge ${record.status}">${record.status}</span></td>
-                        </tr>
-                    `).join('');
-                }
-            })
-            .catch(err => console.error('Error loading borrowing records:', err));
-        }
+</main>
 
-        function loadOverdueBooks() {
-            fetch('index.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'getOverdueBooks' })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    const tbody = document.getElementById('overdueTableBody');
-                    tbody.innerHTML = data.overdueBooks.map(book => {
-                        const daysOverdue = Math.floor((new Date() - new Date(book.dueDate)) / (1000 * 60 * 60 * 24));
-                        const fineAmount = daysOverdue * 5; // ₹5 per day (adjust as needed)
-                        return `
-                            <tr>
-                                <td>${book.memberId}</td>
-                                <td>${book.memberName}</td>
-                                <td>${book.bookTitle}</td>
-                                <td>${book.dueDate}</td>
-                                <td><span style="color: #D32F2F; font-weight: 600;">${Math.max(daysOverdue, 0)} days</span></td>
-                                <td style="color: #D32F2F; font-weight: 600;">₹${fineAmount}</td>
-                                <td><span class="status-badge overdue">Overdue</span></td>
-                            </tr>
-                        `;
-                    }).join('');
-                }
-            })
-            .catch(err => console.error('Error loading overdue books:', err));
-        }
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <p>© 2026 <span>Bagmati School Library</span> · Powered by Supabase + Netlify · Made with ❤️ in Nepal</p>
+</footer>
 
-        function loadFinesRecords() {
-            const statusFilter = document.getElementById('fineStatusFilter')?.value || '';
-            
-            fetch('index.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'getFinesRecords',
-                    status: statusFilter
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    const tbody = document.getElementById('finesTableBody');
-                    tbody.innerHTML = data.fines.map(fine => `
-                        <tr>
-                            <td>${fine.fineId}</td>
-                            <td>${fine.memberName}</td>
-                            <td>${fine.bookTitle}</td>
-                            <td>₹${fine.amount}</td>
-                            <td>${fine.reason}</td>
-                            <td><span class="status-badge ${fine.status}">${fine.status}</span></td>
-                        </tr>
-                    `).join('');
-                }
-            })
-            .catch(err => console.error('Error loading fines:', err));
-        }
+<!-- ═══════════════════ SUPABASE SDK ═══════════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        function generateReport(reportType) {
-            fetch('index.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'generateReport',
-                    reportType: reportType
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    // Open report in new window or download
-                    window.open(data.reportUrl, '_blank');
-                    showToast('✓ Report generated successfully', 'success');
-                } else {
-                    showToast('✗ Error generating report', 'error');
-                }
-            })
-            .catch(err => {
-                console.error('Error generating report:', err);
-                showToast('✗ Report generation failed', 'error');
-            });
-        }
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  ⚠️  REPLACE THESE WITH YOUR ACTUAL SUPABASE CREDENTIALS
+//  Find them in: Supabase Dashboard → Project Settings → API
+// ═══════════════════════════════════════════════════════════════
+const SUPABASE_URL  = 'https://nuvkoluhmiewdegpsrbl.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51dmtvbHVobWlld2RlZ3BzcmJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMTY0OTksImV4cCI6MjA4ODc5MjQ5OX0.mV-ctDd4DeJ7mydsfBXYUZz4R_mzMBcV06v9GqLmWzw';
+// ═══════════════════════════════════════════════════════════════
 
-        // Check if user is admin on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            // Check session/localStorage for admin user
-            const adminUser = localStorage.getItem('adminUser');
-            if (adminUser) {
-                adminLoggedIn = true;
-                currentAdminUser = JSON.parse(adminUser);
-                document.getElementById('adminLink').style.display = 'block';
-            }
-        });
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-        // ═══════════════════════ TOAST NOTIFICATIONS ═══════════════════════
-        function showToast(message, type = 'info') {
-            const toast = document.createElement('div');
-            toast.style.cssText = `
-                position: fixed;
-                bottom: 2rem;
-                right: 2rem;
-                padding: 1rem 1.5rem;
-                border-radius: 8px;
-                color: white;
-                font-weight: 600;
-                z-index: 3000;
-                animation: slideInRight 0.3s ease-out;
-                box-shadow: var(--shadow-lg);
-                max-width: 300px;
-                word-wrap: break-word;
-            `;
+// ═══════════ STATE ═══════════
+let currentUser   = null;
+let currentRole   = null;
+let allBooks      = [];
+let wishlistIds   = new Set(JSON.parse(localStorage.getItem('wl') || '[]'));
+let borrowedIds   = new Set();
+let activeGenre   = '';
+let currentPage   = 'home';
 
-            if (type === 'success') {
-                toast.style.background = '#0F766E';
-                toast.style.color = 'white';
-            } else if (type === 'error') {
-                toast.style.background = '#DC2626';
-                toast.style.color = 'white';
-            } else if (type === 'warning') {
-                toast.style.background = '#F97316';
-                toast.style.color = 'white';
-            } else {
-                toast.style.background = '#1E40AF';
-                toast.style.color = 'white';
-            }
+// ═══════════ PAGE NAVIGATION ═══════════
+function showPage(page) {
+  document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
+  const el = document.getElementById('page-' + page);
+  if (el) { el.classList.remove('hidden'); el.style.animation = 'fadeUp 0.35s ease both'; }
+  currentPage = page;
 
-            toast.textContent = message;
-            document.body.appendChild(toast);
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + page);
+  if (navEl) navEl.classList.add('active');
 
-            setTimeout(() => {
-                toast.style.animation = 'slideOutRight 0.3s ease-in forwards';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
+  if (page === 'home')     loadBooks();
+  if (page === 'mybooks')  renderMyBooks('all');
+  if (page === 'wishlist') renderWishlist();
 
-        // Add animations for toast
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideInRight {
-                from { transform: translateX(400px); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOutRight {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(400px); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
+  return false;
+}
 
+// ═══════════ TOAST ═══════════
+function toast(msg, type = 'info', icon = '') {
+  const icons = { success:'✓', error:'✕', info:'ℹ', warning:'⚠' };
+  const c = document.createElement('div');
+  c.className = `toast ${type}`;
+  c.innerHTML = `<span class="toast-icon">${icon || icons[type]}</span><span>${msg}</span>`;
+  c.onclick = () => dismiss(c);
+  document.getElementById('toast-container').appendChild(c);
+  setTimeout(() => dismiss(c), 3800);
+}
+function dismiss(el) {
+  el.classList.add('out');
+  setTimeout(() => el.remove(), 300);
+}
+
+// ═══════════ AUTH ═══════════
+async function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-password').value;
+  if (!email || !pass) { toast('Enter email and password', 'warning'); return; }
+
+  const btn = document.getElementById('login-btn');
+  btn.innerHTML = '<span class="spinner"></span> Signing in…';
+  btn.disabled = true;
+
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+
+  if (error) {
+    toast(error.message, 'error');
+    btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+    btn.disabled = false;
+    return;
+  }
+
+  await loadUserProfile(data.user);
+  toast(`Welcome back, ${currentUser?.full_name || email.split('@')[0]}!`, 'success', '👋');
+  showPage('home');
+}
+
+async function doSignup() {
+  const name  = document.getElementById('signup-name').value.trim();
+  const email = document.getElementById('signup-email').value.trim();
+  const role  = document.getElementById('signup-student').value;
+  const pass  = document.getElementById('signup-password').value;
+
+  if (!name || !email || !pass) { toast('Please fill all fields', 'warning'); return; }
+  if (pass.length < 6) { toast('Password must be at least 6 characters', 'warning'); return; }
+
+  const btn = document.getElementById('signup-btn');
+  btn.innerHTML = '<span class="spinner"></span> Creating…';
+  btn.disabled = true;
+
+  const { data, error } = await sb.auth.signUp({ email, password: pass });
+
+  if (error) {
+    toast(error.message, 'error');
+    btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+    btn.disabled = false;
+    return;
+  }
+
+  // Insert profile into profiles table
+  if (data.user) {
+    await sb.from('profiles').upsert({
+      id:        data.user.id,
+      full_name: name,
+      email:     email,
+      role:      student
+    });
+  }
+
+  toast('Account created! Check your email to verify.', 'success', '✉️');
+  btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+  btn.disabled = false;
+  showPage('login');
+}
+
+async function doLogout() {
+  await sb.auth.signOut();
+  currentUser = null; currentRole = null;
+  borrowedIds = new Set();
+  renderHeader();
+  toast('Signed out successfully', 'info', '👋');
+  showPage('home');
+}
+
+async function loadUserProfile(user) {
+  const { data } = await sb.from('profiles').select('*').eq('id', user.id).single();
+  currentUser = data || { id: user.id, full_name: user.email.split('@')[0], role: 'student' };
+  currentRole = currentUser.role;
+  renderHeader();
+
+  // load borrowed
+  const { data: loans } = await sb.from('loans')
+    .select('book_id')
+    .eq('user_id', user.id)
+    .is('returned_at', null);
+  borrowedIds = new Set((loans || []).map(l => l.book_id));
+}
+
+// ═══════════ HEADER ═══════════
+function renderHeader() {
+  const el = document.getElementById('header-right');
+  if (currentUser) {
+    const initial = (currentUser.full_name || '?').charAt(0).toUpperCase();
+    el.innerHTML = `
+      <div class="header-user-info">
+        <div class="header-user-name">${currentUser.full_name || 'User'}</div>
+        <div class="header-user-role">${currentUser.role || 'member'}</div>
+      </div>
+      <div class="avatar-btn" title="Signed in">${initial}</div>
+      <button class="btn-ghost" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Out</button>
+    `;
+    // Show add-book panel only to librarian / admin
+    const panel = document.getElementById('add-book-panel');
+    if (currentRole === 'librarian' || currentRole === 'admin') {
+      panel.classList.remove('hidden');
+    } else {
+      panel.classList.add('hidden');
+    }
+  } else {
+    el.innerHTML = `
+      <button class="btn-ghost" onclick="showPage('signup')"><i class="fas fa-user-plus"></i> Sign Up</button>
+      <button class="btn-ghost" onclick="showPage('login')"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+    `;
+    document.getElementById('add-book-panel').classList.add('hidden');
+  }
+}
+
+// ═══════════ LOAD BOOKS FROM SUPABASE ═══════════
+async function loadBooks(genre = '') {
+  const grid = document.getElementById('book-grid');
+
+  // Show skeletons only on first load
+  if (allBooks.length === 0) {
+    grid.innerHTML = Array(4).fill(`
+      <div class="skeleton-card">
+        <div class="skeleton-cover"></div>
+        <div class="skeleton-body">
+          <div class="skel" style="height:14px;width:80%;margin-bottom:6px"></div>
+          <div class="skel" style="height:10px;width:55%;margin-bottom:6px"></div>
+          <div class="skel" style="height:10px;width:70%"></div>
+        </div>
+      </div>`).join('');
+  }
+
+  let query = sb.from('featured_books').select('*').order('created_at', { ascending: false });
+  if (genre) query = query.eq('genre', genre);
+
+  const { data, error } = await query;
+
+  if (error) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+      <div class="empty-state-icon">⚠️</div>
+      <h3>Could not load books</h3>
+      <p>${error.message}</p>
+    </div>`;
+    return;
+  }
+
+  allBooks = data || [];
+  updateStats();
+  renderBookGrid(allBooks, grid, true);
+  document.getElementById('book-count-label').textContent = `${allBooks.length} book${allBooks.length !== 1 ? 's' : ''}`;
+}
+
+function renderBookGrid(books, container, showLibrarianDel = false) {
+  if (!books.length) {
+    container.innerHTML = `<div class="empty-state">
+      <div class="empty-state-icon">📭</div>
+      <h3>No books found</h3>
+      <p>${currentRole === 'librarian' || currentRole === 'admin' ? 'Add the first book using the panel above.' : 'Check back later!'}</p>
+    </div>`;
+    return;
+  }
+
+  container.innerHTML = '';
+  books.forEach((book, i) => {
+    const card = createCard(book, showLibrarianDel);
+    card.style.animationDelay = `${i * 0.04}s`;
+    container.appendChild(card);
+  });
+}
+
+function createCard(book, showDel = false) {
+  const inWishlist  = wishlistIds.has(book.id);
+  const isBorrowed  = borrowedIds.has(book.id);
+  const isLibAdmin  = currentRole === 'librarian' || currentRole === 'admin';
+
+  const div = document.createElement('div');
+  div.className = 'book-card';
+  div.style.animation = 'fadeUp 0.4s ease both';
+
+  // Cover
+  const coverHtml = book.cover_url
+    ? `<img src="${book.cover_url}" alt="${book.title}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+    : '';
+  const placeholderHtml = `<div class="book-cover-placeholder" style="${book.cover_url ? 'display:none' : ''}">
+      <i class="fas fa-book" style="font-size:2.5rem;opacity:0.3"></i>
+      <span>${book.title}</span>
+    </div>`;
+
+  // Action button
+  let actionHtml = '';
+  if (!currentUser) {
+    actionHtml = `<button class="btn-borrow" onclick="requireLogin()"><i class="fas fa-sign-in-alt"></i> Login to Borrow</button>`;
+  } else if (isBorrowed) {
+    actionHtml = `<button class="btn-return" onclick="returnBook('${book.id}', this)"><i class="fas fa-undo"></i> Return</button>`;
+  } else {
+    actionHtml = `<button class="btn-borrow" onclick="borrowBook('${book.id}', this)"><i class="fas fa-plus"></i> Borrow</button>`;
+  }
+
+  // Librarian delete
+  const delHtml = (showDel && isLibAdmin)
+    ? `<button class="btn-del-book" onclick="deleteBook('${book.id}', this)" title="Delete book"><i class="fas fa-trash"></i></button>`
+    : '';
+
+  div.innerHTML = `
+    <div class="book-cover">
+      ${coverHtml}${placeholderHtml}
+      <span class="avail-badge yes">Available</span>
+      <button class="save-btn ${inWishlist ? 'saved' : ''}" onclick="toggleWishlist('${book.id}', this)" title="${inWishlist ? 'Remove from wishlist' : 'Add to wishlist'}">
+        <i class="fa${inWishlist ? 's' : 'r'} fa-bookmark"></i>
+      </button>
+    </div>
+    <div class="book-body">
+      <div class="book-title">${book.title}</div>
+      ${book.author ? `<div class="book-author">✍️ ${book.author}</div>` : ''}
+      ${book.description ? `<div class="book-description">${book.description}</div>` : ''}
+      ${book.genre ? `<span class="book-genre"><i class="fas fa-tag"></i> ${book.genre}</span>` : ''}
+    </div>
+    <div class="book-actions">
+      ${actionHtml}
+      ${delHtml}
+    </div>
+  `;
+  return div;
+}
+
+// ═══════════ GENRE FILTER ═══════════
+function filterGenre(genre, btn) {
+  activeGenre = genre;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  loadBooks(genre);
+}
+
+// ═══════════ ADD BOOK (LIBRARIAN) ═══════════
+async function addBook() {
+  if (!currentUser || (currentRole !== 'librarian' && currentRole !== 'admin')) {
+    toast('Only librarians can add books', 'error'); return;
+  }
+
+  const title = document.getElementById('add-title').value.trim();
+  const author= document.getElementById('add-author').value.trim();
+  const desc  = document.getElementById('add-desc').value.trim();
+  const genre = document.getElementById('add-genre').value;
+  const cover = document.getElementById('add-cover').value.trim();
+
+  if (!title) { toast('Book title is required', 'warning'); return; }
+  if (!desc)  { toast('Description is required', 'warning'); return; }
+
+  const btn = document.getElementById('add-book-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner dark"></span> Adding…';
+
+  const { error } = await sb.from('featured_books').insert({
+    title,
+    author:    author || null,
+    description: desc,
+    genre:     genre || null,
+    cover_url: cover || null,
+    added_by:  currentUser.id
+  });
+
+  if (error) {
+    toast('Error: ' + error.message, 'error');
+  } else {
+    toast(`"${title}" added successfully!`, 'success', '📚');
+    // Clear form
+    ['add-title','add-author','add-desc','add-cover'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('add-genre').value = '';
+    loadBooks(activeGenre);
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="fas fa-plus"></i> Add Book';
+}
+
+// ═══════════ DELETE BOOK (LIBRARIAN) ═══════════
+async function deleteBook(bookId, btn) {
+  if (!confirm('Delete this book from featured list?')) return;
+  btn.innerHTML = '<span class="spinner dark"></span>';
+
+  const { error } = await sb.from('featured_books').delete().eq('id', bookId);
+  if (error) {
+    toast('Error: ' + error.message, 'error');
+    btn.innerHTML = '<i class="fas fa-trash"></i>';
+  } else {
+    toast('Book removed', 'info');
+    loadBooks(activeGenre);
+  }
+}
+
+// ═══════════ BORROW / RETURN ═══════════
+async function borrowBook(bookId, btn) {
+  if (!currentUser) { requireLogin(); return; }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>';
+
+  const dueDate = new Date();
+  dueDate.setDate(dueDate.getDate() + 14); // 14-day loan
+
+  const { error } = await sb.from('loans').insert({
+    book_id:  bookId,
+    user_id:  currentUser.id,
+    due_date: dueDate.toISOString()
+  });
+
+  if (error) {
+    toast('Error: ' + error.message, 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-plus"></i> Borrow';
+  } else {
+    borrowedIds.add(bookId);
+    toast('Borrowed! Due in 14 days.', 'success', '📗');
+    // Swap button to return
+    btn.className = 'btn-return';
+    btn.innerHTML = '<i class="fas fa-undo"></i> Return';
+    btn.disabled = false;
+    btn.onclick = () => returnBook(bookId, btn);
+  }
+}
+
+async function returnBook(bookId, btn) {
+  if (!currentUser) return;
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>';
+
+  const { error } = await sb.from('loans')
+    .update({ returned_at: new Date().toISOString() })
+    .eq('book_id', bookId)
+    .eq('user_id', currentUser.id)
+    .is('returned_at', null);
+
+  if (error) {
+    toast('Error: ' + error.message, 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-undo"></i> Return';
+  } else {
+    borrowedIds.delete(bookId);
+    toast('Book returned! Thank you.', 'success', '✅');
+    btn.className = 'btn-borrow';
+    btn.innerHTML = '<i class="fas fa-plus"></i> Borrow';
+    btn.disabled = false;
+    btn.onclick = () => borrowBook(bookId, btn);
+  }
+}
+
+function requireLogin() {
+  toast('Please sign in to borrow books', 'info', '🔐');
+  setTimeout(() => showPage('login'), 900);
+}
+
+// ═══════════ WISHLIST ═══════════
+function toggleWishlist(bookId, btn) {
+  if (wishlistIds.has(bookId)) {
+    wishlistIds.delete(bookId);
+    btn.className = 'save-btn';
+    btn.innerHTML = '<i class="far fa-bookmark"></i>';
+    btn.title = 'Add to wishlist';
+    toast('Removed from wishlist', 'info');
+  } else {
+    wishlistIds.add(bookId);
+    btn.className = 'save-btn saved';
+    btn.innerHTML = '<i class="fas fa-bookmark"></i>';
+    btn.title = 'Remove from wishlist';
+    toast('Saved to wishlist', 'success', '🔖');
+    if (navigator.vibrate) navigator.vibrate(40);
+  }
+  localStorage.setItem('wl', JSON.stringify([...wishlistIds]));
+}
+
+function renderWishlist() {
+  const grid = document.getElementById('wishlist-grid');
+  const books = allBooks.filter(b => wishlistIds.has(b.id));
+  renderBookGrid(books, grid, false);
+}
+
+// ═══════════ MY BOOKS ═══════════
+async function renderMyBooks(filter) {
+  const grid = document.getElementById('mybooks-grid');
+  if (!currentUser) {
+    grid.innerHTML = `<div class="empty-state">
+      <div class="empty-state-icon">🔐</div>
+      <h3>Sign in first</h3>
+      <p><a href="#" onclick="showPage('login')" style="color:var(--ink);font-weight:600">Sign in</a> to see your borrowed books.</p>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">
+    <span class="spinner dark"></span><br><br>Loading…
+  </div>`;
+
+  const now = new Date().toISOString();
+  let query = sb.from('loans')
+    .select('*, featured_books(*)')
+    .eq('user_id', currentUser.id)
+    .is('returned_at', null);
+
+  if (filter === 'overdue') query = query.lt('due_date', now);
+
+  const { data, error } = await query;
+
+  if (error || !data?.length) {
+    grid.innerHTML = `<div class="empty-state">
+      <div class="empty-state-icon">📚</div>
+      <h3>No borrowed books</h3>
+      <p>Borrow a book from the home page!</p>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = '';
+  data.forEach((loan, i) => {
+    const book = loan.featured_books;
+    if (!book) return;
+    const card = createCard(book, false);
+    card.style.animationDelay = `${i * 0.04}s`;
+    const due = new Date(loan.due_date);
+    const isOverdue = due < new Date();
+    const dueBadge = document.createElement('div');
+    dueBadge.style.cssText = 'padding:0.4rem 1rem;font-size:0.75rem;font-weight:600;text-align:center;background:'+(isOverdue?'#fff5f5':'#f0faf4')+';color:'+(isOverdue?'var(--rose)':'var(--sage)')+'';
+    dueBadge.textContent = isOverdue ? `⚠️ Overdue since ${due.toLocaleDateString()}` : `📅 Due ${due.toLocaleDateString()}`;
+    card.insertBefore(dueBadge, card.querySelector('.book-body'));
+    grid.appendChild(card);
+  });
+}
+
+function myBooksTab(filter, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderMyBooks(filter);
+}
+
+// ═══════════ SEARCH ═══════════
+async function doSearch() {
+  const type  = document.getElementById('search-type').value;
+  const query = document.getElementById('search-input').value.trim();
+  const grid  = document.getElementById('search-results');
+
+  if (!query) { toast('Enter something to search', 'warning'); return; }
+
+  grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">
+    <span class="spinner dark"></span><br><br>Searching…
+  </div>`;
+
+  const col = type === 'genre' ? 'genre' : type;
+  const { data, error } = await sb.from('featured_books')
+    .select('*')
+    .ilike(col, `%${query}%`)
+    .order('created_at', { ascending: false });
+
+  if (error) { grid.innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠️</div><h3>${error.message}</h3></div>`; return; }
+
+  if (!data.length) {
+    grid.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><h3>No results found</h3><p>Try a different search term.</p></div>`;
+    return;
+  }
+
+  toast(`Found ${data.length} result${data.length !== 1 ? 's' : ''}`, 'success');
+  renderBookGrid(data, grid, false);
+}
+
+function resetSearch() {
+  document.getElementById('search-input').value = '';
+  document.getElementById('search-type').value = 'title';
+  document.getElementById('search-results').innerHTML = '';
+}
+
+// ═══════════ STATS ═══════════
+async function updateStats() {
+  document.getElementById('stat-total').textContent   = allBooks.length;
+  document.getElementById('stat-avail').textContent   = allBooks.length; // simplified
+
+  const { count } = await sb.from('profiles').select('*', { count: 'exact', head: true });
+  document.getElementById('stat-members').textContent = count || '—';
+}
+
+// ═══════════ AUTH STATE ═══════════
+sb.auth.onAuthStateChange(async (event, session) => {
+  if (session?.user) {
+    await loadUserProfile(session.user);
+  } else {
+    currentUser = null; currentRole = null;
+    renderHeader();
+    document.getElementById('add-book-panel').classList.add('hidden');
+  }
+});
+
+// ═══════════ INIT ═══════════
+document.addEventListener('DOMContentLoaded', () => {
+  renderHeader();
+  showPage('home');
+});
+</script>
 </body>
 </html>
