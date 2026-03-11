@@ -991,7 +991,47 @@ footer span { color: var(--gold); }
       <button class="btn-primary btn-full" onclick="doLogin()" id="login-btn">
         <i class="fas fa-sign-in-alt"></i> Sign In
       </button>
+      <div class="auth-link">
+        <a href="#" onclick="showPage('forgot')" style="color:var(--muted);font-size:0.82rem">Forgot password?</a>
+      </div>
       <div class="auth-link">Don't have an account? <a href="#" onclick="showPage('signup')">Sign up</a></div>
+    </div>
+  </section>
+
+  <!-- ══════════ FORGOT PASSWORD ══════════ -->
+  <section id="page-forgot" class="hidden">
+    <div class="auth-wrap">
+      <div class="auth-icon">🔑</div>
+      <div class="auth-title">Reset Password</div>
+      <div class="auth-sub">Enter your email and we'll send you a reset link</div>
+      <div class="field">
+        <label>Email</label>
+        <input class="inp" type="email" id="forgot-email" placeholder="you@school.edu" onkeydown="if(event.key==='Enter')doForgot()" />
+      </div>
+      <button class="btn-primary btn-full" onclick="doForgot()" id="forgot-btn">
+        <i class="fas fa-paper-plane"></i> Send Reset Link
+      </button>
+      <div class="auth-link"><a href="#" onclick="showPage('login')"><i class="fas fa-arrow-left"></i> Back to Sign In</a></div>
+    </div>
+  </section>
+
+  <!-- ══════════ RESET PASSWORD (after clicking email link) ══════════ -->
+  <section id="page-reset" class="hidden">
+    <div class="auth-wrap">
+      <div class="auth-icon">🔒</div>
+      <div class="auth-title">New Password</div>
+      <div class="auth-sub">Choose a strong new password for your account</div>
+      <div class="field">
+        <label>New Password</label>
+        <input class="inp" type="password" id="reset-password" placeholder="Min 6 characters" />
+      </div>
+      <div class="field">
+        <label>Confirm Password</label>
+        <input class="inp" type="password" id="reset-confirm" placeholder="Repeat password" onkeydown="if(event.key==='Enter')doReset()" />
+      </div>
+      <button class="btn-primary btn-full" onclick="doReset()" id="reset-btn">
+        <i class="fas fa-check"></i> Update Password
+      </button>
     </div>
   </section>
 
@@ -1153,7 +1193,59 @@ async function doSignup() {
   showPage('login');
 }
 
-async function doLogout() {
+async function doForgot() {
+  const emailEl = document.getElementById('forgot-email');
+  const email = emailEl?.value.trim();
+  if (!email) { toast('Please enter your email', 'warning'); return; }
+
+  const btn = document.getElementById('forgot-btn');
+  btn.innerHTML = '<span class="spinner"></span> Sending…';
+  btn.disabled = true;
+
+  const { error } = await sb.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.href
+  });
+
+  if (error) {
+    toast(error.message, 'error');
+  } else {
+    toast('Reset link sent! Check your email.', 'success', '✉️');
+    emailEl.value = '';
+    setTimeout(() => showPage('login'), 2000);
+  }
+
+  btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Reset Link';
+  btn.disabled = false;
+}
+
+async function doReset() {
+  const pass    = document.getElementById('reset-password').value;
+  const confirm = document.getElementById('reset-confirm').value;
+
+  if (!pass || !confirm) { toast('Please fill both fields', 'warning'); return; }
+  if (pass.length < 6)   { toast('Password must be at least 6 characters', 'warning'); return; }
+  if (pass !== confirm)  { toast('Passwords do not match', 'error'); return; }
+
+  const btn = document.getElementById('reset-btn');
+  btn.innerHTML = '<span class="spinner"></span> Updating…';
+  btn.disabled = true;
+
+  const { error } = await sb.auth.updateUser({ password: pass });
+
+  if (error) {
+    toast(error.message, 'error');
+  } else {
+    toast('Password updated! Please sign in.', 'success', '✅');
+    document.getElementById('reset-password').value = '';
+    document.getElementById('reset-confirm').value = '';
+    setTimeout(() => showPage('login'), 1500);
+  }
+
+  btn.innerHTML = '<i class="fas fa-check"></i> Update Password';
+  btn.disabled = false;
+}
+
+
   await sb.auth.signOut();
   currentUser = null; currentRole = null;
   borrowedIds = new Set();
@@ -1570,6 +1662,12 @@ async function updateStats() {
 
 // ═══════════ AUTH STATE ═══════════
 sb.auth.onAuthStateChange(async (event, session) => {
+  if (event === 'PASSWORD_RECOVERY') {
+    // User clicked the reset link in their email
+    showPage('reset');
+    toast('Enter your new password below', 'info', '🔒');
+    return;
+  }
   if (session?.user) {
     await loadUserProfile(session.user);
   } else {
