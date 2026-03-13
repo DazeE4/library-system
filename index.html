@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="X-Frame-Options" content="DENY">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="geolocation=(), camera=(), microphone=()">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.supabase.co https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; img-src 'self' https: data:; connect-src 'self' https://*.supabase.co; font-src https://fonts.gstatic.com https://cdnjs.cloudflare.com;">
@@ -1205,7 +1204,7 @@ footer span { color: var(--gold); }
       <div class="auth-icon">📖</div>
       <div class="auth-title">Welcome Back</div>
       <div class="auth-sub">Sign in to your library account</div>
-      <div class="field"><label>Email</label><input class="inp" type="email" id="login-email" placeholder="example@gmail.com"/></div>
+      <div class="field"><label>Email</label><input class="inp" type="email" id="login-email" placeholder="exampl@gmail.com"/></div>
       <div class="field"><label>Password</label><input class="inp" type="password" id="login-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
       <button class="btn-primary btn-full" onclick="doLogin()" id="login-btn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
       <div class="auth-link"><a href="#" onclick="return showPage('forgot')" style="color:var(--muted);font-size:0.82rem"><i class="fas fa-key"></i> Forgot password?</a></div>
@@ -1219,7 +1218,7 @@ footer span { color: var(--gold); }
       <div class="auth-icon">🔑</div>
       <div class="auth-title">Reset Password</div>
       <div class="auth-sub">We'll send a reset link to your email</div>
-      <div class="field"><label>Email</label><input class="inp" type="email" id="forgot-email" placeholder="you@school.edu" onkeydown="if(event.key==='Enter')doForgot()"/></div>
+      <div class="field"><label>Email</label><input class="inp" type="email" id="forgot-email" placeholder="example@gmail.edu" onkeydown="if(event.key==='Enter')doForgot()"/></div>
       <button class="btn-primary btn-full" onclick="doForgot()" id="forgot-btn"><i class="fas fa-paper-plane"></i> Send Reset Link</button>
       <div class="auth-link"><a href="#" onclick="return showPage('login')"><i class="fas fa-arrow-left"></i> Back to Sign In</a></div>
     </div>
@@ -1391,6 +1390,15 @@ function sanitizeText(str, maxLen = 500) {
   return String(str).replace(/[<>]/g, '').trim().slice(0, maxLen);
 }
 
+// Returns a redirectTo URL only on real HTTP/HTTPS origins.
+// When opened from disk (file://) Supabase rejects the file:// redirect
+// with 429. Returning undefined makes Supabase fall back to the Site URL
+// set in Authentication → URL Configuration in the dashboard.
+function safeRedirectTo() {
+  return window.location.protocol === 'file:' ? undefined
+    : window.location.origin + window.location.pathname;
+}
+
 // ================================================================
 //  UTILITIES
 // ================================================================
@@ -1503,7 +1511,7 @@ async function doSignup() {
   if (btn.disabled) return;
   btn.innerHTML = '<span class="spinner"></span> Creating\u2026'; btn.disabled = true;
   try {
-    const redirectTo = window.location.origin + window.location.pathname;
+    const redirectTo = safeRedirectTo();
     const { data, error } = await withTimeout(
       sb.auth.signUp({ email, password: pass,
         options: { emailRedirectTo: redirectTo,
@@ -1525,19 +1533,46 @@ async function doForgot() {
   const emailEl = document.getElementById('forgot-email');
   const email   = emailEl.value.trim();
   if (!email) { toast('Please enter your email', 'warning'); return; }
+  if (!isValidEmail(email)) { toast('Invalid email format', 'warning'); return; }
   const btn = document.getElementById('forgot-btn');
   if (btn.disabled) return;
   btn.innerHTML = '<span class="spinner"></span> Sending\u2026'; btn.disabled = true;
   try {
-    // FIX §orig-6: clean redirectTo — no existing hash/params that confuse Supabase
-    const redirectTo = window.location.origin + window.location.pathname;
+    // safeRedirectTo() returns undefined when opened from disk (file://)
+    // so Supabase uses the Site URL from the dashboard instead of a
+    // rejected file:// path — fixes the 429 error completely.
+    const redirectTo = safeRedirectTo();
     const { error } = await withTimeout(sb.auth.resetPasswordForEmail(email, { redirectTo }));
-    if (error) { toast(error.message, 'error'); return; }
-    toast('Reset link sent! Check your inbox.', 'success', '\u2709');
+    if (error) {
+      const msg = error.message || '';
+      if (msg.toLowerCase().includes('rate') || msg.toLowerCase().includes('limit')) {
+        toast('Please wait 60 seconds before requesting another link.', 'warning', '\u23f3');
+      } else {
+        toast(msg || 'Request failed.', 'error');
+      }
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Reset Link';
+      return;
+    }
+    toast('Reset link sent! Check your inbox (and spam folder).', 'success', '\u2709');
     emailEl.value = '';
-    setTimeout(() => showPage('login'), 2000);
-  } catch(err) { toast(err.message || 'Request failed.', 'error'); }
-  finally { btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Reset Link'; btn.disabled = false; }
+    // 60-second cooldown so the button cannot be spammed
+    let secs = 60;
+    const iv = setInterval(() => {
+      secs--;
+      btn.innerHTML = `<i class="fas fa-clock"></i> Resend in ${secs}s`;
+      if (secs <= 0) {
+        clearInterval(iv);
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Reset Link';
+        btn.disabled = false;
+      }
+    }, 1000);
+    setTimeout(() => showPage('login'), 3000);
+  } catch(err) {
+    toast(err.message || 'Request failed.', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Reset Link';
+  }
 }
 
 async function doReset() {
@@ -2588,6 +2623,10 @@ sb.auth.onAuthStateChange(async (event, session) => {
     return;
   }
   if (event === 'SIGNED_IN' && session?.user && !currentUser) {
+    // When a recovery link is clicked, Supabase fires PASSWORD_RECOVERY then
+    // immediately SIGNED_IN. Without this guard the old showPage('home') call
+    // would wipe the reset form, leaving a blank/wrong page.
+    if (currentPage === 'reset') return;
     await loadUserProfile(session.user);
     showPage('home');
     toast('Email verified! Welcome.', 'success', '\u2705');
@@ -2613,34 +2652,40 @@ sb.auth.onAuthStateChange(async (event, session) => {
 document.addEventListener('DOMContentLoaded', async () => {
   renderHeader();
 
-  // Cross-browser password reset: detect token in URL hash or query params
-  // This handles the case where user clicks reset link in a different browser
-  // (session not yet established, but token is in the URL)
+  // PASSWORD RESET — Gmail-style instant handling
+  // After Supabase verifies the token server-side it redirects here with:
+  //   #access_token=xxx&refresh_token=yyy&type=recovery
+  // We extract those tokens and call setSession() ourselves immediately
+  // instead of waiting for detectSessionInUrl's async exchange.
+  // This means the session is active before the overlay is even removed,
+  // so the user can type and submit their new password right away.
   const _hash  = new URLSearchParams(window.location.hash.replace(/^#/, ''));
   const _query = new URLSearchParams(window.location.search);
-  const _recType = _hash.get('type') || _query.get('type');
+  const _recType   = _hash.get('type') || _query.get('type');
+  const _accToken  = _hash.get('access_token');
+  const _refToken  = _hash.get('refresh_token');
   if (_recType === 'recovery') {
-    // Supabase detectSessionInUrl will handle setting the session;
-    // we pre-show the reset page so there's no blank flash
     showPage('reset');
-    toast('Enter your new password below', 'info', '\U0001f512');
-    // Remove recovery params from URL bar (clean URL)
-    if (history.replaceState) history.replaceState({}, document.title, window.location.pathname);
-  }
-
-  try {
-    const { data: { session }, error: sessErr } = await sb.auth.getSession();
-    if (session?.user) {
-      await loadUserProfile(session.user);
-      // Only navigate home if we're not on the reset page
-      if (_recType !== 'recovery') showPage('home');
-    } else {
-      if (sessErr) console.warn('getSession error:', sessErr.message);
-      if (_recType !== 'recovery') showPage('home');
+    if (_accToken && _refToken) {
+      // Set the session immediately — no waiting for async detectSessionInUrl
+      sb.auth.setSession({ access_token: _accToken, refresh_token: _refToken })
+        .catch(e => console.warn('setSession failed:', e.message));
     }
-  } catch(e) {
-    console.warn('Session restore failed:', e.message);
-    if (_recType !== 'recovery') showPage('home');
+    toast('Enter your new password below', 'info', '\U0001f512');
+  } else {
+    try {
+      const { data: { session }, error: sessErr } = await withTimeout(sb.auth.getSession(), 8000);
+      if (session?.user) {
+        await loadUserProfile(session.user);
+        showPage('home');
+      } else {
+        if (sessErr) console.warn('getSession error:', sessErr.message);
+        showPage('home');
+      }
+    } catch(e) {
+      console.warn('Session restore failed:', e.message);
+      showPage('home');
+    }
   }
 
   // Hide loading overlay (with smooth fade)
