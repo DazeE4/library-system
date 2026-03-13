@@ -489,10 +489,18 @@ CREATE INDEX IF NOT EXISTS idx_audit_actor      ON audit_log       (actor_id, cr
 -- ─────────────────────────────────────────────────────────────
 UPDATE profiles
   SET role = 'admin'
-  WHERE email = 'arai27814@gmail.com';
+  WHERE email = 'example@gmail.com';
 
 -- ─────────────────────────────────────────────────────────────
---  23. HOW TO RESET AUTH / LOGIN DATA (manual instructions)
+--  23. SET librarian ACCOUNT
+--  If the profile row doesn't exist yet, sign up first then
+--  re-run just this UPDATE statement.
+-- ─────────────────────────────────────────────────────────────
+UPDATE profiles
+  SET role = 'librarian'
+  WHERE email = 'example@gmail.com';
+-- ─────────────────────────────────────────────────────────────
+--  24. HOW TO RESET AUTH / LOGIN DATA (manual instructions)
 --
 --  WARNING: This is DESTRUCTIVE. All users will be deleted.
 --  Run ONLY if you want to start fresh with logins.
@@ -511,7 +519,7 @@ UPDATE profiles
 --
 --  Step 4 — Sign up admin account again and run:
 --    UPDATE profiles SET role = 'admin'
---    WHERE email = 'arai27814@gmail.com';
+--    WHERE email = 'example@gmail.com';
 --
 --  NOTE: Books table is NOT deleted in this process.
 --        Only auth/user data (profiles, borrow_requests, notifications).
