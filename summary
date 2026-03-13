@@ -1,0 +1,167 @@
+Rich Dad Poor Dad
+Robert T. Kiyosaki, Sharon Lechter
+Rich Dad Poor Dad explains that financial success depends more on mindset and financial education than on formal schooling or a high-paying job, emphasizing the importance of understanding the difference between assets and liabilities, making money work for you through investments and businesses, avoiding reliance on salary alone, and developing financial intelligence to achieve long-term financial independence.
+Non-Fiction, Personal Finance, Self-help
+https://imgs.search.brave.com/KgItZv7XBzbKzX4VAMGN2UFfhwWtRwzsoq7jD9eHGWg/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jbGlj/a3VwLmNvbS9ibG9n/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDI0/LzAzL1JpY2gtRGFk/LVBvb3ItRGFkLWNv/dmVyLTkzM3gxNDAw/LnBuZw
+==================================
+Relativity: The Special and the General Theory
+Albert Einstein 
+Relativity: The Special and General Theory explains the principles of Albert Einstein’s theory of relativity in a way accessible to non-specialists. The book is divided into two parts: Special Relativity, which deals with the physics of objects moving at constant high speeds and introduces concepts like time dilation, length contraction, and the equivalence of mass and energy; and General Relativity, which describes gravity as the curvature of spacetime caused by mass and energy. The work emphasizes that measurements of space and time depend on the observer’s frame of reference and that the laws of physics are the same for all inertial observers, fundamentally changing our understanding of space, time, and gravity.
+Science
+https://imgs.search.brave.com/rAqONpMY9yWpQoyohPh8i6YX_bXfEBsdEkuJ8cs9xY8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9yb2ti/dWNrZXQucm9rb21h/cmkuaW8vUHJvZHVj/dE5ldzIwMTkwOTAz/LzEzMFgxODYvUmVs/YXRpdml0eV9UaGVf/U3BlY2lhbF9BbmRf/VGhlX0dlbmVyYWxf/VC1BbGJlcnRfRWlu/c3RlaW5fLWYxNGVj/LTcxNjgzLmpwZw
+======================
+the process must stop if password wrong,account already created.
+process must stop if something else is clicked triggering it to stop.
+web must be fast not slow.
+when first time using or opening web there is no loading problem then after logging and clicking borrow then refresh it stuck at loading.
+loading problem sometime:
+1.when logined in and borrowed book, it only loads in featured books and also loads in books,available and members. [ in books,available and members section it loads like --- and its stuck ]
+2.when logined in and refresh logs out and then trying to sign in/login even though password is correct it only stuck at signing in...
+3.it logined in and refresh it logs out and loads then its stuck again
+4.when trying to reset password and send rest password link to gmail after clicking the link it goes to new seperate tab and about:blank only shows and stuck again.
+5.once the website is bugged on a device it will be stuck (keeps loading only) forever
+6.from about:blank--> http://localhost:3000/#access_token=e....Yw&expires_at=...6&expires_in=3600&refresh_token=..&sb=&token_type=bearer&type=recovery {problem--> 
+[ This site can’t be reached
+localhost took too long to respond.
+Try:
+
+Checking the connection
+Checking the proxy and the firewall
+ERR_CONNECTION_TIMED_OUT ]}
+=================
+user profile--> seperate user page shows own information ( admins,librarian can see everyone's except eachothers and student can't see eachother's information. )
+during sign up when link is sent to gmail make sure the link opens the logined tab after requirements are fulfilled.
+books must be in quantity set by librarian when uploading its informations and borrowing must be set by librarian only and time also must be set by librarian ( max 1 month else fees must be given of Rs. 50 and each week it increments by Rs.50 ) and also user must be notified in their login page in notification icon ( like of instagram ). User can only read the details of books in a seperate page after clicking the book. while searching book it must not be case sensitive and book coverpage must appear from the provided link or else can be uploaded from gallery or photos by only librarian. The member part is broken it must show only students as members. Under featured books section genre is broken when I click non-fiction the book doesn't appear. and when I click a specific genre the (books,available,members) section breaks and shows 0.The return and borrow must be set by librarian only. also I tried 
+
+UPDATE profiles 
+SET role = 'admin' 
+WHERE email = 'arai27814@gmail.com';
+
+ why doesn't it work ( with librarian role as well ) ? also Set up member list with their own uid ( exclude librarian and admin only ). Member list can be seen by anyone ( no students can see admin and librarian, admin and librarian can see everyone including eachother ). Only librarian and admin can search specific students through uid or name and class,section.
+==================================
+Follow the given instruction with minimal change and also add enterprise level security just in case. Must be super advanced in security.
+
+profile table is bugged because I have logined as student yet it shows no data in database.
+In featured books genre when I click Non-Fiction-> rich dad poor dad book doesn't show up as it's genre is Non-Fiction, Personal Finance, Self-help in genre column. The database should think of genre column , as a seperator rather then thinking it as same word.
+
+Loading takes time must be smooth as fast as possible, also
+
+only one error reset password link is not working properly:
+
+https://www.google.com/url?q=https://nuvkoluhmiewdegpsrbl.supabase.co/auth/v1/verify?token%3D3e29ebb2a3305faab2de0a7390e37ae736c95b8f4f8859e66257a393%26type%3Drecovery%26redirect_to%3Dhttp://localhost:3000&source=gmail&ust=1773417199516000&usg=AOvVaw1hKttJgw2JVXXHHSVomWOI
+
+make it work for all browsers normally because while in a different browser it doesn't show members only U0001f465
+No members found
+supabase.min.js:7   POST https://nuvkoluhmiewdegpsrbl.supabase.co/rest/v1/profiles 409 (Conflict)
+(anonymous) @ supabase.min.js:7
+(anonymous) @ supabase.min.js:7
+o @ supabase.min.js:7
+Promise.then
+c @ supabase.min.js:7
+(anonymous) @ supabase.min.js:7
+o @ supabase.min.js:7
+(anonymous) @ supabase.min.js:7
+then @ supabase.min.js:7
+[NEW] Explain Console errors by using Copilot
+and when I refresh the tab it logs out for some seconds.
+
+nuvkoluhmiewdegpsrbl.supabase.co/rest/v1/profiles:1   Failed to load resource: the server responded with a status of 409 ()
+[NEW] Explain Console errors by using Copilot in Edge: click
+         
+         to explain an error. 
+        Learn more
+       
+       Admin user has My Book section please remove this section in 
+       admin and librarian -->
+        ⏳ Pending
+U0001f4d6 Active
+⚠️ Overdue
+U0001f4da History
+console:
+nuvkoluhmiewdegpsrbl.supabase.co/rest/v1/borrow_requests?select=*%2Cbooks%28*%29%2Cprofiles%3Auser_id%28full_name%2Cemail%2Cuid%2Cclass%2Csection%29&order=requested_at.desc&status=eq.pending:1  Failed to load resource: the server responded with a status of 400 ()
+nuvkoluhmiewdegpsrbl.supabase.co/rest/v1/borrow_requests?select=*%2Cbooks%28*%29%2Cprofiles%3Auser_id%28full_name%2Cemail%2Cuid%2Cclass%2Csection%29&order=requested_at.desc&status=eq.pending:1  Failed to load resource: the server responded with a status of 400 ()
+nuvkoluhmiewdegpsrbl.supabase.co/rest/v1/borrow_requests?select=*%2Cbooks%28*%29%2Cprofiles%3Auser_id%28full_name%2Cemail%2Cuid%2Cclass%2Csection%29&order=requested_at.asc&status=eq.approved&due_date=gte.2026-03-12T17%3A11%3A40.249Z:1  Failed to load resource: the server responded with a status of 400 ()
+nuvkoluhmiewdegpsrbl.supabase.co/rest/v1/borrow_requests?select=*%2Cbooks%28*%29%2Cprofiles%3Auser_id%28full_name%2Cemail%2Cuid%2Cclass%2Csection%29&order=requested_at.asc&status=eq.approved&due_date=lt.2026-03-12T17%3A11%3A41.015Z:1  Failed to load resource: the server responded with a status of 400 ()
+nuvkoluhmiewdegpsrbl.supabase.co/rest/v1/borrow_requests?select=*%2Cbooks%28*%29%2Cprofiles%3Auser_id%28full_name%2Cemail%2Cuid%2Cclass%2Csection%29&order=requested_at.asc&status=in.%28returned%2Crejected%29:1  Failed to load resource: the server responded with a status of 400 ()
+nuvkoluhmiewdegpsrbl.supabase.co/rest/v1/borrow_requests?select=*%2Cbooks%28*%29%2Cprofiles%3Auser_id%28full_name%2Cemail%2Cuid%2Cclass%2Csection%29&order=requested_at.asc&status=in.%28returned%2Crejected%29:1  Failed to load resource: the server responded with a status of 400 ()
+nuvkoluhmiewdegpsrbl.supabase.co/rest/v1/borrow_requests?select=*%2Cbooks%28*%29%2Cprofiles%3Auser_id%28full_name%2Cemail%2Cuid%2Cclass%2Csection%29&order=requested_at.asc&status=in.%28returned%2Crejected%29:1  Failed to load resource: the server responded with a status of 400 ()
+nuvkoluhmiewdegpsrbl.supabase.co/rest/v1/borrow_requests?select=*%2Cbooks%28*%29%2Cprofiles%3Auser_id%28full_name%2Cemail%2Cuid%2Cclass%2Csection%29&order=requested_at.asc&status=in.%28returned%2Crejected%29:1  Failed to load resource: the server responded with a status of 400 ()
+nuvkoluhmiewdegpsrbl.supabase.co/rest/v1/borrow_requests?select=*%2Cbooks%28*%29%2Cprofiles%3Auser_id%28full_name%2Cemail%2Cuid%2Cclass%2Csection%29&order=requested_at.asc&status=in.%28returned%2Crejected%29:1  Failed to load resource: the server responded with a status of 400 ()
+supabase.min.js:7  GET https://nuvkoluhmiewdegpsrbl.supabase.co/rest/v1/borrow_requests?select=*%2Cbooks%28*%29%2Cprofiles%3Auser_id%28full_name%2Cemail%2Cuid%2Cclass%2Csection%29&order=requested_at.asc&status=in.%28returned%2Crejected%29 400 (Bad Request)
+
+why is there no members shown even though there is?
+when requesting books as students:
+Error: new row violates row-level security policy for table "borrow_requests"
+
+and also add a feature where librarian and admin can give notification/notice to students at will and don't replace any automatic notification
+how to reset all login info in database to restart from beginning (login, user info only nothing else just datas)
+can you do it and also at the same time do tell me how to do it manually as well.
+=========================================================
+With minimal change,
+[
+  {
+    "name": "function_search_path_mutable",
+    "title": "Function Search Path Mutable",
+    "level": "WARN",
+    "facing": "EXTERNAL",
+    "categories": [
+      "SECURITY"
+    ],
+    "description": "Detects functions where the search_path parameter is not set.",
+    "detail": "Function \\`public.set_updated_at\\` has a role mutable search_path",
+    "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0011_function_search_path_mutable",
+    "metadata": {
+      "name": "set_updated_at",
+      "type": "function",
+      "schema": "public"
+    },
+    "cache_key": "function_search_path_mutable_public_set_updated_at_301a884953d37769916294bb60562e05"
+  },
+  {
+    "name": "auth_leaked_password_protection",
+    "title": "Leaked Password Protection Disabled",
+    "level": "WARN",
+    "facing": "EXTERNAL",
+    "categories": [
+      "SECURITY"
+    ],
+    "description": "Leaked password protection is currently disabled.",
+    "detail": "Supabase Auth prevents the use of compromised passwords by checking against HaveIBeenPwned.org. Enable this feature to enhance security.",
+    "cache_key": "auth_leaked_password_protection",
+    "remediation": "https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection",
+    "metadata": {
+      "type": "auth",
+      "entity": "Auth"
+    }
+  }
+]
+
+[
+  {
+    "name": "security_definer_view",
+    "title": "Security Definer View",
+    "level": "ERROR",
+    "facing": "EXTERNAL",
+    "categories": [
+      "SECURITY"
+    ],
+    "description": "Detects views defined with the SECURITY DEFINER property. These views enforce Postgres permissions and row level security policies (RLS) of the view creator, rather than that of the querying user",
+    "detail": "View \\`public.books_with_availability\\` is defined with the SECURITY DEFINER property",
+    "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0010_security_definer_view",
+    "metadata": {
+      "name": "books_with_availability",
+      "type": "view",
+      "schema": "public"
+    },
+    "cache_key": "security_definer_view_public_books_with_availability"
+  }
+]
+
+and
+in role librarian,
+Under my books section: ⏳ Pending
+U0001f4d6 Active
+⚠️ Overdue
+U0001f4da History 
+
+is this fine?

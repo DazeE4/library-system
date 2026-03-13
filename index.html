@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), camera=(), microphone=()">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.supabase.co https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; img-src 'self' https: data:; connect-src 'self' https://*.supabase.co; font-src https://fonts.gstatic.com https://cdnjs.cloudflare.com;">
 <title>Bagmati School Library</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -796,11 +801,214 @@ footer span { color: var(--gold); }
   .filter-bar { gap: 0.35rem; }
   .filter-chip { padding: 0.35rem 0.75rem; font-size: 0.75rem; }
 }
+
+
+/* ═══════════════════ NEW ADDITIONS ═══════════════════ */
+
+/* Notification bell button */
+.notif-btn {
+  position: relative;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--cream);
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  transition: var(--ease);
+  flex-shrink: 0;
+}
+.notif-btn:hover { background: rgba(255,255,255,0.18); }
+.notif-badge {
+  position: absolute;
+  top: -6px; right: -6px;
+  background: var(--rose);
+  color: white;
+  font-size: 0.58rem;
+  font-weight: 700;
+  min-width: 17px; height: 17px;
+  border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 3px;
+  border: 2px solid var(--ink);
+}
+
+/* Status / fee badges */
+.status-badge {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.67rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.status-badge.pending  { background: rgba(201,168,76,0.15); color: #8a6a1a; border: 1px solid rgba(201,168,76,0.3); }
+.status-badge.approved { background: rgba(74,124,89,0.1);  color: var(--sage); border: 1px solid rgba(74,124,89,0.25); }
+.status-badge.rejected { background: rgba(192,57,43,0.1);  color: var(--rose); border: 1px solid rgba(192,57,43,0.2); }
+.status-badge.returned { background: rgba(26,26,46,0.07);  color: var(--muted); border: 1px solid var(--border); }
+
+.fee-badge { background: #fff5f5; color: var(--rose); border: 1px solid #fdd; border-radius: 8px; padding: 0.2rem 0.6rem; font-size: 0.74rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.3rem; }
+.fee-badge.ok { background: #f0faf4; color: var(--sage); border-color: #c3e6cb; }
+
+/* Role chip */
+.role-chip { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.25rem 0.7rem; border-radius: 999px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.role-chip.librarian { background: rgba(201,168,76,0.15); color: #8a6a1a; border: 1px solid rgba(201,168,76,0.3); }
+.role-chip.student   { background: rgba(74,124,89,0.1);  color: var(--sage); border: 1px solid rgba(74,124,89,0.2); }
+.role-chip.admin     { background: rgba(192,57,43,0.1);  color: var(--rose); border: 1px solid rgba(192,57,43,0.2); }
+
+/* btn-request (sky blue) */
+.btn-request {
+  flex: 1;
+  background: var(--sky); color: white; border: none;
+  border-radius: 8px; padding: 0.5rem;
+  font-size: 0.78rem; font-weight: 600; cursor: pointer;
+  transition: var(--ease);
+  display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-request:hover:not(:disabled) { background: #1a6797; }
+.btn-request:disabled { background: var(--cream2); color: var(--muted); cursor: not-allowed; }
+
+/* btn-pending */
+.btn-pending {
+  flex: 1;
+  background: rgba(201,168,76,0.12); color: #8a6a1a;
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 8px; padding: 0.5rem;
+  font-size: 0.78rem; font-weight: 600; cursor: default;
+  display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* sm button */
+.btn-sm { padding: 0.35rem 0.8rem !important; font-size: 0.78rem !important; border-radius: 8px !important; }
+.btn-danger {
+  background: var(--rose); color: white; border: none;
+  border-radius: 10px; padding: 0.7rem 1.5rem;
+  font-size: 0.9rem; font-weight: 600; cursor: pointer;
+  transition: var(--ease);
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-danger:hover:not(:disabled) { background: #a93226; }
+.btn-danger:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Members grid */
+.members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 1.25rem; }
+.member-card { background: var(--white); border-radius: var(--radius); padding: 1.25rem 1.5rem; box-shadow: var(--shadow-sm); border: 1px solid var(--border); display: flex; align-items: center; gap: 1rem; transition: var(--ease); }
+.member-card.clickable { cursor: pointer; }
+.member-card.clickable:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--gold); }
+.member-avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--ink); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--gold); flex-shrink: 0; }
+.member-name { font-weight: 600; font-size: 0.93rem; }
+.member-uid { font-size: 0.72rem; color: var(--muted); margin-top: 0.1rem; font-family: monospace; }
+.member-meta { font-size: 0.72rem; color: var(--muted); margin-top: 0.12rem; }
+
+/* Request card */
+.req-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 1.25rem 1.5rem; display: flex; gap: 1.1rem; align-items: flex-start; transition: var(--ease); box-shadow: var(--shadow-sm); margin-bottom: 1rem; }
+.req-card:hover { box-shadow: var(--shadow-md); }
+.req-card.overdue { background: #fff9f9; border-left: 3px solid var(--rose); }
+.req-book-cover { width: 56px; height: 76px; border-radius: 7px; flex-shrink: 0; overflow: hidden; background: linear-gradient(145deg,var(--ink),var(--ink-soft)); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.25); font-size: 1.2rem; }
+.req-book-cover img { width: 100%; height: 100%; object-fit: cover; }
+.req-info { flex: 1; min-width: 0; }
+.req-student { font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); margin-bottom: 0.2rem; }
+.req-book-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.93rem; margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.req-book-author { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.5rem; }
+.req-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 0.5rem; }
+.req-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.6rem; }
+
+/* Notifications */
+.notif-item { background: var(--white); border-radius: var(--radius); padding: 1.1rem 1.5rem; border: 1px solid var(--border); margin-bottom: 0.75rem; display: flex; gap: 1rem; align-items: flex-start; }
+.notif-item.unread { border-left: 4px solid var(--gold); background: #fffdf7; }
+.notif-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; background: var(--cream2); }
+.notif-body { flex: 1; }
+.notif-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.2rem; }
+.notif-msg { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+.notif-time { font-size: 0.7rem; color: var(--muted); margin-top: 0.35rem; }
+
+/* Profile */
+.profile-card { background: var(--white); border-radius: var(--radius); padding: 2.5rem; box-shadow: var(--shadow-sm); border: 1px solid var(--border); max-width: 600px; margin: 0 auto; }
+.profile-avatar-lg { width: 80px; height: 80px; border-radius: 50%; background: var(--ink); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--gold); margin: 0 auto 1.5rem; }
+.profile-row { display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 0; border-bottom: 1px solid var(--border); }
+.profile-label { font-size: 0.78rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.profile-value { font-size: 0.93rem; font-weight: 500; color: var(--ink); }
+
+/* Modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(26,26,46,0.55); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(2px); animation: fadeIn 0.2s ease; }
+.modal-box { background: var(--white); border-radius: var(--radius); padding: 2rem; max-width: 460px; width: 100%; box-shadow: var(--shadow-lg); animation: fadeUp 0.3s ease; max-height: 90vh; overflow-y: auto; }
+.modal-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
+.modal-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; }
+.modal-close { background: none; border: none; font-size: 1.3rem; color: var(--muted); cursor: pointer; line-height: 1; padding: 0.2rem; transition: var(--ease); }
+.modal-close:hover { color: var(--ink); }
+.modal-info { background: var(--cream); border-radius: 10px; padding: 1rem; margin-bottom: 1.25rem; font-size: 0.88rem; line-height: 1.6; }
+.book-detail-cover { height: 200px; background: linear-gradient(145deg,var(--ink),var(--ink-soft)); border-radius: 10px; overflow: hidden; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.3); font-size: 3rem; }
+.book-detail-cover img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Add quantity field */
+.add-qty-field { }
+
+/* Page title/desc reuse */
+.page-header { margin-bottom: 2rem; }
+.page-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; display: flex; align-items: center; gap: 0.6rem; }
+.page-desc { font-size: 0.9rem; color: var(--muted); margin-top: 0.3rem; }
+
+@media (max-width: 768px) {
+  .members-grid { grid-template-columns: 1fr; }
+  .req-card { flex-direction: column; }
+}
+
+/* ═══════════════════ PAGE LOADING OVERLAY ═══════════════════ */
+#page-loading {
+  position: fixed; inset: 0;
+  background: var(--ink);
+  z-index: 99999;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 1.25rem;
+  transition: opacity 0.45s ease;
+}
+#page-loading.fade-out { opacity: 0; pointer-events: none; }
+.loading-logo {
+  width: 64px; height: 64px;
+  background: var(--gold);
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; color: var(--ink);
+  animation: pulse 1.2s ease infinite;
+}
+.loading-label { color: rgba(250,248,243,0.7); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ═══════════════════ SEND NOTICE MODAL ═══════════════════ */
+.notice-target-row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+.notice-target-chip {
+  padding: .35rem .85rem; border-radius: 999px;
+  border: 1.5px solid var(--border); background: var(--white);
+  font-size: .8rem; font-weight: 600; cursor: pointer;
+  transition: var(--ease); color: var(--ink-soft);
+  font-family: 'DM Sans', sans-serif;
+}
+.notice-target-chip.active { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.members-page-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.btn-notice {
+  background: var(--gold); color: var(--ink); border: none;
+  border-radius: 10px; padding: .55rem 1.2rem;
+  font-size: .85rem; font-weight: 700; cursor: pointer;
+  transition: var(--ease); display: inline-flex; align-items: center; gap: .4rem;
+  font-family: 'DM Sans', sans-serif; align-self: center;
+}
+.btn-notice:hover { background: var(--gold-lt); transform: translateY(-1px); }
+.btn-notice:disabled { opacity: .6; cursor: not-allowed; transform: none; }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════ TOAST CONTAINER ═══════════════════ -->
+<!-- ═══════════════════ LOADING OVERLAY ═══════════════════ -->
+<div id="page-loading">
+  <div class="loading-logo"><i class="fas fa-book-open"></i></div>
+  <div class="loading-label">Loading Library&hellip;</div>
+  <span class="spinner" style="border-color:rgba(201,168,76,0.3);border-top-color:var(--gold)"></span>
+</div>
+
 <div id="toast-container"></div>
 
 <!-- ═══════════════════ HEADER ═══════════════════ -->
@@ -814,27 +1022,25 @@ footer span { color: var(--gold); }
   </div>
 
   <nav id="main-nav">
-    <a href="#" onclick="showPage('home')"     id="nav-home">    <i class="fas fa-home"></i> Home</a>
-    <a href="#" onclick="showPage('search')"   id="nav-search">  <i class="fas fa-search"></i> Search</a>
-    <a href="#" onclick="showPage('mybooks')"  id="nav-mybooks"> <i class="fas fa-book"></i> My Books</a>
-    <a href="#" onclick="showPage('wishlist')" id="nav-wishlist"><i class="fas fa-heart"></i> Wishlist</a>
+    <a href="#" onclick="return showPage('home')"          id="nav-home">    <i class="fas fa-home"></i> Home</a>
+    <a href="#" onclick="return showPage('search')"        id="nav-search">  <i class="fas fa-search"></i> Search</a>
+    <a href="#" onclick="return showPage('mybooks')"       id="nav-mybooks" class="nav-mybooks-link"> <i class="fas fa-book"></i> My Books</a>
+    <a href="#" onclick="return showPage('members')"       id="nav-members"> <i class="fas fa-users"></i> Members</a>
+    <a href="#" onclick="return showPage('wishlist')"      id="nav-wishlist"><i class="fas fa-heart"></i> Wishlist</a>
   </nav>
 
-  <div class="header-right" id="header-right">
-    <!-- filled by JS -->
-  </div>
+  <div class="header-right" id="header-right"></div>
 </header>
 
 <!-- ═══════════════════ MAIN ═══════════════════ -->
 <main class="container">
 
-  <!-- ══════════ HOME ══════════ -->
+  <!-- HOME -->
   <section id="page-home">
-
     <div class="hero">
       <div class="hero-label">Bagmati School, Nepal</div>
       <h1>Discover <span>Knowledge</span><br>Without Limits</h1>
-      <p>Explore thousands of books, borrow with one click, and track your reading journey all in one place.</p>
+      <p>Explore our collection, request books, and track your reading journey.</p>
       <div class="hero-stats">
         <div class="hero-stat"><div class="hero-stat-num" id="stat-total">—</div><div class="hero-stat-lbl">Books</div></div>
         <div class="hero-stat"><div class="hero-stat-num" id="stat-avail">—</div><div class="hero-stat-lbl">Available</div></div>
@@ -842,57 +1048,40 @@ footer span { color: var(--gold); }
       </div>
     </div>
 
-    <!-- Librarian: Add Book Panel -->
+    <!-- ADD BOOK PANEL — librarian/admin only (§3) -->
     <div id="add-book-panel" class="add-book-panel hidden">
       <div class="panel-head">
         <div class="panel-head-icon"><i class="fas fa-plus"></i></div>
         <div>
-          <div class="panel-title">Add Featured Book</div>
-          <div class="panel-sub">Only you (librarian) can add books. Everyone can see them.</div>
+          <div class="panel-title">Add New Book</div>
+          <div class="panel-sub">Only librarians and admins can add books.</div>
         </div>
       </div>
-      <div class="add-form" id="add-book-form">
-        <div class="add-field">
-          <label>Book Title *</label>
-          <input class="add-inp" id="add-title" placeholder="e.g. Atomic Habits" />
-        </div>
-        <div class="add-field">
-          <label>Author *</label>
-          <input class="add-inp" id="add-author" placeholder="e.g. James Clear" />
-        </div>
-        <div class="add-field span2">
-          <label>Description *</label>
-          <textarea class="add-inp" id="add-desc" rows="2" placeholder="Brief summary of the book..."></textarea>
-        </div>
+      <div class="add-form">
+        <div class="add-field"><label>Book Title *</label><input class="add-inp" id="add-title" placeholder="e.g. Atomic Habits"/></div>
+        <div class="add-field"><label>Author</label><input class="add-inp" id="add-author" placeholder="e.g. James Clear"/></div>
+        <div class="add-field span2"><label>Description *</label><textarea class="add-inp" id="add-desc" rows="2" placeholder="Brief summary..."></textarea></div>
         <div class="add-field">
           <label>Genre</label>
           <select class="add-inp" id="add-genre">
             <option value="">Select genre</option>
-            <option>Fiction</option><option>Non-Fiction</option>
-            <option>Science</option><option>History</option>
-            <option>Technology</option><option>Self-Help</option>
-            <option>Biography</option><option>Children</option>
-            <option>Mystery</option><option>Fantasy</option>
+            <option>Fiction</option><option>Non-Fiction</option><option>Science</option>
+            <option>History</option><option>Technology</option><option>Self-Help</option>
+            <option>Biography</option><option>Children</option><option>Mystery</option><option>Fantasy</option>
           </select>
         </div>
-        <div class="add-field">
-          <label>Cover Image URL</label>
-          <input class="add-inp" id="add-cover" placeholder="https://..." />
-        </div>
+        <div class="add-field"><label>Quantity *</label><input class="add-inp" id="add-qty" type="number" min="1" value="1"/></div>
+        <div class="add-field"><label>Cover Image URL</label><input class="add-inp" id="add-cover" placeholder="https://..."/></div>
         <div class="add-field span2" style="display:flex;justify-content:flex-end;">
-          <button class="btn-add" id="add-book-btn" onclick="addBook()">
-            <i class="fas fa-plus"></i> Add Book
-          </button>
+          <button class="btn-add" id="add-book-btn" onclick="addBook()"><i class="fas fa-plus"></i> Add Book</button>
         </div>
       </div>
     </div>
 
-    <!-- Filter bar -->
     <div class="section-head">
-      <div class="section-title">🌟 Featured Books</div>
+      <div class="section-title">✨ Featured Books</div>
       <div class="section-subtitle" id="book-count-label"></div>
     </div>
-
     <div class="filter-bar" id="genre-filters">
       <button class="filter-chip active" onclick="filterGenre('', this)">All</button>
       <button class="filter-chip" onclick="filterGenre('Fiction', this)">📖 Fiction</button>
@@ -906,21 +1095,19 @@ footer span { color: var(--gold); }
       <button class="filter-chip" onclick="filterGenre('Mystery', this)">🔍 Mystery</button>
       <button class="filter-chip" onclick="filterGenre('Fantasy', this)">🐉 Fantasy</button>
     </div>
-
     <div class="book-grid" id="book-grid">
-      <!-- skeleton -->
-      <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skel" style="height:14px;width:80%"></div><div class="skel" style="height:10px;width:55%"></div><div class="skel" style="height:10px;width:70%"></div></div></div>
-      <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skel" style="height:14px;width:70%"></div><div class="skel" style="height:10px;width:45%"></div><div class="skel" style="height:10px;width:60%"></div></div></div>
-      <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skel" style="height:14px;width:85%"></div><div class="skel" style="height:10px;width:50%"></div><div class="skel" style="height:10px;width:65%"></div></div></div>
-      <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skel" style="height:14px;width:60%"></div><div class="skel" style="height:10px;width:40%"></div><div class="skel" style="height:10px;width:55%"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skel" style="height:14px;width:80%"></div><div class="skel" style="height:10px;width:55%"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skel" style="height:14px;width:70%"></div><div class="skel" style="height:10px;width:45%"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skel" style="height:14px;width:85%"></div><div class="skel" style="height:10px;width:50%"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skel" style="height:14px;width:60%"></div><div class="skel" style="height:10px;width:40%"></div></div></div>
     </div>
   </section>
 
-  <!-- ══════════ SEARCH ══════════ -->
+  <!-- SEARCH -->
   <section id="page-search" class="hidden">
     <div class="page-header">
       <div class="page-title"><i class="fas fa-search"></i> Search Books</div>
-      <div class="page-desc">Find books by title or author</div>
+      <div class="page-desc">Find books by title, author, or genre</div>
     </div>
     <div class="search-bar-wrap">
       <div class="search-row">
@@ -929,7 +1116,7 @@ footer span { color: var(--gold); }
           <option value="author">By Author</option>
           <option value="genre">By Genre</option>
         </select>
-        <input class="inp" id="search-input" placeholder="Type to search..." onkeydown="if(event.key==='Enter')doSearch()" />
+        <input class="inp" id="search-input" placeholder="Type to search..." onkeydown="if(event.key==='Enter')doSearch()"/>
       </div>
       <div class="btn-row">
         <button class="btn-primary" onclick="doSearch()"><i class="fas fa-search"></i> Search</button>
@@ -939,31 +1126,50 @@ footer span { color: var(--gold); }
     <div id="search-results" class="book-grid"></div>
   </section>
 
-  <!-- ══════════ MY BOOKS ══════════ -->
+  <!-- MY BOOKS — role-aware (§4) -->
   <section id="page-mybooks" class="hidden">
     <div class="page-header">
-      <div class="page-title"><i class="fas fa-book-reader"></i> My Books</div>
-      <div class="page-desc">Track your borrowed books</div>
+      <div class="page-title"><i class="fas fa-book-reader"></i> <span id="mybooks-page-title">My Books</span></div>
+      <div class="page-desc" id="mybooks-page-desc"></div>
     </div>
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="myBooksTab('all',this)">All</button>
-      <button class="tab-btn" onclick="myBooksTab('borrowed',this)">Currently Borrowed</button>
-      <button class="tab-btn" onclick="myBooksTab('overdue',this)">Overdue</button>
-    </div>
-    <div class="book-grid" id="mybooks-grid">
-      <div class="empty-state">
-        <div class="empty-state-icon">📚</div>
-        <h3>No borrowed books</h3>
-        <p>When you borrow books they'll appear here.</p>
-      </div>
-    </div>
+    <div class="tab-bar" id="mybooks-tabs"></div>
+    <div id="mybooks-content"></div>
   </section>
 
-  <!-- ══════════ WISHLIST ══════════ -->
+  <!-- MEMBERS — students only (§6) -->
+  <section id="page-members" class="hidden">
+    <div class="members-page-head">
+      <div>
+        <div class="page-title"><i class="fas fa-users"></i> Members</div>
+        <div class="page-desc">Student directory</div>
+      </div>
+      <button id="btn-send-notice-open" class="btn-notice hidden" onclick="openNoticeModal(null)">
+        <i class="fas fa-bullhorn"></i> Send Notice
+      </button>
+    </div>
+    <div id="member-search-bar" class="search-bar-wrap hidden">
+      <div class="search-row">
+        <select class="sel" id="member-search-type">
+          <option value="full_name">By Name</option>
+          <option value="uid">By UID</option>
+          <option value="class">By Class</option>
+          <option value="section">By Section</option>
+        </select>
+        <input class="inp" id="member-search-input" placeholder="Search members..." onkeydown="if(event.key==='Enter')searchMembers()"/>
+      </div>
+      <div class="btn-row">
+        <button class="btn-primary" onclick="searchMembers()"><i class="fas fa-search"></i> Search</button>
+        <button class="btn-outline" onclick="loadMembers()"><i class="fas fa-redo"></i> Reset</button>
+      </div>
+    </div>
+    <div id="members-grid" class="members-grid"></div>
+  </section>
+
+  <!-- WISHLIST -->
   <section id="page-wishlist" class="hidden">
     <div class="page-header">
       <div class="page-title"><i class="fas fa-heart"></i> My Wishlist</div>
-      <div class="page-desc">Books you've saved to read later</div>
+      <div class="page-desc">Books saved to read later</div>
     </div>
     <div class="book-grid" id="wishlist-grid">
       <div class="empty-state">
@@ -974,711 +1180,1475 @@ footer span { color: var(--gold); }
     </div>
   </section>
 
-  <!-- ══════════ LOGIN ══════════ -->
+  <!-- NOTIFICATIONS (§5) -->
+  <section id="page-notifications" class="hidden">
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem">
+      <div>
+        <div class="page-title"><i class="fas fa-bell"></i> Notifications</div>
+        <div class="page-desc">Your library updates</div>
+      </div>
+      <button class="btn-outline btn-sm" onclick="markAllRead()" style="align-self:center"><i class="fas fa-check-double"></i> Mark all read</button>
+    </div>
+    <div id="notif-list"></div>
+  </section>
+
+  <!-- PROFILE (§1) -->
+  <section id="page-profile" class="hidden">
+    <div id="profile-content">
+      <div class="empty-state"><span class="spinner dark"></span></div>
+    </div>
+  </section>
+
+  <!-- LOGIN -->
   <section id="page-login" class="hidden">
     <div class="auth-wrap">
       <div class="auth-icon">📖</div>
       <div class="auth-title">Welcome Back</div>
       <div class="auth-sub">Sign in to your library account</div>
-      <div class="field">
-        <label>Email</label>
-        <input class="inp" type="email" id="login-email" placeholder="example@gmail.com" />
-      </div>
-      <div class="field">
-        <label>Password</label>
-        <input class="inp" type="password" id="login-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" />
-      </div>
-      <button class="btn-primary btn-full" onclick="doLogin()" id="login-btn">
-        <i class="fas fa-sign-in-alt"></i> Sign In
-      </button>
-      <div class="auth-link"><a href="#" onclick="showPage('forgot')" style="color:var(--muted);font-size:0.82rem"><i class="fas fa-key"></i> Forgot password?</a></div>
-      <div class="auth-link">Don't have an account? <a href="#" onclick="showPage('signup')">Sign up</a></div>
+      <div class="field"><label>Email</label><input class="inp" type="email" id="login-email" placeholder="example@gmail.com"/></div>
+      <div class="field"><label>Password</label><input class="inp" type="password" id="login-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <button class="btn-primary btn-full" onclick="doLogin()" id="login-btn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+      <div class="auth-link"><a href="#" onclick="return showPage('forgot')" style="color:var(--muted);font-size:0.82rem"><i class="fas fa-key"></i> Forgot password?</a></div>
+      <div class="auth-link">No account? <a href="#" onclick="return showPage('signup')">Sign up</a></div>
     </div>
   </section>
 
-  <!-- ══════════ FORGOT PASSWORD ══════════ -->
+  <!-- FORGOT PASSWORD -->
   <section id="page-forgot" class="hidden">
     <div class="auth-wrap">
       <div class="auth-icon">🔑</div>
       <div class="auth-title">Reset Password</div>
-      <div class="auth-sub">Enter your email and we'll send you a reset link</div>
-      <div class="field">
-        <label>Email</label>
-        <input class="inp" type="email" id="forgot-email" placeholder="you@school.edu" onkeydown="if(event.key==='Enter')doForgot()" />
-      </div>
-      <button class="btn-primary btn-full" onclick="doForgot()" id="forgot-btn">
-        <i class="fas fa-paper-plane"></i> Send Reset Link
-      </button>
-      <div class="auth-link"><a href="#" onclick="showPage('login')"><i class="fas fa-arrow-left"></i> Back to Sign In</a></div>
+      <div class="auth-sub">We'll send a reset link to your email</div>
+      <div class="field"><label>Email</label><input class="inp" type="email" id="forgot-email" placeholder="you@school.edu" onkeydown="if(event.key==='Enter')doForgot()"/></div>
+      <button class="btn-primary btn-full" onclick="doForgot()" id="forgot-btn"><i class="fas fa-paper-plane"></i> Send Reset Link</button>
+      <div class="auth-link"><a href="#" onclick="return showPage('login')"><i class="fas fa-arrow-left"></i> Back to Sign In</a></div>
     </div>
   </section>
 
-  <!-- ══════════ RESET PASSWORD ══════════ -->
+  <!-- RESET PASSWORD — stronger validation -->
   <section id="page-reset" class="hidden">
     <div class="auth-wrap">
       <div class="auth-icon">🔒</div>
       <div class="auth-title">New Password</div>
-      <div class="auth-sub">Choose a strong new password for your account</div>
-      <div class="field">
-        <label>New Password</label>
-        <input class="inp" type="password" id="reset-password" placeholder="Min 6 characters" />
-      </div>
-      <div class="field">
-        <label>Confirm Password</label>
-        <input class="inp" type="password" id="reset-confirm" placeholder="Repeat password" onkeydown="if(event.key==='Enter')doReset()" />
-      </div>
-      <button class="btn-primary btn-full" onclick="doReset()" id="reset-btn">
-        <i class="fas fa-check"></i> Update Password
-      </button>
+      <div class="auth-sub">Choose a strong new password (min 8 characters)</div>
+      <div class="field"><label>New Password</label><input class="inp" type="password" id="reset-password" placeholder="Min 8 characters"/></div>
+      <div class="field"><label>Confirm Password</label><input class="inp" type="password" id="reset-confirm" placeholder="Repeat password" onkeydown="if(event.key==='Enter')doReset()"/></div>
+      <button class="btn-primary btn-full" onclick="doReset()" id="reset-btn"><i class="fas fa-check"></i> Update Password</button>
     </div>
   </section>
 
-  <!-- ══════════ SIGNUP ══════════ -->
+  <!-- SIGNUP -->
   <section id="page-signup" class="hidden">
     <div class="auth-wrap" style="max-width:480px">
       <div class="auth-icon">✨</div>
       <div class="auth-title">Create Account</div>
       <div class="auth-sub">Join the Bagmati Library community</div>
-      <div class="field">
-        <label>Full Name</label>
-        <input class="inp" id="signup-name" placeholder="Your full name" />
-      </div>
-      <div class="field">
-        <label>Email</label>
-        <input class="inp" type="email" id="signup-email" placeholder="example@gmail.com" />
-      </div>
-      <div class="field">
-        <label>Password</label>
-        <input class="inp" type="password" id="signup-password" placeholder="Min 6 characters" />
-      </div>
-      <button class="btn-primary btn-full" onclick="doSignup()" id="signup-btn">
-        <i class="fas fa-user-plus"></i> Create Account
-      </button>
-      <div class="auth-link">Already have an account? <a href="#" onclick="showPage('login')">Sign in</a></div>
+      <div class="field"><label>Full Name *</label><input class="inp" id="signup-name" placeholder="Your full name"/></div>
+      <div class="field"><label>Email *</label><input class="inp" type="email" id="signup-email" placeholder="example@gmail.com"/></div>
+      <div class="field"><label>Class</label><input class="inp" id="signup-class" placeholder="e.g. 10"/></div>
+      <div class="field"><label>Section</label><input class="inp" id="signup-section" placeholder="e.g. A"/></div>
+      <div class="field"><label>Password *</label><input class="inp" type="password" id="signup-password" placeholder="Min 8 characters"/></div>
+      <button class="btn-primary btn-full" onclick="doSignup()" id="signup-btn"><i class="fas fa-user-plus"></i> Create Account</button>
+      <div class="auth-link">Already have an account? <a href="#" onclick="return showPage('login')">Sign in</a></div>
     </div>
   </section>
 
 </main>
 
-<!-- ═══════════════════ FOOTER ═══════════════════ -->
 <footer>
-  <p>© 2026 <span>Bagmati School Library</span> 
+  <p>&copy; 2026 <span>Bagmati School Library</span> &middot; Kathmandu, Nepal</p>
 </footer>
+
+<!-- MODAL: Approve/Reject Borrow Request (§4) -->
+<div id="modal-approve" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title">Manage Borrow Request</div>
+      <button class="modal-close" onclick="closeModal('modal-approve')">&times;</button>
+    </div>
+    <div id="modal-approve-info" class="modal-info"></div>
+    <div class="field"><label>Borrow Duration (days, max 30)</label><input class="inp" type="number" id="modal-duration" min="1" max="30" value="14"/></div>
+    <div class="field"><label>Note for student (optional)</label><input class="inp" id="modal-notes" placeholder="Add a note..."/></div>
+    <div class="btn-row" style="margin-top:1.25rem">
+      <button class="btn-primary" id="btn-modal-approve" onclick="confirmApprove()"><i class="fas fa-check"></i> Approve</button>
+      <button class="btn-danger"  id="btn-modal-reject"  onclick="confirmReject()"><i class="fas fa-times"></i> Reject</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Book Detail -->
+<div id="modal-book" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title" id="modal-book-title">Book Details</div>
+      <button class="modal-close" onclick="closeModal('modal-book')">&times;</button>
+    </div>
+    <div id="modal-book-body"></div>
+  </div>
+</div>
+
+<!-- MODAL: Send Notice (admin/librarian) -->
+<div id="modal-notice" class="modal-overlay hidden">
+  <div class="modal-box" style="max-width:500px">
+    <div class="modal-head">
+      <div class="modal-title">📢 Send Notice to Students</div>
+      <button class="modal-close" onclick="closeModal('modal-notice')">&times;</button>
+    </div>
+    <div class="field">
+      <label>Send To</label>
+      <div class="notice-target-row">
+        <button class="notice-target-chip active" id="ntc-all" onclick="setNoticeTarget('all',this)">📣 All Students</button>
+        <button class="notice-target-chip" id="ntc-one" onclick="setNoticeTarget('one',this)">👤 Specific Student</button>
+      </div>
+      <div id="notice-specific-wrap" class="hidden">
+        <select class="inp" id="notice-student-select" style="margin-top:.5rem">
+          <option value="">Loading students…</option>
+        </select>
+      </div>
+    </div>
+    <div class="field"><label>Notice Title *</label><input class="inp" id="notice-title" placeholder="e.g. Library closed tomorrow" maxlength="120"/></div>
+    <div class="field"><label>Message *</label><textarea class="inp" id="notice-message" rows="4" placeholder="Write your notice here..." maxlength="500" style="resize:vertical"></textarea></div>
+    <div style="font-size:.75rem;color:var(--muted);margin-bottom:1rem">This will send a notification inside the library app. Automatic notifications are not affected.</div>
+    <div class="btn-row">
+      <button class="btn-primary" id="btn-do-notice" onclick="doSendNotice()"><i class="fas fa-paper-plane"></i> Send Notice</button>
+      <button class="btn-outline" onclick="closeModal('modal-notice')">Cancel</button>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════════ SUPABASE SDK ═══════════════════ -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 
 <script>
-// ═══════════════════════════════════════════════════════════════
-//  ⚠️  REPLACE THESE WITH YOUR ACTUAL SUPABASE CREDENTIALS
-//  Find them in: Supabase Dashboard → Project Settings → API
-// ═══════════════════════════════════════════════════════════════
+'use strict';
+// ================================================================
+//  CONFIG
+// ================================================================
 const SUPABASE_URL  = 'https://nuvkoluhmiewdegpsrbl.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51dmtvbHVobWlld2RlZ3BzcmJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMTY0OTksImV4cCI6MjA4ODc5MjQ5OX0.mV-ctDd4DeJ7mydsfBXYUZz4R_mzMBcV06v9GqLmWzw';
-// ═══════════════════════════════════════════════════════════════
 
-var sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
-  auth: { lock: false }
+// FIX: detectSessionInUrl:true handles password-recovery token in URL hash
+// across ALL browsers, including different-browser reset links.
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
+  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
 });
-// ═══════════ STATE ═══════════
+
+// ================================================================
+//  STATE
+// ================================================================
 let currentUser   = null;
 let currentRole   = null;
 let allBooks      = [];
 let wishlistIds   = new Set(JSON.parse(localStorage.getItem('wl') || '[]'));
-let borrowedIds   = new Set();
+let pendingMap    = new Map();
+let activeLoanMap = new Map();
 let activeGenre   = '';
 let currentPage   = 'home';
+let cachedMembers = 0;
+let unreadCount   = 0;
+let pendingReqId  = null;
+let noticeTarget  = 'all';   // 'all' | 'one'
+let noticeStudentsList = [];  // populated when notice modal opens
 
-// ═══════════ PAGE NAVIGATION ═══════════
+// ================================================================
+//  ENTERPRISE SECURITY — Rate limiter + input sanitizer
+// ================================================================
+const _rateLimits = {};  // { key: { count, firstAt } }
+function rateCheck(key, maxAttempts = 5, windowMs = 900000) {
+  const now = Date.now();
+  if (!_rateLimits[key]) _rateLimits[key] = { count: 0, firstAt: now };
+  const rl = _rateLimits[key];
+  if (now - rl.firstAt > windowMs) { rl.count = 0; rl.firstAt = now; }
+  rl.count++;
+  if (rl.count > maxAttempts) {
+    const wait = Math.ceil((windowMs - (now - rl.firstAt)) / 60000);
+    toast(`Too many attempts. Please wait ${wait} min.`, 'error');
+    return false;
+  }
+  return true;
+}
+function rateClear(key) { delete _rateLimits[key]; }
+
+// Escape HTML to prevent XSS when injecting user-supplied data into innerHTML
+function esc(str) {
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// Validate email format
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// Strip dangerous characters from freeform text (not for HTML output)
+function sanitizeText(str, maxLen = 500) {
+  if (str == null) return '';
+  return String(str).replace(/[<>]/g, '').trim().slice(0, maxLen);
+}
+
+// ================================================================
+//  UTILITIES
+// ================================================================
+// FIX §orig-2: all Supabase calls wrapped with timeout — UI never hangs
+function withTimeout(p, ms = 9000) {
+  return Promise.race([p, new Promise((_,r) =>
+    setTimeout(() => r(new Error('Connection timed out. Check your internet.')), ms))]);
+}
+function fmtDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('en-NP', {day:'numeric',month:'short',year:'numeric'});
+}
+function timeAgo(d) {
+  if (!d) return '';
+  const s = Math.floor((Date.now() - new Date(d)) / 1000);
+  if (s < 60)    return 'just now';
+  if (s < 3600)  return Math.floor(s/60) + 'm ago';
+  if (s < 86400) return Math.floor(s/3600) + 'h ago';
+  return Math.floor(s/86400) + 'd ago';
+}
+// §4: Rs.50 flat after due date + Rs.50 per additional week
+function calcFee(dueDate) {
+  if (!dueDate) return 0;
+  const days = Math.max(0, Math.floor((Date.now() - new Date(dueDate)) / 86400000));
+  return days === 0 ? 0 : 50 + Math.floor(days / 7) * 50;
+}
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+function skel() {
+  return Array(4).fill('<div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skel" style="height:14px;width:80%;margin-bottom:6px"></div><div class="skel" style="height:10px;width:55%"></div></div></div>').join('');
+}
+
+// ================================================================
+//  TOAST
+// ================================================================
+function toast(msg, type = 'info', icon = '') {
+  const ic = { success:'\u2713', error:'\u2715', info:'\u2139', warning:'\u26a0' };
+  const c  = document.createElement('div');
+  c.className = `toast ${type}`;
+  c.innerHTML = `<span class="toast-icon">${icon || ic[type]}</span><span>${msg}</span>`;
+  c.onclick = () => { c.classList.add('out'); setTimeout(() => c.remove(), 300); };
+  document.getElementById('toast-container').appendChild(c);
+  setTimeout(() => { c.classList.add('out'); setTimeout(() => c.remove(), 300); }, 4200);
+}
+
+// ================================================================
+//  NAVIGATION
+// ================================================================
 function showPage(page) {
   document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
   const el = document.getElementById('page-' + page);
   if (el) { el.classList.remove('hidden'); el.style.animation = 'fadeUp 0.35s ease both'; }
   currentPage = page;
-
   document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-  const navEl = document.getElementById('nav-' + page);
-  if (navEl) navEl.classList.add('active');
+  const nav = document.getElementById('nav-' + page);
+  if (nav) nav.classList.add('active');
 
-  if (page === 'home')     loadBooks();
-  if (page === 'mybooks')  renderMyBooks('all');
-  if (page === 'wishlist') renderWishlist();
-
+  if (page === 'home')          loadBooksIfNeeded();
+  if (page === 'mybooks')       initMyBooks();
+  if (page === 'wishlist')      renderWishlist();
+  if (page === 'members')       loadMembers();
+  if (page === 'notifications') loadNotifications();
+  if (page === 'profile')       loadProfile(currentUser?.id);
   return false;
 }
 
-// ═══════════ TOAST ═══════════
-function toast(msg, type = 'info', icon = '') {
-  const icons = { success:'✓', error:'✕', info:'ℹ', warning:'⚠' };
-  const c = document.createElement('div');
-  c.className = `toast ${type}`;
-  c.innerHTML = `<span class="toast-icon">${icon || icons[type]}</span><span>${msg}</span>`;
-  c.onclick = () => dismiss(c);
-  document.getElementById('toast-container').appendChild(c);
-  setTimeout(() => dismiss(c), 3800);
-}
-function dismiss(el) {
-  el.classList.add('out');
-  setTimeout(() => el.remove(), 300);
-}
-
-// ═══════════ AUTH ═══════════
+// ================================================================
+//  AUTH — LOGIN  (rate-limited; blocks unverified emails)
+// ================================================================
 async function doLogin() {
-  const email = document.getElementById('login-email').value.trim();
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
   const pass  = document.getElementById('login-password').value;
   if (!email || !pass) { toast('Enter email and password', 'warning'); return; }
-
+  if (!isValidEmail(email)) { toast('Invalid email format', 'warning'); return; }
+  // Rate limit: 5 attempts per 15 minutes per email
+  if (!rateCheck('login:' + email, 5, 900000)) return;
   const btn = document.getElementById('login-btn');
-  btn.innerHTML = '<span class="spinner"></span> Signing in…';
-  btn.disabled = true;
-
-  const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
-
-  if (error) {
-    toast(error.message, 'error');
-    btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
-    btn.disabled = false;
-    return;
-  }
-
-  await loadUserProfile(data.user);
-  toast(`Welcome back, ${currentUser?.full_name || email.split('@')[0]}!`, 'success', '👋');
-  showPage('home');
+  if (btn.disabled) return;
+  btn.innerHTML = '<span class="spinner"></span> Signing in\u2026'; btn.disabled = true;
+  try {
+    const { data, error } = await withTimeout(sb.auth.signInWithPassword({ email, password: pass }));
+    if (error) { toast(error.message, 'error'); return; }
+    if (!data.user.email_confirmed_at) {
+      await sb.auth.signOut();
+      toast('Please verify your email first. Check your inbox.', 'warning', '\u2709');
+      return;
+    }
+    rateClear('login:' + email); // clear on success
+    await loadUserProfile(data.user);
+    toast(`Welcome back, ${esc(currentUser?.full_name || email.split('@')[0])}!`, 'success', '\U0001f44b');
+    showPage('home');
+  } catch(err) { toast(err.message || 'Sign in failed.', 'error'); }
+  finally { btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In'; btn.disabled = false; }
 }
 
+// ================================================================
+//  AUTH — SIGNUP  (sends verification email; min 8 char password)
+// ================================================================
 async function doSignup() {
-  const nameEl     = document.getElementById('signup-name');
-  const emailEl    = document.getElementById('signup-email');
-  const passwordEl = document.getElementById('signup-password');
-
-  // Guard: check all fields exist
-  if (!nameEl || !emailEl || !passwordEl) {
-    toast('Form fields not found. Please refresh the page.', 'error');
-    return;
-  }
-
-  const name  = nameEl.value.trim();
-  const email = emailEl.value.trim();
-  const pass  = passwordEl.value;
-
-  if (!name || !email || !pass) { toast('Please fill all fields', 'warning'); return; }
-  if (pass.length < 6) { toast('Password must be at least 6 characters', 'warning'); return; }
-
+  const name  = sanitizeText(document.getElementById('signup-name').value.trim(), 80);
+  const email = document.getElementById('signup-email').value.trim().toLowerCase();
+  const pass  = document.getElementById('signup-password').value;
+  const cls   = sanitizeText(document.getElementById('signup-class').value.trim(), 20);
+  const sect  = sanitizeText(document.getElementById('signup-section').value.trim(), 20);
+  if (!name || !email || !pass) { toast('Please fill all required fields', 'warning'); return; }
+  if (!isValidEmail(email))     { toast('Invalid email format', 'warning'); return; }
+  if (pass.length < 8)          { toast('Password must be at least 8 characters', 'warning'); return; }
+  // Rate limit signup attempts
+  if (!rateCheck('signup', 10, 3600000)) return;
   const btn = document.getElementById('signup-btn');
-  btn.innerHTML = '<span class="spinner"></span> Creating…';
-  btn.disabled = true;
-
-  const { data, error } = await sb.auth.signUp({ email, password: pass });
-
-  if (error) {
-    toast(error.message, 'error');
-    btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
-    btn.disabled = false;
-    return;
-  }
-
-  if (data.user) {
-    await sb.from('profiles').upsert({
-      id:        data.user.id,
-      full_name: name,
-      email:     email,
-      role:      'student'
-    });
-  }
-
-  toast('Account created! Check your email to verify.', 'success', '✉️');
-  btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
-  btn.disabled = false;
-  showPage('login');
+  if (btn.disabled) return;
+  btn.innerHTML = '<span class="spinner"></span> Creating\u2026'; btn.disabled = true;
+  try {
+    const redirectTo = window.location.origin + window.location.pathname;
+    const { data, error } = await withTimeout(
+      sb.auth.signUp({ email, password: pass,
+        options: { emailRedirectTo: redirectTo,
+                   data: { full_name: name, class: cls || null, section: sect || null } } })
+    );
+    if (error) { toast(error.message, 'error'); return; }
+    toast('Account created! Verify your email before logging in.', 'success', '\u2709');
+    ['signup-name','signup-email','signup-password','signup-class','signup-section']
+      .forEach(id => document.getElementById(id).value = '');
+    showPage('login');
+  } catch(err) { toast(err.message || 'Sign up failed.', 'error'); }
+  finally { btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account'; btn.disabled = false; }
 }
 
+// ================================================================
+//  AUTH — FORGOT / RESET
+// ================================================================
 async function doForgot() {
   const emailEl = document.getElementById('forgot-email');
-  const email = emailEl ? emailEl.value.trim() : '';
+  const email   = emailEl.value.trim();
   if (!email) { toast('Please enter your email', 'warning'); return; }
-
   const btn = document.getElementById('forgot-btn');
-  btn.innerHTML = '<span class="spinner"></span> Sending…';
-  btn.disabled = true;
-
-  const { error } = await sb.auth.resetPasswordForEmail(email, {
-    redirectTo: window.location.href
-  });
-
-  if (error) {
-    toast(error.message, 'error');
-  } else {
-    toast('Reset link sent! Check your email.', 'success', '✉️');
+  if (btn.disabled) return;
+  btn.innerHTML = '<span class="spinner"></span> Sending\u2026'; btn.disabled = true;
+  try {
+    // FIX §orig-6: clean redirectTo — no existing hash/params that confuse Supabase
+    const redirectTo = window.location.origin + window.location.pathname;
+    const { error } = await withTimeout(sb.auth.resetPasswordForEmail(email, { redirectTo }));
+    if (error) { toast(error.message, 'error'); return; }
+    toast('Reset link sent! Check your inbox.', 'success', '\u2709');
     emailEl.value = '';
     setTimeout(() => showPage('login'), 2000);
-  }
-
-  btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Reset Link';
-  btn.disabled = false;
+  } catch(err) { toast(err.message || 'Request failed.', 'error'); }
+  finally { btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Reset Link'; btn.disabled = false; }
 }
 
 async function doReset() {
   const pass    = document.getElementById('reset-password').value;
   const confirm = document.getElementById('reset-confirm').value;
-
   if (!pass || !confirm) { toast('Please fill both fields', 'warning'); return; }
-  if (pass.length < 6)   { toast('Password must be at least 6 characters', 'warning'); return; }
+  if (pass.length < 8)   { toast('Password must be at least 8 characters', 'warning'); return; }
   if (pass !== confirm)  { toast('Passwords do not match', 'error'); return; }
-
   const btn = document.getElementById('reset-btn');
-  btn.innerHTML = '<span class="spinner"></span> Updating…';
-  btn.disabled = true;
-
-  const { error } = await sb.auth.updateUser({ password: pass });
-
-  if (error) {
-    toast(error.message, 'error');
-  } else {
-    toast('Password updated! Please sign in.', 'success', '✅');
+  if (btn.disabled) return;
+  btn.innerHTML = '<span class="spinner"></span> Updating\u2026'; btn.disabled = true;
+  try {
+    const { error } = await withTimeout(sb.auth.updateUser({ password: pass }));
+    if (error) { toast(error.message, 'error'); return; }
+    toast('Password updated! Please sign in.', 'success', '\u2705');
     document.getElementById('reset-password').value = '';
     document.getElementById('reset-confirm').value = '';
+    await sb.auth.signOut();
     setTimeout(() => showPage('login'), 1500);
-  }
-
-  btn.innerHTML = '<i class="fas fa-check"></i> Update Password';
-  btn.disabled = false;
+  } catch(err) { toast(err.message || 'Update failed.', 'error'); }
+  finally { btn.innerHTML = '<i class="fas fa-check"></i> Update Password'; btn.disabled = false; }
 }
 
 async function doLogout() {
-  await sb.auth.signOut();
-  currentUser = null; currentRole = null;
-  borrowedIds = new Set();
+  await sb.auth.signOut().catch(() => {});
+  currentUser = null; currentRole = null; unreadCount = 0;
+  pendingMap.clear(); activeLoanMap.clear();
   renderHeader();
-  toast('Signed out successfully', 'info', '👋');
+  toast('Signed out', 'info', '\U0001f44b');
+  allBooks = [];
   showPage('home');
 }
 
+// ================================================================
+//  LOAD USER PROFILE  — FIX: handles 409 conflict correctly
+//  The 409 was caused by: RLS/network error → data=null → upsert
+//  fires even though the profile already exists → conflict.
+//  Fix: only attempt insert when profErr is absent AND data is null.
+// ================================================================
 async function loadUserProfile(user) {
-  const { data } = await sb.from('profiles').select('*').eq('id', user.id).single();
-  currentUser = data || { id: user.id, full_name: user.email.split('@')[0], role: 'student' };
+  try {
+    const { data, error: profErr } = await withTimeout(
+      sb.from('profiles').select('*').eq('id', user.id).maybeSingle()
+    );
+    if (data) {
+      // Profile found — use it directly
+      currentUser = data;
+    } else if (!profErr) {
+      // Genuine missing profile (first login before trigger ran)
+      const fallback = {
+        id:        user.id,
+        full_name: sanitizeText(user.user_metadata?.full_name || user.email.split('@')[0], 80),
+        role:      'student',
+        email:     user.email,
+        class:     user.user_metadata?.class  || null,
+        section:   user.user_metadata?.section || null
+      };
+      // Use INSERT (not upsert) to avoid 409 if trigger already ran
+      try {
+        const { data: inserted } = await sb.from('profiles').insert(fallback).select().maybeSingle();
+        currentUser = inserted || fallback;
+      } catch {
+        currentUser = fallback;
+      }
+    } else {
+      // RLS/network error — use safe fallback from JWT metadata without writing to DB
+      // This prevents the 409 that happens when profile exists but SELECT fails
+      currentUser = {
+        id:        user.id,
+        full_name: sanitizeText(user.user_metadata?.full_name || user.email.split('@')[0], 80),
+        role:      'student',
+        email:     user.email
+      };
+      // Try a role-only re-fetch (SELECT might have timed out but profile exists)
+      try {
+        const { data: roleRow } = await sb.from('profiles')
+          .select('id,full_name,email,role,uid,class,section,created_at,updated_at')
+          .eq('id', user.id).maybeSingle();
+        if (roleRow) currentUser = roleRow;
+      } catch { /* non-critical */ }
+    }
+  } catch {
+    currentUser = {
+      id: user.id,
+      full_name: sanitizeText(user.email.split('@')[0], 80),
+      role: 'student',
+      email: user.email
+    };
+  }
   currentRole = currentUser.role;
   renderHeader();
-
-  // load borrowed
-  const { data: loans } = await sb.from('loans')
-    .select('book_id')
-    .eq('user_id', user.id)
-    .is('returned_at', null);
-  borrowedIds = new Set((loans || []).map(l => l.book_id));
+  await loadLoanState();
+  await fetchUnreadCount();
 }
 
-// ═══════════ HEADER ═══════════
+// Load student's pending+active loan state for button rendering
+async function loadLoanState() {
+  if (!currentUser || currentRole !== 'student') { pendingMap.clear(); activeLoanMap.clear(); return; }
+  try {
+    const { data } = await withTimeout(
+      sb.from('borrow_requests').select('id,book_id,status,due_date')
+        .eq('user_id', currentUser.id).in('status', ['pending','approved'])
+    );
+    pendingMap.clear(); activeLoanMap.clear();
+    (data || []).forEach(r => {
+      if (r.status === 'pending')  pendingMap.set(r.book_id, r.id);
+      if (r.status === 'approved') activeLoanMap.set(r.book_id, { id: r.id, dueDate: r.due_date });
+    });
+  } catch { /* non-critical */ }
+}
+
+// ================================================================
+//  HEADER  — role-aware nav + bell badge
+// ================================================================
 function renderHeader() {
   const el = document.getElementById('header-right');
   if (currentUser) {
-    const initial = (currentUser.full_name || '?').charAt(0).toUpperCase();
+    const ini   = (currentUser.full_name || '?').charAt(0).toUpperCase();
+    const badge = unreadCount > 0
+      ? `<span class="notif-badge">${unreadCount > 99 ? '99+' : unreadCount}</span>` : '';
     el.innerHTML = `
-      <div class="header-user-info">
-        <div class="header-user-name">${currentUser.full_name || 'User'}</div>
-        <div class="header-user-role">${currentUser.role || 'member'}</div>
+      <button class="notif-btn" onclick="return showPage('notifications')" title="Notifications">
+        <i class="fas fa-bell"></i>${badge}
+      </button>
+      <div style="text-align:right;line-height:1.2;cursor:pointer" onclick="return showPage('profile')">
+        <div class="header-user-name">${esc(currentUser.full_name || 'User')}</div>
+        <div class="header-user-role">${esc(currentRole || 'member')}</div>
       </div>
-      <div class="avatar-btn" title="Signed in">${initial}</div>
-      <button class="btn-ghost" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Out</button>
-    `;
-    // Show add-book panel only to librarian / admin
-    const panel = document.getElementById('add-book-panel');
-    if (currentRole === 'librarian' || currentRole === 'admin') {
-      panel.classList.remove('hidden');
-    } else {
-      panel.classList.add('hidden');
+      <div class="avatar-btn" onclick="return showPage('profile')">${esc(ini)}</div>
+      <button class="btn-ghost" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Out</button>`;
+    // Add-book panel: librarian/admin only
+    document.getElementById('add-book-panel').classList[
+      (currentRole === 'librarian' || currentRole === 'admin') ? 'remove' : 'add']('hidden');
+
+    // ── Nav adjustments per role ──
+    const mybooksLink = document.querySelector('.nav-mybooks-link');
+    if (mybooksLink) {
+      if (currentRole === 'admin') {
+        // Admin: hide "My Books" entirely (admin manages via Members/Profile)
+        mybooksLink.classList.add('hidden');
+      } else if (currentRole === 'librarian') {
+        // Librarian: rename to "Manage" so it doesn't say "My Books"
+        mybooksLink.classList.remove('hidden');
+        mybooksLink.innerHTML = '<i class="fas fa-clipboard-list"></i> Manage';
+      } else {
+        mybooksLink.classList.remove('hidden');
+        mybooksLink.innerHTML = '<i class="fas fa-book"></i> My Books';
+      }
+    }
+    // Send Notice button in Members page (lib/admin)
+    const noticeBtn = document.getElementById('btn-send-notice-open');
+    if (noticeBtn) {
+      noticeBtn.classList[(currentRole === 'librarian' || currentRole === 'admin') ? 'remove' : 'add']('hidden');
     }
   } else {
     el.innerHTML = `
       <button class="btn-ghost" onclick="showPage('signup')"><i class="fas fa-user-plus"></i> Sign Up</button>
-      <button class="btn-ghost" onclick="showPage('login')"><i class="fas fa-sign-in-alt"></i> Sign In</button>
-    `;
+      <button class="btn-ghost" onclick="showPage('login')"><i class="fas fa-sign-in-alt"></i> Sign In</button>`;
     document.getElementById('add-book-panel').classList.add('hidden');
+    // Reset nav to defaults
+    const mybooksLink = document.querySelector('.nav-mybooks-link');
+    if (mybooksLink) {
+      mybooksLink.classList.remove('hidden');
+      mybooksLink.innerHTML = '<i class="fas fa-book"></i> My Books';
+    }
+    const noticeBtn = document.getElementById('btn-send-notice-open');
+    if (noticeBtn) noticeBtn.classList.add('hidden');
   }
 }
 
-// ═══════════ LOAD BOOKS FROM SUPABASE ═══════════
-async function loadBooks(genre = '') {
+// ================================================================
+//  BOOKS — LOAD
+//  §7 FIX: allBooks = full cache. filterGenre is CLIENT-SIDE only.
+//          Stats always computed from full allBooks — never reset by filter.
+// ================================================================
+async function loadBooksIfNeeded() {
+  if (allBooks.length > 0) {
+    const shown = activeGenre ? allBooks.filter(b => genreMatch(b.genre, activeGenre)) : allBooks;
+    renderBookGrid(shown, document.getElementById('book-grid'), true);
+    updateStats();
+  } else {
+    await loadBooks();
+  }
+}
+
+async function loadBooks() {
   const grid = document.getElementById('book-grid');
+  if (!grid) return;
+  grid.innerHTML = skel();
+  try {
+    // Fetch books + active loan counts in parallel
+    const [bRes, lRes] = await Promise.all([
+      withTimeout(sb.from('books').select('*').order('created_at', { ascending: false })),
+      withTimeout(sb.from('borrow_requests').select('book_id').eq('status', 'approved'))
+    ]);
+    if (bRes.error) throw new Error(bRes.error.message);
 
-  // Show skeletons only on first load
-  if (allBooks.length === 0) {
-    grid.innerHTML = Array(4).fill(`
-      <div class="skeleton-card">
-        <div class="skeleton-cover"></div>
-        <div class="skeleton-body">
-          <div class="skel" style="height:14px;width:80%;margin-bottom:6px"></div>
-          <div class="skel" style="height:10px;width:55%;margin-bottom:6px"></div>
-          <div class="skel" style="height:10px;width:70%"></div>
-        </div>
-      </div>`).join('');
-  }
+    // Compute availability per book
+    const loanCounts = {};
+    (lRes.data || []).forEach(l => { loanCounts[l.book_id] = (loanCounts[l.book_id] || 0) + 1; });
+    allBooks = (bRes.data || []).map(b => ({
+      ...b, available: Math.max(0, (b.quantity || 1) - (loanCounts[b.id] || 0))
+    }));
 
-  let query = sb.from('featured_books').select('*').order('created_at', { ascending: false });
-  if (genre) query = query.eq('genre', genre);
-
-  const { data, error } = await query;
-
-  if (error) {
+    updateStats(); // §7: always from full allBooks
+    const shown = activeGenre ? allBooks.filter(b => genreMatch(b.genre, activeGenre)) : allBooks;
+    renderBookGrid(shown, grid, true);
+    const lbl = document.getElementById('book-count-label');
+    if (lbl) lbl.textContent = `${shown.length} book${shown.length !== 1 ? 's' : ''}${activeGenre ? ' in ' + activeGenre : ''}`;
+  } catch(err) {
     grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-      <div class="empty-state-icon">⚠️</div>
-      <h3>Could not load books</h3>
-      <p>${error.message}</p>
-    </div>`;
-    return;
+      <div class="empty-state-icon">\u23f1</div><h3>${err.message}</h3>
+      <button class="btn-primary" style="margin:1rem auto 0;display:inline-flex" onclick="loadBooks()">
+        <i class="fas fa-redo"></i> Retry</button></div>`;
   }
-
-  allBooks = data || [];
-  updateStats();
-  renderBookGrid(allBooks, grid, true);
-  document.getElementById('book-count-label').textContent = `${allBooks.length} book${allBooks.length !== 1 ? 's' : ''}`;
 }
 
-function renderBookGrid(books, container, showLibrarianDel = false) {
+// §7 GENRE MATCH: supports comma/semicolon-separated multi-genre strings
+// e.g. "Non-Fiction, Personal Finance, Self-help" matches "Non-Fiction"
+function genreMatch(bookGenre, filterGenre) {
+  if (!bookGenre || !filterGenre) return false;
+  return bookGenre.split(/[,;]+/).some(g => g.trim().toLowerCase() === filterGenre.trim().toLowerCase());
+}
+
+// §7 FIX: client-side only — NO re-fetch, stats stay at full-library values
+function filterGenre(genre, btn) {
+  activeGenre = genre;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  const shown = genre ? allBooks.filter(b => genreMatch(b.genre, genre)) : allBooks;
+  renderBookGrid(shown, document.getElementById('book-grid'), true);
+  const lbl = document.getElementById('book-count-label');
+  if (lbl) lbl.textContent = `${shown.length} book${shown.length !== 1 ? 's' : ''}${genre ? ' in ' + genre : ''}`;
+  // Stats intentionally NOT updated — they always show the full library
+}
+
+// §7 FIX: stats from full allBooks; member count cached separately
+async function updateStats() {
+  document.getElementById('stat-total').textContent = allBooks.length;
+  document.getElementById('stat-avail').textContent = allBooks.reduce((s,b) => s + (b.available ?? 0), 0);
+  const elM = document.getElementById('stat-members');
+  if (!elM) return;
+  if (cachedMembers > 0) { elM.textContent = cachedMembers; return; }
+  try {
+    // §6: count only students
+    const { count } = await withTimeout(
+      sb.from('profiles').select('*', { count: 'exact', head: true }).eq('role', 'student'), 5000
+    );
+    cachedMembers = count || 0;
+    elM.textContent = cachedMembers || '—';
+  } catch { elM.textContent = '—'; }
+}
+
+// ================================================================
+//  BOOK RENDER
+// ================================================================
+function renderBookGrid(books, container, showLibDel = false) {
+  if (!container) return;
   if (!books.length) {
     container.innerHTML = `<div class="empty-state">
-      <div class="empty-state-icon">📭</div>
-      <h3>No books found</h3>
-      <p>${currentRole === 'librarian' || currentRole === 'admin' ? 'Add the first book using the panel above.' : 'Check back later!'}</p>
+      <div class="empty-state-icon"></div><h3>No books found</h3>
+      <p>${(currentRole === 'librarian' || currentRole === 'admin') ? 'Add the first book above.' : 'Check back later!'}</p>
     </div>`;
     return;
   }
-
   container.innerHTML = '';
   books.forEach((book, i) => {
-    const card = createCard(book, showLibrarianDel);
-    card.style.animationDelay = `${i * 0.04}s`;
+    const card = createCard(book, showLibDel);
+    card.style.animationDelay = `${i * 0.035}s`;
     container.appendChild(card);
   });
 }
 
 function createCard(book, showDel = false) {
-  const inWishlist  = wishlistIds.has(book.id);
-  const isBorrowed  = borrowedIds.has(book.id);
-  const isLibAdmin  = currentRole === 'librarian' || currentRole === 'admin';
+  const inWish    = wishlistIds.has(book.id);
+  const isPending = pendingMap.has(book.id);
+  const isActive  = activeLoanMap.has(book.id);
+  const isLib     = currentRole === 'librarian' || currentRole === 'admin';
+  const avail     = book.available !== undefined ? book.available : (book.quantity || 1);
 
   const div = document.createElement('div');
   div.className = 'book-card';
   div.style.animation = 'fadeUp 0.4s ease both';
+  div.onclick = e => { if (!e.target.closest('button')) openBookDetail(book); };
 
-  // Cover
   const coverHtml = book.cover_url
-    ? `<img src="${book.cover_url}" alt="${book.title}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-    : '';
-  const placeholderHtml = `<div class="book-cover-placeholder" style="${book.cover_url ? 'display:none' : ''}">
-      <i class="fas fa-book" style="font-size:2.5rem;opacity:0.3"></i>
-      <span>${book.title}</span>
-    </div>`;
+    ? `<img src="${book.cover_url}" alt="${book.title}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : '';
+  const phHtml = `<div class="book-cover-placeholder" ${book.cover_url ? 'style="display:none"' : ''}>
+    <i class="fas fa-book" style="font-size:2.5rem;opacity:.3"></i><span>${book.title}</span></div>`;
 
-  // Action button
-  let actionHtml = '';
+  // §4: students REQUEST; librarian approves; no direct borrow
+  let actionBtn = '';
   if (!currentUser) {
-    actionHtml = `<button class="btn-borrow" onclick="requireLogin()"><i class="fas fa-sign-in-alt"></i> Login to Borrow</button>`;
-  } else if (isBorrowed) {
-    actionHtml = `<button class="btn-return" onclick="returnBook('${book.id}', this)"><i class="fas fa-undo"></i> Return</button>`;
+    actionBtn = `<button class="btn-borrow" onclick="requireLogin()"><i class="fas fa-sign-in-alt"></i> Login to Request</button>`;
+  } else if (isLib) {
+    actionBtn = `<span style="font-size:.72rem;color:var(--muted);padding:.4rem;display:flex;align-items:center"><i class="fas fa-cog" style="margin-right:.3rem"></i>Manage in My Books</span>`;
+  } else if (isActive) {
+    const loan = activeLoanMap.get(book.id);
+    const fee  = calcFee(loan.dueDate);
+    actionBtn = `<button class="btn-return" disabled><i class="fas fa-book-open"></i> On Loan${fee > 0 ? ` &middot; Rs.${fee}` : ''}</button>`;
+  } else if (isPending) {
+    actionBtn = `<button class="btn-pending"><i class="fas fa-clock"></i> Pending&hellip;</button>`;
+  } else if (avail <= 0) {
+    actionBtn = `<button class="btn-borrow" disabled><i class="fas fa-times-circle"></i> Unavailable</button>`;
   } else {
-    actionHtml = `<button class="btn-borrow" onclick="borrowBook('${book.id}', this)"><i class="fas fa-plus"></i> Borrow</button>`;
+    actionBtn = `<button class="btn-request" onclick="doRequest('${book.id}',this)"><i class="fas fa-hand-paper"></i> Request</button>`;
   }
 
-  // Librarian delete
-  const delHtml = (showDel && isLibAdmin)
-    ? `<button class="btn-del-book" onclick="deleteBook('${book.id}', this)" title="Delete book"><i class="fas fa-trash"></i></button>`
-    : '';
+  const delBtn = (showDel && isLib)
+    ? `<button class="btn-del-book" onclick="deleteBook('${book.id}',this)" title="Delete"><i class="fas fa-trash"></i></button>` : '';
 
   div.innerHTML = `
     <div class="book-cover">
-      ${coverHtml}${placeholderHtml}
-      <span class="avail-badge yes">Available</span>
-      <button class="save-btn ${inWishlist ? 'saved' : ''}" onclick="toggleWishlist('${book.id}', this)" title="${inWishlist ? 'Remove from wishlist' : 'Add to wishlist'}">
-        <i class="fa${inWishlist ? 's' : 'r'} fa-bookmark"></i>
-      </button>
+      ${coverHtml}${phHtml}
+      <span class="avail-badge ${avail > 0 ? 'yes' : 'no'}">${avail > 0 ? avail + ' avail' : 'Out'}</span>
+      <button class="save-btn ${inWish ? 'saved' : ''}" onclick="toggleWishlist('${book.id}',this)">
+        <i class="fa${inWish ? 's' : 'r'} fa-bookmark"></i></button>
     </div>
     <div class="book-body">
       <div class="book-title">${book.title}</div>
-      ${book.author ? `<div class="book-author">✍️ ${book.author}</div>` : ''}
+      ${book.author  ? `<div class="book-author">\u270d\ufe0f ${book.author}</div>` : ''}
       ${book.description ? `<div class="book-description">${book.description}</div>` : ''}
-      ${book.genre ? `<span class="book-genre"><i class="fas fa-tag"></i> ${book.genre}</span>` : ''}
+      ${book.genre   ? `<span class="book-genre"><i class="fas fa-tag"></i> ${book.genre}</span>` : ''}
     </div>
-    <div class="book-actions">
-      ${actionHtml}
-      ${delHtml}
-    </div>
-  `;
+    <div class="book-actions">${actionBtn}${delBtn}</div>`;
   return div;
 }
 
-// ═══════════ GENRE FILTER ═══════════
-function filterGenre(genre, btn) {
-  activeGenre = genre;
-  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-  btn.classList.add('active');
-  loadBooks(genre);
-}
+function openBookDetail(book) {
+  const avail    = book.available !== undefined ? book.available : (book.quantity || 1);
+  const isPending = pendingMap.has(book.id);
+  const isActive  = activeLoanMap.has(book.id);
+  document.getElementById('modal-book-title').textContent = book.title;
 
-// ═══════════ ADD BOOK (LIBRARIAN) ═══════════
-async function addBook() {
-  if (!currentUser || (currentRole !== 'librarian' && currentRole !== 'admin')) {
-    toast('Only librarians can add books', 'error'); return;
+  let action = '';
+  if (!currentUser) {
+    action = `<button class="btn-primary btn-full" onclick="closeModal('modal-book');requireLogin()"><i class="fas fa-sign-in-alt"></i> Login to Request</button>`;
+  } else if (currentRole === 'student') {
+    if (isActive) {
+      const loan = activeLoanMap.get(book.id);
+      const fee  = calcFee(loan.dueDate);
+      action = `<div style="text-align:center;padding:.75rem;background:#f0faf4;border-radius:10px;font-size:.88rem;font-weight:600;color:var(--sage)">
+        \U0001f4d6 On Loan &mdash; Due: ${fmtDate(loan.dueDate)}${fee > 0 ? ` &middot; <span style="color:var(--rose)">Rs.${fee} fee</span>` : ''}</div>`;
+    } else if (isPending) {
+      action = `<div style="text-align:center;padding:.75rem;background:#fffdf5;border-radius:10px;font-size:.88rem;font-weight:600;color:#8a6a1a">\u23f3 Your request is pending approval</div>`;
+    } else if (avail <= 0) {
+      action = `<button class="btn-primary btn-full" disabled><i class="fas fa-times-circle"></i> Unavailable</button>`;
+    } else {
+      action = `<button class="btn-request btn-full" style="justify-content:center" onclick="doRequest('${book.id}',this);closeModal('modal-book')"><i class="fas fa-hand-paper"></i> Request to Borrow</button>`;
+    }
   }
 
+  document.getElementById('modal-book-body').innerHTML = `
+    <div class="book-detail-cover">
+      ${book.cover_url ? `<img src="${book.cover_url}" onerror="this.style.display='none'">` : '<i class="fas fa-book"></i>'}
+    </div>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:.75rem">
+      ${book.genre  ? `<span class="book-genre"><i class="fas fa-tag"></i> ${book.genre}</span>` : ''}
+      <span class="avail-badge ${avail > 0 ? 'yes' : 'no'}" style="position:static">${avail > 0 ? avail + ' available' : 'Out of stock'}</span>
+    </div>
+    ${book.author ? `<p style="font-size:.85rem;color:var(--muted);margin-bottom:.75rem">\u270d\ufe0f ${book.author}</p>` : ''}
+    <p style="font-size:.85rem;line-height:1.7;color:var(--ink-soft);margin-bottom:1rem">${book.description || 'No description.'}</p>
+    <p style="font-size:.78rem;color:var(--muted);margin-bottom:1.25rem">Total copies: ${book.quantity || 1}</p>
+    ${action}`;
+  document.getElementById('modal-book').classList.remove('hidden');
+}
+
+// ================================================================
+//  ADD / DELETE BOOK  (§3: librarian/admin only)
+// ================================================================
+async function addBook() {
+  if (!currentUser || !(currentRole === 'librarian' || currentRole === 'admin')) {
+    toast('Only librarians and admins can add books', 'error'); return;
+  }
   const title = document.getElementById('add-title').value.trim();
-  const author= document.getElementById('add-author').value.trim();
   const desc  = document.getElementById('add-desc').value.trim();
-  const genre = document.getElementById('add-genre').value;
-  const cover = document.getElementById('add-cover').value.trim();
-
-  if (!title) { toast('Book title is required', 'warning'); return; }
+  const qty   = parseInt(document.getElementById('add-qty').value) || 1;
+  if (!title) { toast('Title is required', 'warning'); return; }
   if (!desc)  { toast('Description is required', 'warning'); return; }
-
   const btn = document.getElementById('add-book-btn');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner dark"></span> Adding…';
-
-  const { error } = await sb.from('featured_books').insert({
-    title,
-    author:    author || null,
-    description: desc,
-    genre:     genre || null,
-    cover_url: cover || null,
-    added_by:  currentUser.id
-  });
-
-  if (error) {
-    toast('Error: ' + error.message, 'error');
-  } else {
-    toast(`"${title}" added successfully!`, 'success', '📚');
-    // Clear form
+  if (btn.disabled) return;
+  btn.disabled = true; btn.innerHTML = '<span class="spinner dark"></span> Adding&hellip;';
+  try {
+    const { error } = await withTimeout(sb.from('books').insert({
+      title,
+      author:      document.getElementById('add-author').value.trim() || null,
+      description: desc,
+      genre:       document.getElementById('add-genre').value || null,
+      quantity:    qty,
+      cover_url:   document.getElementById('add-cover').value.trim() || null,
+      added_by:    currentUser.id
+    }));
+    if (error) { toast('Error: ' + error.message, 'error'); return; }
+    toast(`"${title}" added!`, 'success', '\U0001f4da');
     ['add-title','add-author','add-desc','add-cover'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('add-genre').value = '';
-    loadBooks(activeGenre);
-  }
-
-  btn.disabled = false;
-  btn.innerHTML = '<i class="fas fa-plus"></i> Add Book';
+    document.getElementById('add-qty').value   = '1';
+    allBooks = []; await loadBooks();
+  } catch(err) { toast(err.message || 'Failed.', 'error'); }
+  finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-plus"></i> Add Book'; }
 }
 
-// ═══════════ DELETE BOOK (LIBRARIAN) ═══════════
 async function deleteBook(bookId, btn) {
-  if (!confirm('Delete this book from featured list?')) return;
-  btn.innerHTML = '<span class="spinner dark"></span>';
-
-  const { error } = await sb.from('featured_books').delete().eq('id', bookId);
-  if (error) {
-    toast('Error: ' + error.message, 'error');
-    btn.innerHTML = '<i class="fas fa-trash"></i>';
-  } else {
-    toast('Book removed', 'info');
-    loadBooks(activeGenre);
-  }
+  if (!confirm('Delete this book? Cannot be undone.')) return;
+  btn.innerHTML = '<span class="spinner dark"></span>'; btn.disabled = true;
+  try {
+    const { error } = await withTimeout(sb.from('books').delete().eq('id', bookId));
+    if (error) { toast('Error: ' + error.message, 'error'); }
+    else { toast('Book removed', 'info'); allBooks = []; await loadBooks(); }
+  } catch(err) { toast(err.message || 'Delete failed.', 'error'); }
+  finally { btn.innerHTML = '<i class="fas fa-trash"></i>'; btn.disabled = false; }
 }
 
-// ═══════════ BORROW / RETURN ═══════════
-async function borrowBook(bookId, btn) {
+// ================================================================
+//  §4 — BORROW REQUEST (student side)
+//  FIX: use request_book() RPC (SECURITY DEFINER) instead of direct
+//  INSERT. This bypasses the RLS race condition where the student's
+//  profile row isn't confirmed yet → current_role_name() returns NULL
+//  → "violates row-level security policy" error.
+// ================================================================
+async function doRequest(bookId, btn) {
   if (!currentUser) { requireLogin(); return; }
-
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>';
-
-  const dueDate = new Date();
-  dueDate.setDate(dueDate.getDate() + 14); // 14-day loan
-
-  const { error } = await sb.from('loans').insert({
-    book_id:  bookId,
-    user_id:  currentUser.id,
-    due_date: dueDate.toISOString()
-  });
-
-  if (error) {
-    toast('Error: ' + error.message, 'error');
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-plus"></i> Borrow';
-  } else {
-    borrowedIds.add(bookId);
-    toast('Borrowed! Due in 14 days.', 'success', '📗');
-    // Swap button to return
-    btn.className = 'btn-return';
-    btn.innerHTML = '<i class="fas fa-undo"></i> Return';
-    btn.disabled = false;
-    btn.onclick = () => returnBook(bookId, btn);
+  if (currentRole !== 'student') { toast('Only students can request books', 'info'); return; }
+  if (btn.disabled) return;
+  if (pendingMap.has(bookId))    { toast('Already a pending request for this book', 'info'); return; }
+  if (activeLoanMap.has(bookId)) { toast('Already on loan', 'info'); return; }
+  // Per-user rate limit: max 10 book requests per hour
+  if (!rateCheck('request:' + currentUser.id, 10, 3600000)) return;
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
+  try {
+    // Try RPC first (fixes RLS issue)
+    const { data: rpcData, error: rpcErr } = await withTimeout(
+      sb.rpc('request_book', { p_book_id: bookId })
+    );
+    if (rpcErr) { toast('Error: ' + rpcErr.message, 'error'); return; }
+    if (rpcData?.error) { toast(rpcData.error, 'error'); return; }
+    const newId = rpcData?.id;
+    if (newId) pendingMap.set(bookId, newId);
+    toast('Request sent! Waiting for librarian approval.', 'success', '\U0001f4ec');
+    btn.className = 'btn-pending';
+    btn.innerHTML = '<i class="fas fa-clock"></i> Pending&hellip;';
+    btn.disabled  = true;
+  } catch(err) {
+    toast(err.message || 'Request failed.', 'error');
+    btn.disabled = false; btn.innerHTML = '<i class="fas fa-hand-paper"></i> Request';
   }
 }
-
-async function returnBook(bookId, btn) {
-  if (!currentUser) return;
-
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>';
-
-  const { error } = await sb.from('loans')
-    .update({ returned_at: new Date().toISOString() })
-    .eq('book_id', bookId)
-    .eq('user_id', currentUser.id)
-    .is('returned_at', null);
-
-  if (error) {
-    toast('Error: ' + error.message, 'error');
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-undo"></i> Return';
-  } else {
-    borrowedIds.delete(bookId);
-    toast('Book returned! Thank you.', 'success', '✅');
-    btn.className = 'btn-borrow';
-    btn.innerHTML = '<i class="fas fa-plus"></i> Borrow';
-    btn.disabled = false;
-    btn.onclick = () => borrowBook(bookId, btn);
-  }
-}
-
 function requireLogin() {
-  toast('Please sign in to borrow books', 'info', '🔐');
+  toast('Please sign in to request books', 'info', '\U0001f512');
   setTimeout(() => showPage('login'), 900);
 }
 
-// ═══════════ WISHLIST ═══════════
+// ================================================================
+//  MY BOOKS — role-aware
+//  Admin: blocked (they don't borrow books; admin manages roles)
+//  Librarian: sees manage-requests tabs
+//  Student: sees own requests
+// ================================================================
+function initMyBooks() {
+  if (!currentUser) {
+    document.getElementById('mybooks-tabs').innerHTML = '';
+    document.getElementById('mybooks-content').innerHTML = `<div class="empty-state">
+      <div class="empty-state-icon">\U0001f512</div><h3>Sign in first</h3>
+      <p><a href="#" onclick="return showPage('login')" style="color:var(--ink);font-weight:600">Sign in</a> to see your books.</p>
+    </div>`; return;
+  }
+  if (currentRole === 'admin') {
+    // Admins use Members page for oversight, not My Books
+    document.getElementById('mybooks-tabs').innerHTML = '';
+    document.getElementById('mybooks-content').innerHTML = `<div class="empty-state">
+      <div class="empty-state-icon">\U0001f6e1\ufe0f</div><h3>Admin Dashboard</h3>
+      <p>As an admin, manage users via the <a href="#" onclick="return showPage('members')" style="color:var(--ink);font-weight:600">Members</a> page and change roles via user profiles.</p>
+    </div>`; return;
+  }
+  if (currentRole === 'student') renderStudentTabs('pending');
+  else                            renderLibrarianTabs('pending');
+}
+
+// ================================================================
+//  SEND NOTICE (admin/librarian → students)
+// ================================================================
+async function openNoticeModal(specificUserId) {
+  if (currentRole !== 'librarian' && currentRole !== 'admin') {
+    toast('Only librarians and admins can send notices', 'error'); return;
+  }
+  // Reset modal state
+  noticeTarget = specificUserId ? 'one' : 'all';
+  document.getElementById('notice-title').value = '';
+  document.getElementById('notice-message').value = '';
+
+  // Load student list for specific-user mode
+  const sel = document.getElementById('notice-student-select');
+  sel.innerHTML = '<option value="">Loading…</option>';
+  try {
+    const { data } = await withTimeout(
+      sb.from('profiles').select('id,full_name,uid').eq('role', 'student').order('full_name')
+    );
+    noticeStudentsList = data || [];
+    sel.innerHTML = '<option value="">— Select a student —</option>' +
+      noticeStudentsList.map(s =>
+        `<option value="${esc(s.id)}" ${specificUserId === s.id ? 'selected' : ''}>${esc(s.full_name || 'Unknown')}${s.uid ? ' (' + esc(s.uid) + ')' : ''}</option>`
+      ).join('');
+  } catch { sel.innerHTML = '<option value="">Failed to load</option>'; }
+
+  // Set chip state
+  setNoticeTarget(noticeTarget, null);
+  document.getElementById('modal-notice').classList.remove('hidden');
+}
+
+function setNoticeTarget(target, btn) {
+  noticeTarget = target;
+  document.querySelectorAll('.notice-target-chip').forEach(c => c.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else document.getElementById(target === 'all' ? 'ntc-all' : 'ntc-one')?.classList.add('active');
+  const wrap = document.getElementById('notice-specific-wrap');
+  if (wrap) wrap.classList[target === 'one' ? 'remove' : 'add']('hidden');
+}
+
+async function doSendNotice() {
+  const title   = sanitizeText(document.getElementById('notice-title').value.trim(), 120);
+  const message = sanitizeText(document.getElementById('notice-message').value.trim(), 500);
+  if (!title)   { toast('Please enter a notice title', 'warning'); return; }
+  if (!message) { toast('Please enter a message', 'warning'); return; }
+
+  let userId = null;
+  if (noticeTarget === 'one') {
+    userId = document.getElementById('notice-student-select').value;
+    if (!userId) { toast('Please select a student', 'warning'); return; }
+  }
+
+  const btn = document.getElementById('btn-do-notice');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Sending…';
+  try {
+    const { data, error } = await withTimeout(
+      sb.rpc('send_notice', { p_user_id: userId || null, p_title: title, p_message: message })
+    );
+    if (error) { toast('Error: ' + error.message, 'error'); return; }
+    if (data?.error) { toast(data.error, 'error'); return; }
+    const count = data?.recipients ?? (userId ? 1 : '?');
+    toast(`Notice sent to ${count} student${count !== 1 ? 's' : ''}!`, 'success', '\U0001f4e2');
+    closeModal('modal-notice');
+  } catch(err) { toast(err.message || 'Send failed.', 'error'); }
+  finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Notice'; }
+}
+
+function renderStudentTabs(active) {
+  const tabs = [['pending','\u23f3 Pending'],['approved','\U0001f4d6 Active Loans'],['returned','\U0001f4da History']];
+  document.getElementById('mybooks-tabs').innerHTML = tabs.map(([k,l]) =>
+    `<button class="tab-btn ${active === k ? 'active' : ''}" onclick="renderStudentTabs('${k}')">${l}</button>`).join('');
+  document.getElementById('mybooks-page-desc').textContent = 'Your borrow requests and active loans';
+  renderStudentRequests(active);
+}
+
+async function renderStudentRequests(status) {
+  const content = document.getElementById('mybooks-content');
+  content.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--muted)"><span class="spinner dark"></span><br><br>Loading&hellip;</div>`;
+  try {
+    let q = sb.from('borrow_requests').select('*,books(*)').eq('user_id', currentUser.id).order('requested_at', { ascending: false });
+    if (status === 'approved') q = q.eq('status', 'approved');
+    else if (status === 'pending') q = q.eq('status', 'pending');
+    else q = q.in('status', ['returned','rejected']);
+    const { data, error } = await withTimeout(q);
+    if (error) throw new Error(error.message);
+    if (!data?.length) {
+      const em = { pending:'\u23f3', approved:'\U0001f4d6', returned:'\U0001f4da' };
+      content.innerHTML = `<div class="empty-state"><div class="empty-state-icon">${em[status] || '\U0001f4da'}</div>
+        <h3>${status === 'pending' ? 'No pending requests' : status === 'approved' ? 'No active loans' : 'No history yet'}</h3>
+        <p>${status === 'pending' ? 'Request a book from the home page!' : ''}</p></div>`;
+      return;
+    }
+    content.innerHTML = '';
+    data.forEach(req => content.appendChild(buildReqCard(req, req.books, false)));
+  } catch(err) {
+    content.innerHTML = `<div class="empty-state"><div class="empty-state-icon">\u23f1</div><h3>${err.message}</h3>
+      <button class="btn-primary" style="margin:1rem auto 0;display:inline-flex" onclick="renderStudentTabs('${status}')">Retry</button></div>`;
+  }
+}
+
+function renderLibrarianTabs(active) {
+  const tabs = [['pending','\u23f3 Pending'],['approved','\U0001f4d6 Active'],['overdue','\u26a0\ufe0f Overdue'],['returned','\U0001f4da History']];
+  document.getElementById('mybooks-tabs').innerHTML = tabs.map(([k,l]) =>
+    `<button class="tab-btn ${active === k ? 'active' : ''}" onclick="renderLibrarianTabs('${k}')">${l}</button>`).join('');
+  document.getElementById('mybooks-page-desc').textContent = 'Manage all borrow requests and active loans';
+  renderLibrarianRequests(active);
+}
+
+async function renderLibrarianRequests(sf) {
+  const content = document.getElementById('mybooks-content');
+  content.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--muted)"><span class="spinner dark"></span><br><br>Loading&hellip;</div>`;
+  const now = new Date().toISOString();
+  try {
+    // FIX: The 400 error occurred because borrow_requests.user_id used to reference
+    // auth.users(id), not profiles(id), so PostgREST couldn't resolve the embedded join.
+    // After the schema fix (v4), profiles:user_id join works.
+    // As a belt-and-suspenders fallback, we handle both old and new schemas:
+    let q = sb.from('borrow_requests')
+      .select('*,books(*),profiles:user_id(full_name,email,uid,class,section)')
+      .order('requested_at', { ascending: sf !== 'pending' });
+    if      (sf === 'pending')  q = q.eq('status', 'pending');
+    else if (sf === 'approved') q = q.eq('status', 'approved').gte('due_date', now);
+    else if (sf === 'overdue')  q = q.eq('status', 'approved').lt('due_date', now);
+    else                         q = q.in('status', ['returned','rejected']);
+
+    const { data, error } = await withTimeout(q);
+
+    if (error) {
+      // FALLBACK: If the join still fails (old schema), fetch without profile embed
+      // and do a separate profiles lookup
+      const { data: data2, error: err2 } = await withTimeout(
+        (() => {
+          let q2 = sb.from('borrow_requests').select('*,books(*)').order('requested_at', { ascending: sf !== 'pending' });
+          if      (sf === 'pending')  q2 = q2.eq('status', 'pending');
+          else if (sf === 'approved') q2 = q2.eq('status', 'approved').gte('due_date', now);
+          else if (sf === 'overdue')  q2 = q2.eq('status', 'approved').lt('due_date', now);
+          else                         q2 = q2.in('status', ['returned','rejected']);
+          return q2;
+        })()
+      );
+      if (err2) throw new Error(err2.message);
+      if (!data2?.length) {
+        content.innerHTML = `<div class="empty-state"><div class="empty-state-icon">\u2728</div><h3>All clear</h3><p>Nothing in this category.</p></div>`;
+        return;
+      }
+      // Fetch profiles for all user_ids
+      const userIds = [...new Set(data2.map(r => r.user_id))];
+      const { data: profs } = await withTimeout(
+        sb.from('profiles').select('id,full_name,email,uid,class,section').in('id', userIds)
+      ).catch(() => ({ data: [] }));
+      const profMap = {};
+      (profs || []).forEach(p => { profMap[p.id] = p; });
+      const enriched = data2.map(r => ({ ...r, profiles: profMap[r.user_id] || null }));
+      content.innerHTML = '';
+      enriched.forEach(req => content.appendChild(buildReqCard(req, req.books, true)));
+      return;
+    }
+
+    if (!data?.length) {
+      content.innerHTML = `<div class="empty-state"><div class="empty-state-icon">\u2728</div><h3>All clear</h3><p>Nothing in this category.</p></div>`;
+      return;
+    }
+    content.innerHTML = '';
+    data.forEach(req => content.appendChild(buildReqCard(req, req.books, true)));
+  } catch(err) {
+    content.innerHTML = `<div class="empty-state"><div class="empty-state-icon">\u23f1</div><h3>${esc(err.message)}</h3>
+      <button class="btn-primary" style="margin:1rem auto 0;display:inline-flex" onclick="renderLibrarianRequests('${sf}')">Retry</button></div>`;
+  }
+}
+
+function buildReqCard(req, book, isLib) {
+  if (!book) return document.createElement('div');
+  const fee    = req.status === 'approved' ? calcFee(req.due_date) : (req.late_fee || 0);
+  const overdue = req.status === 'approved' && req.due_date && new Date(req.due_date) < new Date();
+  const div = document.createElement('div');
+  div.className = `req-card ${overdue ? 'overdue' : ''}`;
+
+  const cover = book.cover_url
+    ? `<img src="${book.cover_url}" onerror="this.style.display='none'">` : '<i class="fas fa-book"></i>';
+
+  let actions = '';
+  if (isLib) {
+    if (req.status === 'pending') {
+      const bt = book.title.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+      const sn = (req.profiles?.full_name || 'Student').replace(/'/g, "\\'");
+      actions = `<button class="btn-primary btn-sm" onclick="openApproveModal('${req.id}','${bt}','${sn}')"><i class="fas fa-check"></i> Manage</button>`;
+    } else if (req.status === 'approved') {
+      actions = `<button class="btn-return btn-sm" onclick="markReturned('${req.id}',this,${fee})"><i class="fas fa-undo"></i> Mark Returned</button>`;
+    }
+  } else {
+    if (req.status === 'pending') {
+      actions = `<button class="btn-outline btn-sm" style="color:var(--rose);border-color:var(--rose)" onclick="cancelRequest('${req.id}',this,'${req.book_id}')"><i class="fas fa-times"></i> Cancel</button>`;
+    }
+  }
+
+  const studentLine = isLib && req.profiles
+    ? `<div class="req-student"><i class="fas fa-user" style="color:var(--muted);margin-right:.3rem"></i>${req.profiles.full_name || 'Unknown'}${req.profiles.uid ? ` <span style="font-family:monospace;font-size:.7rem;color:var(--muted)">(${req.profiles.uid})</span>` : ''}</div>` : '';
+
+  div.innerHTML = `
+    <div class="req-book-cover">${cover}</div>
+    <div class="req-info">
+      ${studentLine}
+      <div class="req-book-title">${book.title}</div>
+      ${book.author ? `<div class="req-book-author">\u270d\ufe0f ${book.author}</div>` : ''}
+      <div class="req-meta">
+        <span class="status-badge ${req.status}">${req.status}</span>
+        ${req.due_date ? `<span class="fee-badge ok">\U0001f4c5 Due: ${fmtDate(req.due_date)}</span>` : ''}
+        ${fee > 0 ? `<span class="fee-badge">\U0001f4b0 Rs.${fee} fee</span>` : ''}
+        <span style="font-size:.7rem;color:var(--muted)">${timeAgo(req.requested_at)}</span>
+      </div>
+      ${req.notes ? `<div style="font-size:.78rem;color:var(--muted);font-style:italic;margin-top:.3rem">Note: ${req.notes}</div>` : ''}
+      <div class="req-actions">${actions}</div>
+    </div>`;
+  return div;
+}
+
+// ================================================================
+//  §4 — LIBRARIAN: APPROVE / REJECT MODAL
+// ================================================================
+function openApproveModal(reqId, bookTitle, studentName) {
+  pendingReqId = reqId;
+  document.getElementById('modal-approve-info').innerHTML =
+    `<strong>${bookTitle}</strong><br><span style="font-size:.85rem;color:var(--muted)">Requested by: ${studentName}</span>`;
+  document.getElementById('modal-duration').value = '14';
+  document.getElementById('modal-notes').value    = '';
+  document.getElementById('modal-approve').classList.remove('hidden');
+}
+
+async function confirmApprove() {
+  if (!pendingReqId) return;
+  const duration = Math.min(30, Math.max(1, parseInt(document.getElementById('modal-duration').value) || 14));
+  const notes    = document.getElementById('modal-notes').value.trim();
+  const btn      = document.getElementById('btn-modal-approve');
+  if (btn.disabled) return;
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
+  const due = new Date(); due.setDate(due.getDate() + duration);
+  try {
+    const { error } = await withTimeout(sb.from('borrow_requests').update({
+      status: 'approved', approved_at: new Date().toISOString(),
+      approved_by: currentUser.id, due_date: due.toISOString(),
+      duration_days: duration, notes: notes || null
+    }).eq('id', pendingReqId));
+    if (error) { toast('Error: ' + error.message, 'error'); return; }
+
+    // §5: send notification to student
+    const { data: rd } = await sb.from('borrow_requests').select('user_id,books(title)').eq('id', pendingReqId).maybeSingle();
+    if (rd) { try { await sb.from('notifications').insert({ user_id: rd.user_id, type: 'approved', title: 'Request Approved ✅', message: 'Your request for "' + (rd.books?.title||'') + '" has been approved. Due: ' + fmtDate(due) }); } catch {} }
+
+    toast('Request approved!', 'success', '\u2705');
+    closeModal('modal-approve'); pendingReqId = null;
+    renderLibrarianTabs('pending');
+  } catch(err) { toast(err.message || 'Failed.', 'error'); }
+  finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-check"></i> Approve'; }
+}
+
+async function confirmReject() {
+  if (!pendingReqId) return;
+  const notes = document.getElementById('modal-notes').value.trim();
+  const btn   = document.getElementById('btn-modal-reject');
+  if (btn.disabled) return;
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
+  try {
+    const { error } = await withTimeout(sb.from('borrow_requests').update({ status: 'rejected', notes: notes || null }).eq('id', pendingReqId));
+    if (error) { toast('Error: ' + error.message, 'error'); return; }
+    const { data: rd } = await sb.from('borrow_requests').select('user_id,books(title)').eq('id', pendingReqId).maybeSingle();
+    if (rd) { try { await sb.from('notifications').insert({ user_id: rd.user_id, type: 'rejected', title: 'Request Rejected', message: 'Your request for "' + (rd.books?.title||'') + '" was not approved.' + (notes ? ' Reason: ' + notes : '') }); } catch {} }
+    toast('Request rejected', 'info');
+    closeModal('modal-approve'); pendingReqId = null;
+    renderLibrarianTabs('pending');
+  } catch(err) { toast(err.message || 'Failed.', 'error'); }
+  finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-times"></i> Reject'; }
+}
+
+async function markReturned(reqId, btn, lateFee) {
+  const msg = lateFee > 0 ? `\nLate fee: Rs.${lateFee}` : '';
+  if (!confirm('Mark this book as returned?' + msg)) return;
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
+  try {
+    const { error } = await withTimeout(sb.from('borrow_requests').update({
+      status: 'returned', returned_at: new Date().toISOString(), late_fee: lateFee
+    }).eq('id', reqId));
+    if (error) { toast('Error: ' + error.message, 'error'); return; }
+    const { data: rd } = await sb.from('borrow_requests').select('user_id,books(title)').eq('id', reqId).maybeSingle();
+    if (rd) { try { await sb.from('notifications').insert({ user_id: rd.user_id, type: 'returned', title: 'Book Returned ✅', message: '"' + (rd.books?.title||'') + '" confirmed returned.' + (lateFee > 0 ? ' Late fee: Rs.' + lateFee + '.' : ' No late fee!') }); } catch {} }
+    toast('Marked as returned' + (lateFee > 0 ? ` &middot; Rs.${lateFee} fee` : ''), 'success');
+    allBooks = []; await loadBooks();
+    renderLibrarianTabs('approved');
+  } catch(err) {
+    toast(err.message || 'Failed.', 'error');
+    btn.disabled = false; btn.innerHTML = '<i class="fas fa-undo"></i> Mark Returned';
+  }
+}
+
+async function cancelRequest(reqId, btn, bookId) {
+  if (!confirm('Cancel this borrow request?')) return;
+  btn.disabled = true; btn.innerHTML = '<span class="spinner dark"></span>';
+  try {
+    const { error } = await withTimeout(
+      sb.from('borrow_requests').delete().eq('id', reqId).eq('user_id', currentUser.id)
+    );
+    if (error) { toast('Error: ' + error.message, 'error'); return; }
+    pendingMap.delete(bookId);
+    toast('Request cancelled', 'info');
+    renderStudentTabs('pending');
+  } catch(err) {
+    toast(err.message || 'Failed.', 'error');
+    btn.disabled = false; btn.innerHTML = '<i class="fas fa-times"></i> Cancel';
+  }
+}
+
+// ================================================================
+//  §6 — MEMBERS (shows students only)
+// ================================================================
+async function loadMembers(searchVal, searchType) {
+  const grid = document.getElementById('members-grid');
+  const sBar = document.getElementById('member-search-bar');
+  sBar.classList[(currentRole === 'librarian' || currentRole === 'admin') ? 'remove' : 'add']('hidden');
+  grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><span class="spinner dark"></span><br><br>Loading&hellip;</div>`;
+  try {
+    let q = sb.from('profiles').select('id,full_name,email,uid,class,section,created_at')
+      .eq('role', 'student').order('full_name');
+    if (searchVal && searchType) q = q.ilike(searchType, `%${sanitizeText(searchVal, 100)}%`);
+    const { data, error } = await withTimeout(q);
+    if (error) throw new Error(error.message);
+    if (!data?.length) {
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="empty-state-icon">\U0001f465</div><h3>No members found</h3><p>Students will appear here once they sign up.</p></div>`;
+      return;
+    }
+    grid.innerHTML = '';
+    data.forEach(m => grid.appendChild(createMemberCard(m)));
+  } catch(err) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="empty-state-icon">\u23f1</div><h3>${esc(err.message)}</h3>
+      <button class="btn-primary" style="margin:1rem auto 0;display:inline-flex" onclick="loadMembers()">Retry</button></div>`;
+  }
+}
+
+function createMemberCard(m) {
+  const div = document.createElement('div');
+  const canView = (currentRole === 'librarian' || currentRole === 'admin') || (currentUser && m.id === currentUser.id);
+  const isStaff = (currentRole === 'librarian' || currentRole === 'admin');
+  div.className = `member-card ${canView ? 'clickable' : ''}`;
+  if (canView) div.onclick = (e) => {
+    if (e.target.closest('.btn-notice-member')) return; // don't navigate on notice btn click
+    showPage('profile'); loadProfile(m.id);
+  };
+  const ini = (m.full_name || '?').charAt(0).toUpperCase();
+  const classMeta = [m.class ? 'Class ' + esc(m.class) : '', m.section ? 'Sec ' + esc(m.section) : ''].filter(Boolean).join(' &middot; ') || '&mdash;';
+  const noticeBtn = isStaff
+    ? `<button class="btn-notice-member" title="Send notice to ${esc(m.full_name)}" onclick="openNoticeModal('${esc(m.id)}')" style="background:none;border:1px solid var(--gold);color:var(--gold);border-radius:8px;padding:.25rem .6rem;cursor:pointer;font-size:.72rem;flex-shrink:0;transition:var(--ease)" onmouseover="this.style.background='var(--gold)';this.style.color='var(--ink)'" onmouseout="this.style.background='none';this.style.color='var(--gold)'"><i class="fas fa-bell"></i></button>`
+    : '';
+  div.innerHTML = `
+    <div class="member-avatar">${esc(ini)}</div>
+    <div style="flex:1;min-width:0">
+      <div class="member-name">${esc(m.full_name)}</div>
+      ${m.uid ? `<div class="member-uid">${esc(m.uid)}</div>` : ''}
+      <div class="member-meta">${classMeta}</div>
+    </div>
+    ${noticeBtn}
+    ${canView ? '<i class="fas fa-chevron-right" style="color:var(--muted);font-size:.75rem;flex-shrink:0"></i>' : ''}`;
+  return div;
+}
+
+function searchMembers() {
+  const val  = document.getElementById('member-search-input').value.trim();
+  const type = document.getElementById('member-search-type').value;
+  if (!val) { toast('Enter a search term', 'warning'); return; }
+  loadMembers(val, type);
+}
+
+// ================================================================
+//  §1 — PROFILE (students see ONLY their own)
+// ================================================================
+async function loadProfile(userId) {
+  if (!currentUser) { showPage('login'); return; }
+  // §1: students blocked from viewing others' profiles
+  if (currentRole === 'student' && userId && userId !== currentUser.id) {
+    toast('You can only view your own profile', 'warning');
+    userId = currentUser.id;
+  }
+  if (!userId) userId = currentUser.id;
+  const content = document.getElementById('profile-content');
+  content.innerHTML = `<div class="empty-state"><span class="spinner dark"></span><br><br>Loading profile&hellip;</div>`;
+  try {
+    const { data, error } = await withTimeout(sb.from('profiles').select('*').eq('id', userId).maybeSingle());
+    if (error || !data) throw new Error('Profile not found');
+    const { count: loanCount } = await withTimeout(
+      sb.from('borrow_requests').select('*', { count: 'exact', head: true }).eq('user_id', userId).eq('status', 'approved')
+    ).catch(() => ({ count: 0 }));
+    const isOwn = userId === currentUser.id;
+    content.innerHTML = `
+      <div class="profile-card">
+        <div class="profile-avatar-lg">${esc((data.full_name || '?').charAt(0).toUpperCase())}</div>
+        <h2 style="text-align:center;font-family:'Playfair Display',serif;margin-bottom:.5rem">${esc(data.full_name)}</h2>
+        <div style="text-align:center;margin-bottom:1.75rem"><span class="role-chip ${esc(data.role)}">${esc(data.role)}</span></div>
+        <div class="profile-row"><span class="profile-label">Email</span><span class="profile-value">${esc(data.email)}</span></div>
+        ${data.uid ? `<div class="profile-row"><span class="profile-label">UID</span><span class="profile-value" style="font-family:monospace">${esc(data.uid)}</span></div>` : ''}
+        ${data.class ? `<div class="profile-row"><span class="profile-label">Class</span><span class="profile-value">${esc(data.class)}</span></div>` : ''}
+        ${data.section ? `<div class="profile-row"><span class="profile-label">Section</span><span class="profile-value">${esc(data.section)}</span></div>` : ''}
+        <div class="profile-row"><span class="profile-label">Active Loans</span><span class="profile-value">${loanCount ?? 0}</span></div>
+        <div class="profile-row"><span class="profile-label">Member Since</span><span class="profile-value">${fmtDate(data.created_at)}</span></div>
+        ${isOwn ? `<div style="margin-top:1.5rem;display:flex;gap:.75rem;flex-wrap:wrap">
+          ${currentRole === 'student' ? `<button class="btn-primary btn-sm" onclick="showPage('mybooks')"><i class="fas fa-book"></i> My Books</button>` : ''}
+          <button class="btn-outline btn-sm" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+        </div>` : ''}
+        ${(currentRole === 'admin' && !isOwn) ? `
+          <div style="margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--border)">
+            <div style="font-size:.82rem;font-weight:600;margin-bottom:.75rem;color:var(--muted)">ADMIN: CHANGE ROLE</div>
+            <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+              <button class="btn-outline btn-sm" onclick="adminSetRole('${esc(data.email)}','student')">Student</button>
+              <button class="btn-outline btn-sm" onclick="adminSetRole('${esc(data.email)}','librarian')">Librarian</button>
+              <button class="btn-outline btn-sm" onclick="adminSetRole('${esc(data.email)}','admin')">Admin</button>
+            </div>
+          </div>` : ''}
+        ${((currentRole === 'librarian' || currentRole === 'admin') && !isOwn && data.role === 'student') ? `
+          <div style="margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--border)">
+            <button class="btn-notice btn-sm" style="border-radius:10px" onclick="openNoticeModal('${esc(data.id)}')"><i class="fas fa-bell"></i> Send Notice to Student</button>
+          </div>` : ''}
+      </div>`;
+  } catch(err) {
+    content.innerHTML = `<div class="empty-state"><div class="empty-state-icon">\u26a0\ufe0f</div><h3>${err.message}</h3></div>`;
+  }
+}
+
+// ================================================================
+//  §8 — adminSetRole via SECURITY DEFINER RPC
+//  Plain UPDATE fails: RLS WITH CHECK blocks role changes.
+//  The admin_set_role(target_email, new_role) function in schema.sql
+//  verifies the caller is admin then updates bypassing RLS.
+// ================================================================
+async function adminSetRole(email, newRole) {
+  if (currentRole !== 'admin') { toast('Admin only', 'error'); return; }
+  if (!confirm(`Change ${email} to role: ${newRole}?`)) return;
+  try {
+    const { data, error } = await withTimeout(sb.rpc('admin_set_role', { target_email: email, new_role: newRole }));
+    if (error) { toast('Error: ' + error.message, 'error'); return; }
+    if (data?.error) { toast(data.error, 'error'); return; }
+    toast('Role updated to ' + newRole, 'success', '\u2705');
+    loadProfile(currentUser.id);
+  } catch(err) { toast(err.message || 'Failed.', 'error'); }
+}
+
+// ================================================================
+//  §5 — NOTIFICATIONS (bell badge + list)
+// ================================================================
+async function fetchUnreadCount() {
+  if (!currentUser) { unreadCount = 0; return; }
+  try {
+    const { count } = await withTimeout(
+      sb.from('notifications').select('*', { count: 'exact', head: true })
+        .eq('user_id', currentUser.id).eq('read', false), 5000
+    );
+    unreadCount = count || 0;
+    renderHeader();
+  } catch { /* non-critical */ }
+}
+
+async function loadNotifications() {
+  if (!currentUser) { showPage('login'); return; }
+  const list = document.getElementById('notif-list');
+  list.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--muted)"><span class="spinner dark"></span></div>`;
+  try {
+    const { data, error } = await withTimeout(
+      sb.from('notifications').select('*').eq('user_id', currentUser.id)
+        .order('created_at', { ascending: false }).limit(60)
+    );
+    if (error) throw new Error(error.message);
+    // §5: mark all as read when page opened
+    try { await sb.from('notifications').update({ read: true }).eq('user_id', currentUser.id).eq('read', false); } catch {}
+    unreadCount = 0; renderHeader();
+    if (!data?.length) {
+      list.innerHTML = `<div class="empty-state"><div class="empty-state-icon">\U0001f514</div><h3>No notifications yet</h3><p>Updates about your requests will appear here.</p></div>`;
+      return;
+    }
+    list.innerHTML = '';
+    data.forEach(n => list.appendChild(buildNotifItem(n)));
+  } catch(err) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-state-icon">\u23f1</div><h3>${err.message}</h3></div>`;
+  }
+}
+
+function buildNotifItem(n) {
+  const icons = { approved:'\u2705', rejected:'\u274c', returned:'\U0001f4da', due_soon:'\u23f3', overdue:'\u26a0\ufe0f', general:'\u2139\ufe0f' };
+  const div = document.createElement('div');
+  div.className = `notif-item ${n.read ? '' : 'unread'}`;
+  div.innerHTML = `
+    <div class="notif-icon">${icons[n.type] || '\u2139\ufe0f'}</div>
+    <div class="notif-body">
+      <div class="notif-title">${n.title}</div>
+      <div class="notif-msg">${n.message}</div>
+      <div class="notif-time">${timeAgo(n.created_at)}</div>
+    </div>`;
+  return div;
+}
+
+async function markAllRead() {
+  if (!currentUser) return;
+  try { await sb.from('notifications').update({ read: true }).eq('user_id', currentUser.id); } catch {}
+  unreadCount = 0; renderHeader();
+  loadNotifications();
+}
+
+// ================================================================
+//  WISHLIST
+// ================================================================
 function toggleWishlist(bookId, btn) {
   if (wishlistIds.has(bookId)) {
     wishlistIds.delete(bookId);
-    btn.className = 'save-btn';
-    btn.innerHTML = '<i class="far fa-bookmark"></i>';
-    btn.title = 'Add to wishlist';
+    btn.className = 'save-btn'; btn.innerHTML = '<i class="far fa-bookmark"></i>';
     toast('Removed from wishlist', 'info');
   } else {
     wishlistIds.add(bookId);
-    btn.className = 'save-btn saved';
-    btn.innerHTML = '<i class="fas fa-bookmark"></i>';
-    btn.title = 'Remove from wishlist';
-    toast('Saved to wishlist', 'success', '🔖');
+    btn.className = 'save-btn saved'; btn.innerHTML = '<i class="fas fa-bookmark"></i>';
+    toast('Saved to wishlist', 'success', '\U0001f516');
     if (navigator.vibrate) navigator.vibrate(40);
   }
   localStorage.setItem('wl', JSON.stringify([...wishlistIds]));
 }
 
 function renderWishlist() {
-  const grid = document.getElementById('wishlist-grid');
+  const grid  = document.getElementById('wishlist-grid');
   const books = allBooks.filter(b => wishlistIds.has(b.id));
   renderBookGrid(books, grid, false);
 }
 
-// ═══════════ MY BOOKS ═══════════
-async function renderMyBooks(filter) {
-  const grid = document.getElementById('mybooks-grid');
-  if (!currentUser) {
-    grid.innerHTML = `<div class="empty-state">
-      <div class="empty-state-icon">🔐</div>
-      <h3>Sign in first</h3>
-      <p><a href="#" onclick="showPage('login')" style="color:var(--ink);font-weight:600">Sign in</a> to see your borrowed books.</p>
-    </div>`;
-    return;
-  }
-
-  grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">
-    <span class="spinner dark"></span><br><br>Loading…
-  </div>`;
-
-  const now = new Date().toISOString();
-  let query = sb.from('loans')
-    .select('*, featured_books(*)')
-    .eq('user_id', currentUser.id)
-    .is('returned_at', null);
-
-  if (filter === 'overdue') query = query.lt('due_date', now);
-
-  const { data, error } = await query;
-
-  if (error || !data?.length) {
-    grid.innerHTML = `<div class="empty-state">
-      <div class="empty-state-icon">📚</div>
-      <h3>No borrowed books</h3>
-      <p>Borrow a book from the home page!</p>
-    </div>`;
-    return;
-  }
-
-  grid.innerHTML = '';
-  data.forEach((loan, i) => {
-    const book = loan.featured_books;
-    if (!book) return;
-    const card = createCard(book, false);
-    card.style.animationDelay = `${i * 0.04}s`;
-    const due = new Date(loan.due_date);
-    const isOverdue = due < new Date();
-    const dueBadge = document.createElement('div');
-    dueBadge.style.cssText = 'padding:0.4rem 1rem;font-size:0.75rem;font-weight:600;text-align:center;background:'+(isOverdue?'#fff5f5':'#f0faf4')+';color:'+(isOverdue?'var(--rose)':'var(--sage)')+'';
-    dueBadge.textContent = isOverdue ? `⚠️ Overdue since ${due.toLocaleDateString()}` : `📅 Due ${due.toLocaleDateString()}`;
-    card.insertBefore(dueBadge, card.querySelector('.book-body'));
-    grid.appendChild(card);
-  });
-}
-
-function myBooksTab(filter, btn) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderMyBooks(filter);
-}
-
-// ═══════════ SEARCH ═══════════
+// ================================================================
+//  SEARCH
+// ================================================================
 async function doSearch() {
   const type  = document.getElementById('search-type').value;
   const query = document.getElementById('search-input').value.trim();
   const grid  = document.getElementById('search-results');
-
   if (!query) { toast('Enter something to search', 'warning'); return; }
-
-  grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">
-    <span class="spinner dark"></span><br><br>Searching…
-  </div>`;
-
-  const col = type === 'genre' ? 'genre' : type;
-  const { data, error } = await sb.from('featured_books')
-    .select('*')
-    .ilike(col, `%${query}%`)
-    .order('created_at', { ascending: false });
-
-  if (error) { grid.innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠️</div><h3>${error.message}</h3></div>`; return; }
-
-  if (!data.length) {
-    grid.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><h3>No results found</h3><p>Try a different search term.</p></div>`;
-    return;
+  grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)"><span class="spinner dark"></span><br><br>Searching&hellip;</div>`;
+  try {
+    const { data, error } = await withTimeout(
+      sb.from('books').select('*').ilike(type, `%${query}%`).order('created_at', { ascending: false })
+    );
+    if (error) throw new Error(error.message);
+    if (!data.length) {
+      grid.innerHTML = `<div class="empty-state"><div class="empty-state-icon">\U0001f50d</div><h3>No results found</h3><p>Try a different term.</p></div>`;
+      return;
+    }
+    const enriched = data.map(b => { const c = allBooks.find(a => a.id === b.id); return c || { ...b, available: b.quantity || 1 }; });
+    toast(`Found ${enriched.length} result${enriched.length !== 1 ? 's' : ''}`, 'success');
+    renderBookGrid(enriched, grid, false);
+  } catch(err) {
+    grid.innerHTML = `<div class="empty-state"><div class="empty-state-icon">\u23f1</div><h3>${err.message}</h3></div>`;
   }
-
-  toast(`Found ${data.length} result${data.length !== 1 ? 's' : ''}`, 'success');
-  renderBookGrid(data, grid, false);
 }
-
 function resetSearch() {
   document.getElementById('search-input').value = '';
-  document.getElementById('search-type').value = 'title';
+  document.getElementById('search-type').value  = 'title';
   document.getElementById('search-results').innerHTML = '';
 }
 
-// ═══════════ STATS ═══════════
-async function updateStats() {
-  document.getElementById('stat-total').textContent   = allBooks.length;
-  document.getElementById('stat-avail').textContent   = allBooks.length; // simplified
-
-  const { count } = await sb.from('profiles').select('*', { count: 'exact', head: true });
-  document.getElementById('stat-members').textContent = count || '—';
-}
-
-// ═══════════ AUTH STATE ═══════════
+// ================================================================
+//  AUTH STATE CHANGE
+// ================================================================
 sb.auth.onAuthStateChange(async (event, session) => {
-  if (event === 'PASSWORD_RECOVERY') {
-    showPage('reset');
-    toast('Enter your new password below', 'info', '🔒');
+  if (event === 'INITIAL_SESSION' && session?.user && !currentUser) {
+    await loadUserProfile(session.user);
+    if (currentPage === 'login' || currentPage === 'signup') showPage('home');
     return;
   }
-  if (session?.user) {
+  if (event === 'PASSWORD_RECOVERY') {
+    // Cross-browser fix: fires when recovery token is detected in URL
+    // Works in any browser, even if user clicks link from a different device
+    showPage('reset');
+    toast('Enter your new password below', 'info', '\U0001f512');
+    return;
+  }
+  if (event === 'SIGNED_IN' && session?.user && !currentUser) {
     await loadUserProfile(session.user);
-  } else {
-    currentUser = null; currentRole = null;
+    showPage('home');
+    toast('Email verified! Welcome.', 'success', '\u2705');
+  }
+  if (event === 'SIGNED_OUT') {
+    currentUser = null; currentRole = null; unreadCount = 0;
+    pendingMap.clear(); activeLoanMap.clear();
     renderHeader();
     document.getElementById('add-book-panel').classList.add('hidden');
   }
+  if (event === 'TOKEN_REFRESHED' && session?.user && !currentUser) {
+    await loadUserProfile(session.user);
+    if (allBooks.length > 0) renderBookGrid(
+      activeGenre ? allBooks.filter(b => genreMatch(b.genre, activeGenre)) : allBooks,
+      document.getElementById('book-grid'), true
+    );
+  }
 });
 
-// ═══════════ INIT ═══════════
-document.addEventListener('DOMContentLoaded', () => {
+// ================================================================
+//  INIT — session restore + loading overlay + cross-browser recovery
+// ================================================================
+document.addEventListener('DOMContentLoaded', async () => {
   renderHeader();
-  showPage('home');
+
+  // Cross-browser password reset: detect token in URL hash or query params
+  // This handles the case where user clicks reset link in a different browser
+  // (session not yet established, but token is in the URL)
+  const _hash  = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+  const _query = new URLSearchParams(window.location.search);
+  const _recType = _hash.get('type') || _query.get('type');
+  if (_recType === 'recovery') {
+    // Supabase detectSessionInUrl will handle setting the session;
+    // we pre-show the reset page so there's no blank flash
+    showPage('reset');
+    toast('Enter your new password below', 'info', '\U0001f512');
+    // Remove recovery params from URL bar (clean URL)
+    if (history.replaceState) history.replaceState({}, document.title, window.location.pathname);
+  }
+
+  try {
+    const { data: { session }, error: sessErr } = await sb.auth.getSession();
+    if (session?.user) {
+      await loadUserProfile(session.user);
+      // Only navigate home if we're not on the reset page
+      if (_recType !== 'recovery') showPage('home');
+    } else {
+      if (sessErr) console.warn('getSession error:', sessErr.message);
+      if (_recType !== 'recovery') showPage('home');
+    }
+  } catch(e) {
+    console.warn('Session restore failed:', e.message);
+    if (_recType !== 'recovery') showPage('home');
+  }
+
+  // Hide loading overlay (with smooth fade)
+  const overlay = document.getElementById('page-loading');
+  if (overlay) {
+    overlay.classList.add('fade-out');
+    setTimeout(() => overlay.remove(), 480);
+  }
 });
 </script>
 </body>
